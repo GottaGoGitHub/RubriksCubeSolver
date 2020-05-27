@@ -1,1 +1,2 @@
 # RubriksCubeSolver
+# Test :)
