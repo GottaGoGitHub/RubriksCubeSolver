@@ -171,11 +171,64 @@ class RubriksCube:
         self.rotate_cube_up()
         self.rotate_cube_up()
 
+    def rotate_front_prime(self):
+        self.rotate_front()
+        self.rotate_front()
+        self.rotate_front()
 
     def rotate_right(self):
         self.rotate_cube_left()
         self.rotate_front()
         self.rotate_cube_right()
+
+    def rotate_right_prime(self):
+        self.rotate_cube_left()
+        self.rotate_front_prime()
+        self.rotate_cube_right()
+
+    def rotate_left(self):
+        self.rotate_cube_right()
+        self.rotate_front()
+        self.rotate_cube_left()
+
+    def rotate_left_prime(self):
+        self.rotate_cube_right()
+        self.rotate_front_prime()
+        self.rotate_cube_left()
+
+    def rotate_back(self):
+        self.rotate_cube_right()
+        self.rotate_cube_right()
+        self.rotate_front()
+        self.rotate_cube_right()
+        self.rotate_cube_right()
+
+    def rotate_back_prime(self):
+        self.rotate_cube_right()
+        self.rotate_cube_right()
+        self.rotate_front_prime()
+        self.rotate_cube_right()
+        self.rotate_cube_right()
+
+    def rotate_up(self):
+        self.rotate_cube_down()
+        self.rotate_front()
+        self.rotate_cube_up()
+
+    def rotate_up_prime(self):
+        self.rotate_cube_down()
+        self.rotate_front_prime()
+        self.rotate_cube_up()
+
+    def rotate_down(self):
+        self.rotate_cube_up()
+        self.rotate_front()
+        self.rotate_cube_down()
+
+    def rotate_down_prime(self):
+        self.rotate_cube_up()
+        self.rotate_front_prime()
+        self.rotate_cube_down()
 
 
 def main():
