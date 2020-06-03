@@ -230,6 +230,9 @@ class RubriksCube:
         self.rotate_front_prime()
         self.rotate_cube_down()
 
+    #weißer sticker ist links oben
+    #def white_corners_left(self):
+
 
 def main():
     cube = RubriksCube()
