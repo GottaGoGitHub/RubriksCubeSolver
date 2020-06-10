@@ -1,19 +1,30 @@
-from tkinter import *
+def get_colors(window, liste):
+    colors = liste
+    for side_idx, side in enumerate(liste):
+        for piece_idx, color_ in enumerate(side):
+            color_ = window.itemcget(liste[side_idx][piece_idx], "fill")
+            colors[side_idx][piece_idx] = color_
+    return colors
 
 
-def rotate_front(window, liste):
+def new_rotate_front(window, liste):
+    colors = get_colors(window, liste)
+    print(colors)
+    print("striche")
+    colors = rotate_front(colors)
+    print(colors)
+    for side_idx, side in enumerate(colors):
+        for piece_idx, color_ in enumerate(side):
+            tempcolor = colors[side_idx][piece_idx]
+            window.itemconfigure(liste[side_idx][piece_idx], fill=tempcolor)
+
+
+def rotate_front(liste):
     fronttemp0 = liste[1][0]
-    fronttemp0color = window.itemcget(fronttemp0, "fill")
-    print(fronttemp0color)
     fronttemp1 = liste[1][1]
     fronttemp2 = liste[1][2]
     fronttemp3 = liste[1][3]
     fronttemp4 = liste[1][4]
-    fronttemp4color = ""
-    fronttemp4color = window.itemcget(fronttemp4, "fill")
-    print(fronttemp4color)
-    print(len(fronttemp4color))
-    window.itemconfigure(fronttemp0, fill=fronttemp4color)
     fronttemp5 = liste[1][5]
     fronttemp6 = liste[1][6]
     fronttemp7 = liste[1][7]
@@ -51,6 +62,8 @@ def rotate_front(window, liste):
     liste[4][2] = untentemp1
     liste[4][5] = untentemp2
     liste[4][8] = untentemp3
+    return liste
+
 
 def rotate_cube_right(liste):
     fronttemp = liste[1]
@@ -97,11 +110,15 @@ def rotate_cube_right(liste):
     liste[5][6] = downtemp8
     liste[5][7] = downtemp5
     liste[5][8] = downtemp2
+    return liste
+
 
 def rotate_cube_left(liste):
     rotate_cube_right(liste)
     rotate_cube_right(liste)
     rotate_cube_right(liste)
+    return liste
+
 
 def rotate_cube_up(liste):
     uptemp = liste[0]
@@ -148,36 +165,50 @@ def rotate_cube_up(liste):
     liste[4][6] = lefttemp0
     liste[4][7] = lefttemp3
     liste[4][8] = lefttemp6
+    return liste
+
 
 def rotate_cube_down(liste):
     rotate_cube_up(liste)
     rotate_cube_up(liste)
     rotate_cube_up(liste)
+    return liste
+
 
 def rotate_front_prime(liste):
     rotate_front(liste)
     rotate_front(liste)
     rotate_front(liste)
+    return liste
+
 
 def rotate_right(liste):
     rotate_cube_left(liste)
     rotate_front(liste)
     rotate_cube_right(liste)
+    return liste
+
 
 def rotate_right_prime(liste):
     rotate_cube_left(liste)
     rotate_front_prime(liste)
     rotate_cube_right(liste)
+    return liste
+
 
 def rotate_left(liste):
     rotate_cube_right(liste)
     rotate_front(liste)
     rotate_cube_left(liste)
+    return liste
+
 
 def rotate_left_prime(liste):
     rotate_cube_right(liste)
     rotate_front_prime(liste)
     rotate_cube_left(liste)
+    return liste
+
 
 def rotate_back(liste):
     rotate_cube_right(liste)
@@ -185,6 +216,8 @@ def rotate_back(liste):
     rotate_front(liste)
     rotate_cube_right(liste)
     rotate_cube_right(liste)
+    return liste
+
 
 def rotate_back_prime(liste):
     rotate_cube_right(liste)
@@ -192,26 +225,36 @@ def rotate_back_prime(liste):
     rotate_front_prime(liste)
     rotate_cube_right(liste)
     rotate_cube_right(liste)
+    return liste
+
 
 def rotate_up(liste):
     rotate_cube_down(liste)
     rotate_front(liste)
     rotate_cube_up(liste)
+    return liste
+
 
 def rotate_up_prime(liste):
     rotate_cube_down(liste)
     rotate_front_prime(liste)
     rotate_cube_up(liste)
+    return liste
+
 
 def rotate_down(liste):
     rotate_cube_up(liste)
     rotate_front(liste)
     rotate_cube_down(liste)
+    return liste
+
 
 def rotate_down_prime(liste):
     rotate_cube_up(liste)
     rotate_front_prime(liste)
     rotate_cube_down(liste)
+    return liste
+
 
 #weißer sticker ist links oben
 #def white_corners_left(liste):
