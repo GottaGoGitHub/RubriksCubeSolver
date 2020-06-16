@@ -205,15 +205,6 @@ for idx, item in enumerate(cube[5]):
     window.itemconfigure(cube[5][idx], fill='white')
 
 
-def rotate():
-    colors = get_colors(window, cube)
-    colors = rotate_front(colors)
-
-    for side_idx, side in enumerate(colors):
-        for piece_idx, piece in enumerate(side):
-            window.itemconfigure(cube[side_idx][piece_idx], fill=piece)
-
-
 # Generating the user prompt
 grid_prompt = grid3x3(window, 380, 65)
 line_1 = window.create_text(188, 10, text="The faces of the cube can be accessed via: front, left, right, up, down")

@@ -7,6 +7,12 @@ def get_colors(window, liste):
     return colors
 
 
+def set_colors(window, colors, cube):
+    for side_idx, side in enumerate(colors):
+        for piece_idx, piece in enumerate(side):
+            window.itemconfigure(cube[side_idx][piece_idx], fill=piece)
+
+
 def rotate_front(liste):
     fronttemp0 = liste[1][0]
     fronttemp1 = liste[1][1]
@@ -244,8 +250,10 @@ def rotate_down_prime(liste):
     return liste
 
 
-#weißer sticker ist links oben
-#def white_corners_left(liste):
+def rotate(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_front(colors)
+    set_colors(window, colors, cube)
 
 
 def main():
