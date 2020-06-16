@@ -1,3 +1,5 @@
+# Getter & Setter
+
 def get_colors(window, liste):
     colors = [[None for i in range(9)] for j in range(6)]
     for side_idx, side in enumerate(colors):
@@ -13,7 +15,12 @@ def set_colors(window, colors, cube):
             window.itemconfigure(cube[side_idx][piece_idx], fill=piece)
 
 
-def rotate_front(liste):
+# ________________________________________________________________________________________________________#
+
+# rotate lists (functions, which are used in the real rotate-functions)
+
+
+def rotate_front_list(liste):
     fronttemp0 = liste[1][0]
     fronttemp1 = liste[1][1]
     fronttemp2 = liste[1][2]
@@ -59,7 +66,7 @@ def rotate_front(liste):
     return liste
 
 
-def rotate_cube_right(liste):
+def rotate_cube_right_list(liste):
     fronttemp = liste[1]
     righttemp = liste[2]
     backtemp = liste[3]
@@ -107,18 +114,35 @@ def rotate_cube_right(liste):
     return liste
 
 
-def rotate_cube_left(liste):
-    rotate_cube_right(liste)
-    rotate_cube_right(liste)
-    rotate_cube_right(liste)
+def rotate_cube_left_list(liste):
+    rotate_cube_right_list(liste)
+    rotate_cube_right_list(liste)
+    rotate_cube_right_list(liste)
     return liste
 
 
-def rotate_cube_up(liste):
-    uptemp = liste[0]
-    fronttemp = liste[1]
-    backtemp = liste[3]
-    downtemp = liste[5]
+def rotate_cube_up_list(liste):
+
+    downtemp0 = liste[5][0]
+    downtemp1 = liste[5][1]
+    downtemp2 = liste[5][2]
+    downtemp3 = liste[5][3]
+    downtemp4 = liste[5][4]
+    downtemp5 = liste[5][5]
+    downtemp6 = liste[5][6]
+    downtemp7 = liste[5][7]
+    downtemp8 = liste[5][8]
+
+    fronttemp0 = liste[1][0]
+    fronttemp1 = liste[1][1]
+    fronttemp2 = liste[1][2]
+    fronttemp3 = liste[1][3]
+    fronttemp4 = liste[1][4]
+    fronttemp5 = liste[1][5]
+    fronttemp6 = liste[1][6]
+    fronttemp7 = liste[1][7]
+    fronttemp8 = liste[1][8]
+
     righttemp0 = liste[2][0]
     righttemp1 = liste[2][1]
     righttemp2 = liste[2][2]
@@ -128,6 +152,7 @@ def rotate_cube_up(liste):
     righttemp6 = liste[2][6]
     righttemp7 = liste[2][7]
     righttemp8 = liste[2][8]
+
     lefttemp0 = liste[4][0]
     lefttemp1 = liste[4][1]
     lefttemp2 = liste[4][2]
@@ -137,10 +162,27 @@ def rotate_cube_up(liste):
     lefttemp6 = liste[4][6]
     lefttemp7 = liste[4][7]
     lefttemp8 = liste[4][8]
-    liste[0] = fronttemp
-    liste[1] = downtemp
-    liste[5] = backtemp
-    liste[3] = uptemp
+    
+    uptemp0 = liste[0][0]
+    uptemp1 = liste[0][1]
+    uptemp2 = liste[0][2]
+    uptemp3 = liste[0][3]
+    uptemp4 = liste[0][4]
+    uptemp5 = liste[0][5]
+    uptemp6 = liste[0][6]
+    uptemp7 = liste[0][7]
+    uptemp8 = liste[0][8]
+    
+    backtemp0 = liste[3][0]
+    backtemp1 = liste[3][1]
+    backtemp2 = liste[3][2]
+    backtemp3 = liste[3][3]
+    backtemp4 = liste[3][4]
+    backtemp5 = liste[3][5]
+    backtemp6 = liste[3][6]
+    backtemp7 = liste[3][7]
+    backtemp8 = liste[3][8]
+
     liste[2][0] = righttemp6
     liste[2][1] = righttemp3
     liste[2][2] = righttemp0
@@ -150,6 +192,7 @@ def rotate_cube_up(liste):
     liste[2][6] = righttemp8
     liste[2][7] = righttemp5
     liste[2][8] = righttemp2
+
     liste[4][0] = lefttemp2
     liste[4][1] = lefttemp5
     liste[4][2] = lefttemp8
@@ -159,101 +202,246 @@ def rotate_cube_up(liste):
     liste[4][6] = lefttemp0
     liste[4][7] = lefttemp3
     liste[4][8] = lefttemp6
+
+    liste[3][0] = uptemp8
+    liste[3][1] = uptemp7
+    liste[3][2] = uptemp6
+    liste[3][3] = uptemp5
+    liste[3][4] = uptemp4
+    liste[3][5] = uptemp3
+    liste[3][6] = uptemp2
+    liste[3][7] = uptemp1
+    liste[3][8] = uptemp0
+
+    liste[5][0] = backtemp8
+    liste[5][1] = backtemp7
+    liste[5][2] = backtemp6
+    liste[5][3] = backtemp5
+    liste[5][4] = backtemp4
+    liste[5][5] = backtemp3
+    liste[5][6] = backtemp2
+    liste[5][7] = backtemp1
+    liste[5][8] = backtemp0
+
+    liste[0][0] = fronttemp0
+    liste[0][1] = fronttemp1
+    liste[0][2] = fronttemp2
+    liste[0][3] = fronttemp3
+    liste[0][4] = fronttemp4
+    liste[0][5] = fronttemp5
+    liste[0][6] = fronttemp6
+    liste[0][7] = fronttemp7
+    liste[0][8] = fronttemp8
+    
+    liste[1][0] = downtemp0
+    liste[1][1] = downtemp1
+    liste[1][2] = downtemp2
+    liste[1][3] = downtemp3
+    liste[1][4] = downtemp4
+    liste[1][5] = downtemp5
+    liste[1][6] = downtemp6
+    liste[1][7] = downtemp7
+    liste[1][8] = downtemp8
+
     return liste
 
 
-def rotate_cube_down(liste):
-    rotate_cube_up(liste)
-    rotate_cube_up(liste)
-    rotate_cube_up(liste)
+def rotate_cube_down_list(liste):
+    rotate_cube_up_list(liste)
+    rotate_cube_up_list(liste)
+    rotate_cube_up_list(liste)
     return liste
 
 
-def rotate_front_prime(liste):
-    rotate_front(liste)
-    rotate_front(liste)
-    rotate_front(liste)
+def rotate_front_prime_list(liste):
+    rotate_front_list(liste)
+    rotate_front_list(liste)
+    rotate_front_list(liste)
     return liste
 
 
-def rotate_right(liste):
-    rotate_cube_left(liste)
-    rotate_front(liste)
-    rotate_cube_right(liste)
+def rotate_right_list(liste):
+    rotate_cube_left_list(liste)
+    rotate_front_list(liste)
+    rotate_cube_right_list(liste)
     return liste
 
 
-def rotate_right_prime(liste):
-    rotate_cube_left(liste)
-    rotate_front_prime(liste)
-    rotate_cube_right(liste)
+def rotate_right_prime_list(liste):
+    rotate_cube_left_list(liste)
+    rotate_front_prime_list(liste)
+    rotate_cube_right_list(liste)
     return liste
 
 
-def rotate_left(liste):
-    rotate_cube_right(liste)
-    rotate_front(liste)
-    rotate_cube_left(liste)
+def rotate_left_list(liste):
+    rotate_cube_right_list(liste)
+    rotate_front_list(liste)
+    rotate_cube_left_list(liste)
     return liste
 
 
-def rotate_left_prime(liste):
-    rotate_cube_right(liste)
-    rotate_front_prime(liste)
-    rotate_cube_left(liste)
+def rotate_left_prime_list(liste):
+    rotate_cube_right_list(liste)
+    rotate_front_prime_list(liste)
+    rotate_cube_left_list(liste)
     return liste
 
 
-def rotate_back(liste):
-    rotate_cube_right(liste)
-    rotate_cube_right(liste)
-    rotate_front(liste)
-    rotate_cube_right(liste)
-    rotate_cube_right(liste)
+def rotate_back_list(liste):
+    rotate_cube_right_list(liste)
+    rotate_cube_right_list(liste)
+    rotate_front_list(liste)
+    rotate_cube_right_list(liste)
+    rotate_cube_right_list(liste)
     return liste
 
 
-def rotate_back_prime(liste):
-    rotate_cube_right(liste)
-    rotate_cube_right(liste)
-    rotate_front_prime(liste)
-    rotate_cube_right(liste)
-    rotate_cube_right(liste)
+def rotate_back_prime_list(liste):
+    rotate_cube_right_list(liste)
+    rotate_cube_right_list(liste)
+    rotate_front_prime_list(liste)
+    rotate_cube_right_list(liste)
+    rotate_cube_right_list(liste)
     return liste
 
 
-def rotate_up(liste):
-    rotate_cube_down(liste)
-    rotate_front(liste)
-    rotate_cube_up(liste)
+def rotate_up_list(liste):
+    rotate_cube_down_list(liste)
+    rotate_front_list(liste)
+    rotate_cube_up_list(liste)
     return liste
 
 
-def rotate_up_prime(liste):
-    rotate_cube_down(liste)
-    rotate_front_prime(liste)
-    rotate_cube_up(liste)
+def rotate_up_prime_list(liste):
+    rotate_cube_down_list(liste)
+    rotate_front_prime_list(liste)
+    rotate_cube_up_list(liste)
     return liste
 
 
-def rotate_down(liste):
-    rotate_cube_up(liste)
-    rotate_front(liste)
-    rotate_cube_down(liste)
+def rotate_down_list(liste):
+    rotate_cube_up_list(liste)
+    rotate_front_list(liste)
+    rotate_cube_down_list(liste)
     return liste
 
 
-def rotate_down_prime(liste):
-    rotate_cube_up(liste)
-    rotate_front_prime(liste)
-    rotate_cube_down(liste)
+def rotate_down_prime_list(liste):
+    rotate_cube_up_list(liste)
+    rotate_front_prime_list(liste)
+    rotate_cube_down_list(liste)
     return liste
 
+# ________________________________________________________________________________________________________#
 
-def rotate(window, cube):
+# rotate the cube
+
+# rotations of parts of the cube
+# "front" means the front part of the side of the cube etc.
+
+def rotate_front(window, cube):
     colors = get_colors(window, cube)
-    colors = rotate_front(colors)
+    colors = rotate_front_list(colors)
     set_colors(window, colors, cube)
+
+
+def rotate_front_prime(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_front_prime_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_right(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_right_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_right_prime(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_right_prime_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_left(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_left_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_left_prime(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_left_prime_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_back(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_back_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_back_prime(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_back_prime_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_up(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_up_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_up_prime(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_up_prime_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_down(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_down_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_down_prime(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_down_prime_list(colors)
+    set_colors(window, colors, cube)
+
+
+# ------------------------------------------------#
+
+
+# rotations of the whole cube
+
+def rotate_cube_right(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_cube_right_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_cube_left(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_cube_left_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_cube_up(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_cube_up_list(colors)
+    set_colors(window, colors, cube)
+
+
+def rotate_cube_down(window, cube):
+    colors = get_colors(window, cube)
+    colors = rotate_cube_down_list(colors)
+    set_colors(window, colors, cube)
+
+
+# ________________________________________________________________________________________________________#
 
 
 def main():
