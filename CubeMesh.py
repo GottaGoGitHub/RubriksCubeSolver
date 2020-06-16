@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter.font import Font
-from RubriksCubeSolver.Cube import *
+from Cube import *
 
 
 def rectangle(canvas, x1, x2, y1, y2):
@@ -180,15 +180,15 @@ back = grid3x3(window, 360, 199)
 under = grid3x3(window, 150, 304)
 
 # Combining all the sides to one single iterable list
-cube = [up, left, front, right, back, under]
+cube = [up, front, right, back, left, under]
 
 # Coloring the the fixed cross of the cube.
-#window.itemconfigure(cube[0][4], fill='yellow')
-#window.itemconfigure(cube[1][4], fill='blue')
-#window.itemconfigure(cube[2][4], fill='red')
-#window.itemconfigure(cube[3][4], fill='green')
-#window.itemconfigure(cube[4][4], fill='orange')
-#window.itemconfigure(cube[5][4], fill='white')
+window.itemconfigure(cube[0][4], fill='yellow')
+window.itemconfigure(cube[1][4], fill='blue')
+window.itemconfigure(cube[2][4], fill='red')
+window.itemconfigure(cube[3][4], fill='green')
+window.itemconfigure(cube[4][4], fill='orange')
+window.itemconfigure(cube[5][4], fill='white')
 
 # Coloring the cube.
 for idx, item in enumerate(cube[0]):
@@ -205,8 +205,13 @@ for idx, item in enumerate(cube[5]):
     window.itemconfigure(cube[5][idx], fill='white')
 
 
-def rotate(event):
-    new_rotate_front(window, cube)
+def rotate():
+    colors = get_colors(window, cube)
+    colors = rotate_front(colors)
+
+    for side_idx, side in enumerate(colors):
+        for piece_idx, piece in enumerate(side):
+            window.itemconfigure(cube[side_idx][piece_idx], fill=piece)
 
 
 # Generating the user prompt
@@ -261,7 +266,9 @@ answer2.grid(row=3, column=0)
 # Binding the ENTER Key as event to the Entries "answer1" and "answer2"
 answer1.bind("<Return>", evaluate_input)
 answer2.bind("<Return>", evaluate_input)
-answer2.bind("<Return>", rotate)
 
+#TEST
+button_rotate = Button(root, text="Test Rotate", command=rotate)
+button_rotate.grid(row=6, column=0)
 
 root.mainloop()

@@ -1,22 +1,10 @@
 def get_colors(window, liste):
-    colors = liste
-    for side_idx, side in enumerate(liste):
-        for piece_idx, color_ in enumerate(side):
-            color_ = window.itemcget(liste[side_idx][piece_idx], "fill")
-            colors[side_idx][piece_idx] = color_
-    return colors
-
-
-def new_rotate_front(window, liste):
-    colors = get_colors(window, liste)
-    print(colors)
-    print("striche")
-    colors = rotate_front(colors)
-    print(colors)
+    colors = [[None for i in range(9)] for j in range(6)]
     for side_idx, side in enumerate(colors):
         for piece_idx, color_ in enumerate(side):
-            tempcolor = colors[side_idx][piece_idx]
-            window.itemconfigure(liste[side_idx][piece_idx], fill=tempcolor)
+            colors[side_idx][piece_idx] = window.itemcget(liste[side_idx][piece_idx], "fill")
+
+    return colors
 
 
 def rotate_front(liste):
