@@ -58,10 +58,10 @@ def create_cube_hexomino(window, int_x, int_y):
 
     # Coloring the the fixed cross of the cube.
     window.itemconfigure(cube[0][4], fill='yellow')
-    window.itemconfigure(cube[1][4], fill='blue')
-    window.itemconfigure(cube[2][4], fill='red')
-    window.itemconfigure(cube[3][4], fill='green')
-    window.itemconfigure(cube[4][4], fill='orange')
+    window.itemconfigure(cube[1][4], fill='red')
+    window.itemconfigure(cube[2][4], fill='green')
+    window.itemconfigure(cube[3][4], fill='orange')
+    window.itemconfigure(cube[4][4], fill='blue')
     window.itemconfigure(cube[5][4], fill='white')
 
     return cube
