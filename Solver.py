@@ -62,3 +62,10 @@ def sort_corners(window, cube):
     rotate_right_prime(window, cube)
     rotate_up_prime(window, cube)
     rotate_left_prime(window, cube)
+
+
+def solve_white_cross(window, cube):
+    for side_idx, side in enumerate(cube):
+        for piece_idx in enumerate(side):
+            if piece_idx == 1 and window.itemcget(cube[side_idx][piece_idx], "fill") == 'white':
+                print("ich habe einen weißen stein gefunden juhuuu!")
