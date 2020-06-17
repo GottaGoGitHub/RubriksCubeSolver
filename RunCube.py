@@ -8,7 +8,7 @@ from GUI import *
 root = Tk()
 
 root.title("Rubik's Cube - Hexomino")
-root.geometry("510x610")
+root.geometry("510x700")
 
 
 # Setting font styles
