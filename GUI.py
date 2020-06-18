@@ -148,3 +148,33 @@ def gernerate_prompt(window, font1, font2):
     window.itemconfigure(text_6, font=font2)
     window.itemconfigure(text_7, font=font2)
     window.itemconfigure(text_8, font=font2)
+
+
+def import_cube_from_file(window, cube):
+    file = open("IMPORT.txt", "r")
+    imported_text = file.readlines()
+    colors = [None] * 6
+
+    for idx, item in enumerate(imported_text):
+        temp = item.replace("\n", "")
+        colors[idx] = temp.split()
+
+
+    set_colors(window, colors, cube)
+    file.close()
+
+
+def export_cube_to_file(window, cube):
+    colors = get_colors(window, cube)
+    file = open("EXPORT.txt", "w")
+
+    for side_idx, side in enumerate(colors):
+        for piece_idx, piece in enumerate(side):
+            temp = piece
+            if 8 == piece_idx:
+                temp = piece + "\n"
+            else:
+                temp = piece + " "
+            file.write(temp)
+
+    file.close()

@@ -57,6 +57,11 @@ def create_cube_hexomino(window, int_x, int_y):
     cube = [up, front, right, back, left, down]
 
     # Coloring the the fixed cross of the cube.
+    for side_idx, side in enumerate(cube):
+        for piece_idx, piece in enumerate(side):
+            if 4 != piece_idx:
+                window.itemconfigure(side[piece_idx], fill='grey')
+
     window.itemconfigure(cube[0][4], fill='yellow')
     window.itemconfigure(cube[1][4], fill='red')
     window.itemconfigure(cube[2][4], fill='green')

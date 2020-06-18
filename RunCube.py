@@ -118,4 +118,24 @@ def rotate_right_for_key(event):
 
 root.bind('<Right>', rotate_right_for_key)
 
+
+# Imort and export of the cube
+def button_import_func():
+    import_cube_from_file(window, cube)
+
+
+button_import = Button(root, text="Import", command=button_import_func)
+button_import.configure(width=5)
+button_import.grid(row=10, column=0, sticky=W)
+
+
+def button_export_func():
+    export_cube_to_file(window, cube)
+
+
+button_export = Button(root, text="Export", command=button_export_func)
+button_export.configure(width=5)
+button_export.grid(row=10, column=0, sticky=E)
+
+
 root.mainloop()
