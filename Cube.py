@@ -1,10 +1,9 @@
 # Getter & Setter
-
-def get_colors(window, liste):
+def get_colors(window, cube):
     colors = [[None for i in range(9)] for j in range(6)]
     for side_idx, side in enumerate(colors):
         for piece_idx, color_ in enumerate(side):
-            colors[side_idx][piece_idx] = window.itemcget(liste[side_idx][piece_idx], "fill")
+            colors[side_idx][piece_idx] = window.itemcget(cube[side_idx][piece_idx], "fill")
 
     return colors
 
