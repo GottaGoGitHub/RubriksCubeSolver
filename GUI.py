@@ -1,8 +1,7 @@
 from CubeMesh import *
 
 
-
-def evaluate_input(window, answer1, answer2, cube):
+def evaluate_input(window, answer1, answer2, cube, error_label):
     # This function shall be called with the two entries (answer1, answer2) and evaluates their input
 
     # Depending on the input of answer1 and answer2 the corresponding face and piece of the cube will be selected
@@ -32,10 +31,6 @@ def evaluate_input(window, answer1, answer2, cube):
         piece_idx = 0
         color = ""
 
-        # Error label for the invalid index
-        error_label = Label()
-        error_label.grid_forget()
-
         # Evaluation of the first answer
         if "u" == list_of_answer1[0]:
             side_idx = 0
@@ -60,31 +55,39 @@ def evaluate_input(window, answer1, answer2, cube):
         # Which piece shall be chosen?
         if "0" == list_of_answer2[0]:
             piece_idx = 0
+            error_label.grid_forget()
 
         if "1" == list_of_answer2[0]:
             piece_idx = 1
+            error_label.grid_forget()
 
         if "2" == list_of_answer2[0]:
             piece_idx = 2
+            error_label.grid_forget()
 
         if "3" == list_of_answer2[0]:
             piece_idx = 3
+            error_label.grid_forget()
 
         if "4" == list_of_answer2[0]:
-            error_label.configure(text="The index 4 is invalid. The cross of the cube can not be modified!", fg="red", state=NORMAL)
+            error_label.configure(text="The index 4 is invalid. The cross of the cube can not be modified!", fg="red")
             error_label.grid(row=4, column=0)
 
         if "5" == list_of_answer2[0]:
             piece_idx = 5
+            error_label.grid_forget()
 
         if "6" == list_of_answer2[0]:
             piece_idx = 6
+            error_label.grid_forget()
 
         if "7" == list_of_answer2[0]:
             piece_idx = 7
+            error_label.grid_forget()
 
         if "8" == list_of_answer2[0]:
             piece_idx = 8
+            error_label.grid_forget()
 
         # Choosing the color.
         if "y" == list_of_answer2[1]:
@@ -113,7 +116,7 @@ def evaluate_input(window, answer1, answer2, cube):
         answer2.delete(0, END)
 
 
-def gernerate_prompt(window, font1, font2):
+def generate_prompt(window, font1, font2):
     # Generating the user prompt
     grid_prompt = grid3x3(window, 380, 65)
     line_1 = window.create_text(188, 10, text="The faces of the cube can be accessed via: front, left, right, up, down")
@@ -158,7 +161,6 @@ def import_cube_from_file(window, cube):
     for idx, item in enumerate(imported_text):
         temp = item.replace("\n", "")
         colors[idx] = temp.split()
-
 
     set_colors(window, colors, cube)
     file.close()

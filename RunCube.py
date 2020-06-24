@@ -26,7 +26,7 @@ cube = create_cube_hexomino(window, 45, 199)
 
 
 # Generating the prompt in the upper right hand corner.
-gernerate_prompt(window, text_font, text_font_bold)
+generate_prompt(window, text_font, text_font_bold)
 
 # Creating the questions and input fields
 question1 = Label(root,  font=text_font, text="Which side do you want to modify?")
@@ -43,10 +43,12 @@ answer2 = Entry(root)
 answer2.configure(width=30)
 answer2.grid(row=3, column=0, columnspan=5)
 
+error_label = Label()
+
 
 # Binding the ENTER Key as event to the Entries "answer1" and "answer2"
 def press_enter(event):
-    evaluate_input(window, answer1, answer2, cube)
+    evaluate_input(window, answer1, answer2, cube, error_label)
 
 
 answer1.bind("<Return>", press_enter)
