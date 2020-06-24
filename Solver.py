@@ -1,4 +1,5 @@
-from RubriksCubeSolver.Cube import *
+# from RubriksCubeSolver.Cube import *
+from Cube import *
 
 
 #   R U R' U'
