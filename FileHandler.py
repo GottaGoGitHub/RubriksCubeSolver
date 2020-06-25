@@ -15,6 +15,6 @@ for j in range(len(cubes)):
     cube_no.append(cubes[j][0])
     colors.append(cubes[j][1])
 
+print(cubes)
 print(cube_no)
 print(colors)
-print(cubes[1])
