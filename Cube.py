@@ -121,7 +121,6 @@ def rotate_cube_left_list(liste):
 
 
 def rotate_cube_up_list(liste):
-
     downtemp0 = liste[5][0]
     downtemp1 = liste[5][1]
     downtemp2 = liste[5][2]
@@ -161,7 +160,7 @@ def rotate_cube_up_list(liste):
     lefttemp6 = liste[4][6]
     lefttemp7 = liste[4][7]
     lefttemp8 = liste[4][8]
-    
+
     uptemp0 = liste[0][0]
     uptemp1 = liste[0][1]
     uptemp2 = liste[0][2]
@@ -171,7 +170,7 @@ def rotate_cube_up_list(liste):
     uptemp6 = liste[0][6]
     uptemp7 = liste[0][7]
     uptemp8 = liste[0][8]
-    
+
     backtemp0 = liste[3][0]
     backtemp1 = liste[3][1]
     backtemp2 = liste[3][2]
@@ -231,7 +230,7 @@ def rotate_cube_up_list(liste):
     liste[0][6] = fronttemp6
     liste[0][7] = fronttemp7
     liste[0][8] = fronttemp8
-    
+
     liste[1][0] = downtemp0
     liste[1][1] = downtemp1
     liste[1][2] = downtemp2
@@ -331,6 +330,7 @@ def rotate_down_prime_list(liste):
     rotate_front_prime_list(liste)
     rotate_cube_down_list(liste)
     return liste
+
 
 # ________________________________________________________________________________________________________#
 
@@ -441,3 +441,65 @@ def rotate_cube_down(window, cube):
 
 
 # ________________________________________________________________________________________________________#
+
+def rotate_front_cubies(cubies, id_array):
+    # temp values (identifier)
+    fronttemp0 = id_array[1][0]
+    fronttemp1 = id_array[1][1]
+    fronttemp2 = id_array[1][2]
+    fronttemp3 = id_array[1][3]
+    fronttemp4 = id_array[1][4]
+    fronttemp5 = id_array[1][5]
+    fronttemp6 = id_array[1][6]
+    fronttemp7 = id_array[1][7]
+    fronttemp8 = id_array[1][8]
+    obentemp1 = id_array[0][6]
+    obentemp2 = id_array[0][7]
+    obentemp3 = id_array[0][8]
+    rechtstemp1 = id_array[2][0]
+    rechtstemp2 = id_array[2][3]
+    rechtstemp3 = id_array[2][6]
+    untentemp1 = id_array[5][0]
+    untentemp2 = id_array[5][1]
+    untentemp3 = id_array[5][2]
+    linkstemp1 = id_array[4][2]
+    linkstemp2 = id_array[4][5]
+    linkstemp3 = id_array[4][8]
+
+    # swapping the elements
+    actualize_cubie(cubies, id_array, fronttemp6, [1, 0])
+    actualize_cubie(cubies, id_array, fronttemp3, [1, 1])
+    actualize_cubie(cubies, id_array, fronttemp0, [1, 2])
+    actualize_cubie(cubies, id_array, fronttemp7, [1, 3])
+    actualize_cubie(cubies, id_array, fronttemp4, [1, 4])
+    actualize_cubie(cubies, id_array, fronttemp1, [1, 5])
+    actualize_cubie(cubies, id_array, fronttemp8, [1, 6])
+    actualize_cubie(cubies, id_array, fronttemp5, [1, 7])
+    actualize_cubie(cubies, id_array, fronttemp2, [1, 8])
+    actualize_cubie(cubies, id_array, linkstemp3, [0, 6])
+    actualize_cubie(cubies, id_array, linkstemp2, [0, 7])
+    actualize_cubie(cubies, id_array, linkstemp1, [0, 8])
+    actualize_cubie(cubies, id_array, obentemp1, [2, 0])
+    actualize_cubie(cubies, id_array, obentemp2, [2, 3])
+    actualize_cubie(cubies, id_array, obentemp3, [2, 6])
+    actualize_cubie(cubies, id_array, rechtstemp3, [5, 0])
+    actualize_cubie(cubies, id_array, rechtstemp2, [5, 1])
+    actualize_cubie(cubies, id_array, rechtstemp1, [5, 2])
+    actualize_cubie(cubies, id_array, untentemp1, [4, 2])
+    actualize_cubie(cubies, id_array, untentemp2, [4, 5])
+    actualize_cubie(cubies, id_array, untentemp3, [4, 8])
+
+
+def actualize_cubie(cubies, id_array, temp_side, new_pos):
+    id_array[new_pos[0]][new_pos[1]] = temp_side
+    temp_partition = temp_side.rpartition("0")
+    name = int(temp_partition[0]) - 1
+
+    if "1" == temp_partition[2]:
+        cubies[name].pos1 = new_pos
+
+    if "2" == temp_partition[2]:
+        cubies[name].pos2 = new_pos
+
+    if "3" == temp_partition[2]:
+        cubies[name].pos3 = new_pos
