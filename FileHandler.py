@@ -1,20 +1,27 @@
-filehandler = open('Cubies_table.csv')
+from cubies import *
 
-content = filehandler.read()
 
-cubes = []
-cube_no = []
-colors = []
+def import_cube_from_csv(filepath):
+    filehandler = open(filepath)
 
-rows = content.split('\n')
+    content = filehandler.read()
 
-for i in range(len(rows)-1):
-    cubes.append(rows[i+1].split(','))
+    cubies = []
 
-for j in range(len(cubes)):
-    cube_no.append(cubes[j][0])
-    colors.append(cubes[j][1])
+    rows = content.split('\n')
+    for i in range(1, len(rows)-2):
+        temp = rows[i].split(',')
 
-print(cubes)
-print(cube_no)
-print(colors)
+        temp_cubie = Cubie(temp[0],
+                           int(temp[1]),
+                           temp[2],
+                           [int(temp[3]), int(temp[4])],
+                           temp[5],
+                           temp[6],
+                           [int(temp[7]), int(temp[8])],
+                           temp[9],
+                           temp[10],
+                           [int(temp[11]), int(temp[12])],
+                           temp[13])
+        cubies.append(temp_cubie)
+    return cubies
