@@ -14,6 +14,43 @@ def set_colors(window, colors, cube):
             window.itemconfigure(cube[side_idx][piece_idx], fill=piece)
 
 
+def get_colors_from_cubies(cubies):
+    """
+    get the colors form a list of cubies
+    and returns a list of colors (str)
+    """
+    colors = [[None for i in range(9)] for j in range(6)]
+
+    for item in cubies:
+        colors[item.pos1[0]][item.pos1[1]] = item.color1
+
+        if item.number <= 3:
+            colors[item.pos2[0]][item.pos2[1]] = item.color2
+
+        if item.number == 3:
+            colors[item.pos3[0]][item.pos3[1]] = item.color3
+    return colors
+
+
+# ________________________________________________________________________________________________________#
+def actualize_cubie(cubies, id_array, temp_side, new_pos):
+    """
+    actualizing the position of the cubies
+    in the id_array and the cubie it self
+    """
+    id_array[new_pos[0]][new_pos[1]] = temp_side
+    temp_partition = temp_side.rpartition("0")
+    name = int(temp_partition[0]) - 1
+
+    if "1" == temp_partition[2]:
+        cubies[name].pos1 = new_pos
+
+    if "2" == temp_partition[2]:
+        cubies[name].pos2 = new_pos
+
+    if "3" == temp_partition[2]:
+        cubies[name].pos3 = new_pos
+
 # ________________________________________________________________________________________________________#
 
 # rotate lists (functions, which are used in the real rotate-functions)
@@ -488,18 +525,3 @@ def rotate_front_cubies(cubies, id_array):
     actualize_cubie(cubies, id_array, untentemp1, [4, 2])
     actualize_cubie(cubies, id_array, untentemp2, [4, 5])
     actualize_cubie(cubies, id_array, untentemp3, [4, 8])
-
-
-def actualize_cubie(cubies, id_array, temp_side, new_pos):
-    id_array[new_pos[0]][new_pos[1]] = temp_side
-    temp_partition = temp_side.rpartition("0")
-    name = int(temp_partition[0]) - 1
-
-    if "1" == temp_partition[2]:
-        cubies[name].pos1 = new_pos
-
-    if "2" == temp_partition[2]:
-        cubies[name].pos2 = new_pos
-
-    if "3" == temp_partition[2]:
-        cubies[name].pos3 = new_pos
