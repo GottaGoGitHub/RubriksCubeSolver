@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.font import Font
 from Cube import *
 from GUI import *
+from FileHandler import *
 
 # Creating the workspace
 # root is the whole working space; it defines the properties of the popup
@@ -139,5 +140,14 @@ button_export = Button(root, text="Export", command=button_export_func)
 button_export.configure(width=5)
 button_export.grid(row=10, column=0, sticky=E)
 
+# TEST SECTION
+cubies_list = import_cube_from_csv("Cubies_table.csv")
+cubies_colors = get_colors_from_cubies(cubies_list)
+
+for item in cubies_list:
+    print(item.name, item.color3, item.pos3)
+
+for item in cubies_colors:
+    print(item)
 
 root.mainloop()
