@@ -24,13 +24,30 @@ def get_colors_from_cubies(cubies):
     for item in cubies:
         colors[item.pos1[0]][item.pos1[1]] = item.color1
 
-        if 2 == item.number:
+        if 2 == item.number or 3 == item.number:
             colors[item.pos2[0]][item.pos2[1]] = item.color2
 
         if 3 == item.number:
-            colors[item.pos2[0]][item.pos2[1]] = item.color2
             colors[item.pos3[0]][item.pos3[1]] = item.color3
     return colors
+
+
+def get_id_from_cubies(cubies):
+    """
+    get the ID form a list of cubies
+    and returns a list of IDs (str)
+    """
+    ids = [[None for i in range(9)] for j in range(6)]
+
+    for item in cubies:
+        ids[item.pos1[0]][item.pos1[1]] = item.id1
+
+        if 2 == item.number or 3 == item.number:
+            ids[item.pos2[0]][item.pos2[1]] = item.id2
+
+        if 3 == item.number:
+            ids[item.pos3[0]][item.pos3[1]] = item.id3
+    return ids
 
 
 # ________________________________________________________________________________________________________#
