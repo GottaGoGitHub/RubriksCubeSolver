@@ -142,7 +142,10 @@ button_export.grid(row=10, column=0, sticky=E)
 
 # TEST SECTION
 cubies_list = import_cube_from_csv("Cubies_table.csv")
+cubies_id = get_id_from_cubies(cubies_list)
+rotate_front_cubies(cubies_list, cubies_id)
 cubies_colors = get_colors_from_cubies(cubies_list)
+set_colors(window, cubies_colors, cube)
 
 for item in cubies_list:
     print(item.name, item.color3, item.pos3)
