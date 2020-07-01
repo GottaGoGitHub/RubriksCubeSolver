@@ -24,6 +24,10 @@ window.grid(row=5, column=0, columnspan=5, sticky=W)
 
 # Creation of the cube
 cube = create_cube_hexomino(window, 45, 199)
+cubies_list = import_cube_from_csv("Cubies_table.csv")
+cubies_id = get_id_from_cubies(cubies_list)
+cubies_colors = get_colors_from_cubies(cubies_list)
+set_colors(window, cubies_colors, cube)
 
 
 # Generating the prompt in the upper right hand corner.
@@ -49,7 +53,7 @@ error_label = Label()
 
 # Binding the ENTER Key as event to the Entries "answer1" and "answer2"
 def press_enter(event):
-    evaluate_input(window, answer1, answer2, cube, error_label)
+    evaluate_input(window, answer1, answer2, cube, cubies_list, error_label)
 
 
 answer1.bind("<Return>", press_enter)
@@ -58,7 +62,8 @@ answer2.bind("<Return>", press_enter)
 
 # Creating the Rotation buttons
 def rotate_up_for_button():
-    rotate_cube_up(window, cube)
+    rotate_cube_up_cubies(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 button_rotate_up = Button(root, text="Up", command=rotate_up_for_button)
@@ -67,7 +72,8 @@ button_rotate_up.grid(row=6, column=2, sticky=S)
 
 
 def rotate_down_for_button():
-    rotate_cube_down(window, cube)
+    rotate_cube_down_cubies(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 button_rotate_down = Button(root, text="Down", command=rotate_down_for_button)
@@ -76,7 +82,8 @@ button_rotate_down.grid(row=8, column=2, sticky=N)
 
 
 def rotate_left_for_button():
-    rotate_cube_left(window, cube)
+    rotate_cube_left_cubies(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 button_rotate_left = Button(root, text="Left", command=rotate_left_for_button)
@@ -85,7 +92,8 @@ button_rotate_left.grid(row=7, column=1, sticky=E)
 
 
 def rotate_right_for_button():
-    rotate_cube_right(window, cube)
+    rotate_cube_right_cubies(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 button_rotate_right = Button(root, text="Right", command=rotate_right_for_button)
@@ -95,28 +103,32 @@ button_rotate_right.grid(row=7, column=3, sticky=W)
 
 # Binding the arrow key to the corresponding rotation
 def rotate_up_for_key(event):
-    rotate_cube_up(window, cube)
+    rotate_cube_up_cubies(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 root.bind('<Up>', rotate_up_for_key)
 
 
 def rotate_down_for_key(event):
-    rotate_cube_down(window, cube)
+    rotate_cube_down_cubies(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 root.bind('<Down>', rotate_down_for_key)
 
 
 def rotate_left_for_key(event):
-    rotate_cube_left(window, cube)
+    rotate_cube_left_cubies(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 root.bind('<Left>', rotate_left_for_key)
 
 
 def rotate_right_for_key(event):
-    rotate_cube_left(window, cube)
+    rotate_cube_left_cubies(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 root.bind('<Right>', rotate_right_for_key)
@@ -124,7 +136,8 @@ root.bind('<Right>', rotate_right_for_key)
 
 # Imort and export of the cube
 def button_import_func():
-    import_cube_from_file(window, cube)
+    import_cube_from_file(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 button_import = Button(root, text="Import", command=button_import_func)
@@ -140,17 +153,5 @@ button_export = Button(root, text="Export", command=button_export_func)
 button_export.configure(width=5)
 button_export.grid(row=10, column=0, sticky=E)
 
-# TEST SECTION
-cubies_list = import_cube_from_csv("Cubies_table.csv")
-cubies_id = get_id_from_cubies(cubies_list)
-rotate_front_cubies(cubies_list, cubies_id)
-cubies_colors = get_colors_from_cubies(cubies_list)
-set_colors(window, cubies_colors, cube)
-
-for item in cubies_list:
-    print(item.name, item.color3, item.pos3)
-
-for item in cubies_colors:
-    print(item)
 
 root.mainloop()

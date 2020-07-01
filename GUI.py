@@ -1,7 +1,7 @@
 from CubeMesh import *
 
 
-def evaluate_input(window, answer1, answer2, cube, error_label):
+def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
     # This function shall be called with the two entries (answer1, answer2) and evaluates their input
 
     # Depending on the input of answer1 and answer2 the corresponding face and piece of the cube will be selected
@@ -110,7 +110,21 @@ def evaluate_input(window, answer1, answer2, cube, error_label):
 
         # Coloring the piece
         if "4" != list_of_answer2[0]:
-            window.itemconfigure(cube[side_idx][piece_idx], fill=color)
+
+            ids = get_id_from_cubies(cubies)
+            temp_id = ids[side_idx][piece_idx]
+            number = int(temp_id[0:2])
+            number_color = int(temp_id[3])
+
+            if 1 == number_color:
+                cubies[number-1].color1 = color
+            if 2 == number_color:
+                cubies[int(temp_id[0:2])-1].color2 = color
+            if 3 == number_color:
+                cubies[int(temp_id[0:2])-1].color3 = color
+
+            set_colors(window, get_colors_from_cubies(cubies), cube)
+            print(get_colors_from_cubies(cubies))
 
         # Deleting answer 2 for better user experience
         answer2.delete(0, END)
