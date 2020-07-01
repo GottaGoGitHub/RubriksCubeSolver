@@ -24,10 +24,11 @@ def get_colors_from_cubies(cubies):
     for item in cubies:
         colors[item.pos1[0]][item.pos1[1]] = item.color1
 
-        if item.number <= 3:
+        if 2 == item.number:
             colors[item.pos2[0]][item.pos2[1]] = item.color2
 
-        if item.number == 3:
+        if 3 == item.number:
+            colors[item.pos2[0]][item.pos2[1]] = item.color2
             colors[item.pos3[0]][item.pos3[1]] = item.color3
     return colors
 
