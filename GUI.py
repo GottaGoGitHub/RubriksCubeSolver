@@ -124,7 +124,6 @@ def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
                 cubies[int(temp_id[0:2])-1].color3 = color
 
             set_colors(window, get_colors_from_cubies(cubies), cube)
-            print(get_colors_from_cubies(cubies))
 
         # Deleting answer 2 for better user experience
         answer2.delete(0, END)
