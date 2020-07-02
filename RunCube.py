@@ -24,7 +24,7 @@ window.grid(row=5, column=0, columnspan=5, sticky=W)
 
 # Creation of the cube
 cube = create_cube_hexomino(window, 45, 199)
-cubies_list = import_cube_from_csv("Cubies_table.csv")
+cubies_list = import_cube_from_csv("DEFAULT.csv")
 cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)
@@ -136,7 +136,7 @@ root.bind('<Right>', rotate_right_for_key)
 
 # Imort and export of the cube
 def button_import_func():
-    import_cube_from_file(cubies_list, cubies_id)
+    cubies_list = import_cube_from_csv("IMPORT.csv")
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -146,7 +146,7 @@ button_import.grid(row=10, column=0, sticky=W)
 
 
 def button_export_func():
-    export_cube_to_file(window, cube)
+    export_cube_to_csv(cubies_list, "EXPORT.csv")
 
 
 button_export = Button(root, text="Export", command=button_export_func)
