@@ -1,14 +1,8 @@
 # Getter & Setter
-def get_colors(window, cube):
-    colors = [[None for i in range(9)] for j in range(6)]
-    for side_idx, side in enumerate(colors):
-        for piece_idx, color_ in enumerate(side):
-            colors[side_idx][piece_idx] = window.itemcget(cube[side_idx][piece_idx], "fill")
-
-    return colors
-
-
 def set_colors(window, colors, cube):
+    """
+    sets the color of a cube which is represented by multiple rectangle objects
+    """
     for side_idx, side in enumerate(colors):
         for piece_idx, piece in enumerate(side):
             window.itemconfigure(cube[side_idx][piece_idx], fill=piece)
@@ -75,8 +69,6 @@ def actualize_cubie(cubies, id_array, temp_side, new_pos):
 # rotate the cubies
 
 # rotation-functions for rotating the whole cube
-
-
 def rotate_cube_right_cubies(cubies, id_array):
     downtemp0 = id_array[5][0]
     downtemp1 = id_array[5][1]
