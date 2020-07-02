@@ -3,156 +3,156 @@ from Cube import *
 
 
 #   R U R' U'
-def ruru(window, cube):
-    rotate_right(window, cube)
-    rotate_up(window, cube)
-    rotate_right_prime(window, cube)
-    rotate_up_prime(window, cube)
+def ruru(cubies, id_array):
+    rotate_right_cubies(cubies, id_array)
+    rotate_up_cubies(cubies, id_array)
+    rotate_right_prime_cubies(cubies, id_array)
+    rotate_up_prime_cubies(cubies, id_array)
 
 
 #   L U' L' U
-def lulu(window, cube):
-    rotate_left(window, cube)
-    rotate_up_prime(window, cube)
-    rotate_left_prime(window, cube)
-    rotate_up(window, cube)
+def lulu(cubies, id_array):
+    rotate_left_cubies(cubies, id_array)
+    rotate_up_prime_cubies(cubies, id_array)
+    rotate_left_prime_cubies(cubies, id_array)
+    rotate_up_cubies(cubies, id_array)
 
 
 #   U R U R' U' y L U' L' U
-def second_layer_right(window, cube):
-    rotate_up(window, cube)
-    ruru(window, cube)
-    rotate_cube_right(window, cube)
-    lulu(window, cube)
+def second_layer_right(cubies, id_array):
+    rotate_up_cubies(cubies, id_array)
+    ruru(cubies, id_array)
+    rotate_cube_right_cubies(cubies, id_array)
+    lulu(cubies, id_array)
 
 
 #   U' L U' L' U y' R U R' U'
-def second_layer_left(window, cube):
-    rotate_up_prime(window, cube)
-    lulu(window, cube)
-    rotate_cube_left(window, cube)
-    ruru(window, cube)
+def second_layer_left(cubies, id_array):
+    rotate_up_prime_cubies(cubies, id_array)
+    lulu(cubies, id_array)
+    rotate_cube_left_cubies(cubies, id_array)
+    ruru(cubies, id_array)
 
 
 #   F R U R' U' F'
-def top_cross(window, cube):
-    rotate_front(window, cube)
-    ruru(window, cube)
-    rotate_front_prime(window, cube)
+def top_cross(cubies, id_array):
+    rotate_front_cubies(cubies, id_array)
+    ruru(cubies, id_array)
+    rotate_front_prime_cubies(cubies, id_array)
 
 
 #   R U R' U R 2U' R'
-def correct_front(window, cube):
-    rotate_right(window, cube)
-    rotate_up(window, cube)
-    rotate_right_prime(window, cube)
-    rotate_up(window, cube)
-    rotate_right(window, cube)
-    rotate_up_prime(window, cube)
-    rotate_up_prime(window, cube)
-    rotate_right_prime(window, cube)
+def correct_front(cubies, id_array):
+    rotate_right_cubies(cubies, id_array)
+    rotate_up_cubies(cubies, id_array)
+    rotate_right_prime_cubies(cubies, id_array)
+    rotate_up_cubies(cubies, id_array)
+    rotate_right_cubies(cubies, id_array)
+    rotate_up_prime_cubies(cubies, id_array)
+    rotate_up_prime_cubies(cubies, id_array)
+    rotate_right_prime_cubies(cubies, id_array)
 
 
 #   U R U' L U R' U' L'
-def sort_corners(window, cube):
-    rotate_up(window, cube)
-    rotate_right(window, cube)
-    rotate_up_prime(window, cube)
-    rotate_left(window, cube)
-    rotate_up(window, cube)
-    rotate_right_prime(window, cube)
-    rotate_up_prime(window, cube)
-    rotate_left_prime(window, cube)
+def sort_corners(cubies, id_array):
+    rotate_up_cubies(cubies, id_array)
+    rotate_right_cubies(cubies, id_array)
+    rotate_up_prime_cubies(cubies, id_array)
+    rotate_left_cubies(cubies, id_array)
+    rotate_up_cubies(cubies, id_array)
+    rotate_right_prime_cubies(cubies, id_array)
+    rotate_up_prime_cubies(cubies, id_array)
+    rotate_left_prime_cubies(cubies, id_array)
 
-
-def white_cross(window, cube):
+"""
+def white_cross(cubies, id_array):
     for side_idx, side in enumerate(cube):
         for piece_idx in enumerate(side):
             if piece_idx == 1 and window.itemcget(cube[side_idx][piece_idx], "fill") == 'white':
                 if side_idx == 0:
-                    rotate_back(window, cube)
-                    rotate_back(window, cube)
+                    rotate_back_cubies(cubies, id_array)
+                    rotate_backv(cubies, id_array)
                 elif side_idx == 1:
-                    rotate_front(window, cube)
-                    rotate_right_prime(window, cube)
+                    rotate_front_cubies(cubies, id_array)
+                    rotate_right_prime(cubies, id_array)
                 elif side_idx == 2:
-                    rotate_cube_right(window, cube)
-                    rotate_front(window, cube)
-                    rotate_right_prime(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_front(cubies, id_array)
+                    rotate_right_prime(cubies, id_array)
                 elif side_idx == 3:
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_front(window, cube)
-                    rotate_right_prime(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_front(cubies, id_array)
+                    rotate_right_prime(cubies, id_array)
                 elif side_idx == 4:
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_front(window, cube)
-                    rotate_right_prime(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_front(cubies, id_array)
+                    rotate_right_prime(cubies, id_array)
             elif piece_idx == 3 and window.itemcget(cube[side_idx][piece_idx], "fill") == 'white':
                 if side_idx == 0:
-                    rotate_left(window, cube)
-                    rotate_left(window, cube)
+                    rotate_left(cubies, id_array)
+                    rotate_left(cubies, id_array)
                 elif side_idx == 1:
-                    rotate_left(window, cube)
+                    rotate_left(cubies, id_array)
                 elif side_idx == 2:
-                    rotate_cube_right(window, cube)
-                    rotate_left(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_left(cubies, id_array)
                 elif side_idx == 3:
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_left(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_left(cubies, id_array)
                 elif side_idx == 4:
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_left(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_left(cubies, id_array)
             elif piece_idx == 5 and window.itemcget(cube[side_idx][piece_idx], "fill") == 'white':
                 if side_idx == 0:
-                    rotate_right(window, cube)
-                    rotate_right(window, cube)
+                    rotate_right(cubies, id_array)
+                    rotate_right(cubies, id_array)
                 elif side_idx == 1:
-                    rotate_right(window, cube)
+                    rotate_right(cubies, id_array)
                 elif side_idx == 2:
-                    rotate_cube_right(window, cube)
-                    rotate_right(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_right(cubies, id_array)
                 elif side_idx == 3:
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_right(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_right(cubies, id_array)
                 elif side_idx == 4:
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_right(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_right(cubies, id_array)
             elif piece_idx == 7 and window.itemcget(cube[side_idx][piece_idx], "fill") == 'white':
                 if side_idx == 0:
-                    rotate_front(window, cube)
-                    rotate_front(window, cube)
+                    rotate_front(cubies, id_array)
+                    rotate_front(cubies, id_array)
                 elif side_idx == 1:
-                    rotate_front_prime(window, cube)
-                    rotate_right(window, cube)
+                    rotate_front_prime(cubies, id_array)
+                    rotate_right(cubies, id_array)
                 elif side_idx == 2:
-                    rotate_cube_right(window, cube)
-                    rotate_front_prime(window, cube)
-                    rotate_right(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_front_prime(cubies, id_array)
+                    rotate_right(cubies, id_array)
                 elif side_idx == 3:
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_front_prime(window, cube)
-                    rotate_right(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_front_prime(cubies, id_array)
+                    rotate_right(cubies, id_array)
                 elif side_idx == 4:
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_cube_right(window, cube)
-                    rotate_front_prime(window, cube)
-                    rotate_right(window, cube)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_cube_right(cubies, id_array)
+                    rotate_front_prime(cubies, id_array)
+                    rotate_right(cubies, id_array)"""
 
 
 
 """
-def solve_white_cross(window, cube):
+def solve_white_cross(cubies, id_array):
     #   init membervariables
     up_white = cube[None][None]
     up_secondary_color = None
@@ -233,49 +233,49 @@ def solve_white_cross(window, cube):
                     down_secondary_color = window.itemcget(cube[3][7], "fill")
     #   setze paarweise die Kantensteine ein
     if up_white_side == 0:
-        rotate_back(window, cube)
-        rotate_right(window, cube)
-        rotate_right(window, cube)
-        rotate_front_prime(window, cube)
+        rotate_back(cubies, id_array)
+        rotate_right(cubies, id_array)
+        rotate_right(cubies, id_array)
+        rotate_front_prime(cubies, id_array)
     elif up_white_side == 1:
-        rotate_up(window, cube)
-        rotate_right(window, cube)
-        rotate_front_prime(window, cube)
+        rotate_up(cubies, id_array)
+        rotate_right(cubies, id_array)
+        rotate_front_prime(cubies, id_array)
     elif up_white_side == 2:
-        rotate_up(window, cube)
-        rotate_up(window, cube)
-        rotate_right(window, cube)
-        rotate_front_prime(window, cube)
+        rotate_up(cubies, id_array)
+        rotate_up(cubies, id_array)
+        rotate_right(cubies, id_array)
+        rotate_front_prime(cubies, id_array)
     elif up_white_side == 3:
-        rotate_up_prime(window, cube)
-        rotate_right(window, cube)
-        rotate_front_prime(window, cube)
+        rotate_up_prime(cubies, id_array)
+        rotate_right(cubies, id_array)
+        rotate_front_prime(cubies, id_array)
     elif up_white_side == 4:
-        rotate_right(window, cube)
-        rotate_front_prime(window, cube)
+        rotate_right(cubies, id_array)
+        rotate_front_prime(cubies, id_array)
         #   bei 5 sollte er schon richtig seien
 
     if down_white_side == 0:
-        rotate_up(window, cube)
-        rotate_up(window, cube)
-        rotate_back(window, cube)
-        rotate_back(window, cube)
+        rotate_up(cubies, id_array)
+        rotate_up(cubies, id_array)
+        rotate_back(cubies, id_array)
+        rotate_back(cubies, id_array)
     elif down_white_side == 1:
-        rotate_up(window, cube)
-        rotate_right(window, cube)
-        rotate_front_prime(window, cube)
+        rotate_up(cubies, id_array)
+        rotate_right(cubies, id_array)
+        rotate_front_prime(cubies, id_array)
     elif down_white_side == 2:
-        rotate_up(window, cube)
-        rotate_up(window, cube)
-        rotate_right(window, cube)
-        rotate_front_prime(window, cube)
+        rotate_up(cubies, id_array)
+        rotate_up(cubies, id_array)
+        rotate_right(cubies, id_array)
+        rotate_front_prime(cubies, id_array)
     elif down_white_side == 3:
-        rotate_up_prime(window, cube)
-        rotate_right(window, cube)
-        rotate_front_prime(window, cube)
+        rotate_up_prime(cubies, id_array)
+        rotate_right(cubies, id_array)
+        rotate_front_prime(cubies, id_array)
     elif down_white_side == 4:
-        rotate_right(window, cube)
-        rotate_front_prime(window, cube)
+        rotate_right(cubies, id_array)
+        rotate_front_prime(cubies, id_array)
 """
 
 
