@@ -16,7 +16,7 @@ def import_cube_from_csv(filepath):
 
     rows = content.split('\n')
 
-    for i in range(1, len(rows)-2):
+    for i in range(1, len(rows)-1):
         temp = rows[i].split(',')
 
         temp_cubie = Cubie(temp[0],
