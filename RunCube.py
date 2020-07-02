@@ -154,4 +154,13 @@ button_export.configure(width=5)
 button_export.grid(row=10, column=0, sticky=E)
 
 
+# TEST BUTTON
+def button_test_func():
+    rotate_right_cubies(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+
+
+test_button = Button(root, text="Click Me!\n I wanna test something. \n I don't know what but it may work.", command=button_test_func)
+test_button.grid(row=12, column=0)
+
 root.mainloop()
