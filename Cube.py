@@ -449,6 +449,34 @@ def rotate_down_prime_cubies(cubies, id_array):
     rotate_front_prime_cubies(cubies, id_array)
     rotate_cube_down_cubies(cubies, id_array)
 
-
 # ________________________________________________________________________________________________________#
 
+
+def rotate_by_side_idx(cubies, id_array, side_idx):
+    if 0 == side_idx:
+        rotate_up_cubies(cubies, id_array)
+    if 1 == side_idx:
+        rotate_front_cubies(cubies, id_array)
+    if 2 == side_idx:
+        rotate_right_cubies(cubies, id_array)
+    if 3 == side_idx:
+        rotate_back_cubies(cubies, id_array)
+    if 4 == side_idx:
+        rotate_left_cubies(cubies, id_array)
+    if 5 == side_idx:
+        rotate_down_cubies(cubies, id_array)
+
+
+def rotate_prime_by_side_idx(cubies, id_array, side_idx):
+    if 0 == side_idx:
+        rotate_up_prime_cubies(cubies, id_array)
+    if 1 == side_idx:
+        rotate_front_prime_cubies(cubies, id_array)
+    if 2 == side_idx:
+        rotate_right_prime_cubies(cubies, id_array)
+    if 3 == side_idx:
+        rotate_back_prime_cubies(cubies, id_array)
+    if 4 == side_idx:
+        rotate_left_prime_cubies(cubies, id_array)
+    if 5 == side_idx:
+        rotate_down_prime_cubies(cubies, id_array)
