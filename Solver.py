@@ -1,5 +1,30 @@
 # from RubriksCubeSolver.Cube import *
 from Cube import *
+import random
+
+
+# random scrambling
+def scramble(cubies, id_array):
+    for _ in range(50):
+        temp = random.randrange(6)
+
+        if temp == 0:
+            rotate_down_cubies(cubies, id_array)
+
+        if temp == 1:
+            rotate_left_cubies(cubies, id_array)
+
+        if temp == 2:
+            rotate_front_cubies(cubies, id_array)
+
+        if temp == 3:
+            rotate_right_cubies(cubies, id_array)
+
+        if temp == 4:
+            rotate_back_cubies(cubies, id_array)
+
+        if temp == 5:
+            rotate_up_cubies(cubies, id_array)
 
 
 #   R U R' U'
@@ -323,3 +348,4 @@ def white_cross(cubies, id_array):
         flip_orientation_of_edge_in_first_layer(cubies, id_array, 7)
         rotate_cube_up_cubies(cubies, id_array)
         rotate_cube_up_cubies(cubies, id_array)
+
