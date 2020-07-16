@@ -3,6 +3,7 @@ from tkinter.font import Font
 from Cube import *
 from GUI import *
 from FileHandler import *
+from Solver import *
 
 # Creating the workspace
 # root is the whole working space; it defines the properties of the popup
@@ -23,8 +24,9 @@ window.grid(row=5, column=0, columnspan=5, sticky=W)
 
 
 # Creation of the cube
+
 cube = create_cube_hexomino(window, 45, 199)
-cubies_list = import_cube_from_csv("DEFAULT.csv")
+cubies_list = import_cube_from_csv("IMPORT.csv")
 cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)
@@ -134,7 +136,7 @@ def rotate_right_for_key(event):
 root.bind('<Right>', rotate_right_for_key)
 
 
-# Imort and export of the cube
+# Import and export of the cube
 def button_import_func():
     cubies_list = import_cube_from_csv("IMPORT.csv")
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
@@ -156,11 +158,19 @@ button_export.grid(row=10, column=0, sticky=E)
 
 # TEST BUTTON
 def button_test_func():
-    rotate_right_cubies(cubies_list, cubies_id)
+    scramble(cubies_list, cubies_id)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 test_button = Button(root, text="Click Me!\n I wanna test something. \n I don't know what but it may work.", command=button_test_func)
 test_button.grid(row=12, column=0)
+
+
+def other_test():
+    white_cross(cubies_list, cubies_id)
+
+
+other_test_button = Button(root, text="White Cross", command=other_test)
+other_test_button.grid(row=12, column=1)
 
 root.mainloop()
