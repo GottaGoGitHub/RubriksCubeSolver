@@ -167,10 +167,20 @@ test_button.grid(row=12, column=0)
 
 
 def other_test():
-    white_cross(cubies_list, cubies_id)
+    test_cross(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    print(cubies_id)
 
 
 other_test_button = Button(root, text="White Cross", command=other_test)
 other_test_button.grid(row=12, column=1)
 
+
+def actualize():
+    insert_14(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+
+
+actualize_button = Button(root, text="Actualize", command=actualize)
+actualize_button.grid(row=13, column=1)
 root.mainloop()
