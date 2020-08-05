@@ -108,9 +108,9 @@ def is_in_layer(id_array, layer, cubie_name):
         temp3 = id_array[1][5].rpartition("0")
         temp4 = id_array[3][3].rpartition("0")
         temp5 = id_array[3][5].rpartition("0")
-        temp = [temp2, temp3, temp4, temp5]
+        temp = [temp2[0], temp3[0], temp4[0], temp5[0]]
 
-    return cubie_name in temp
+    return str(cubie_name) in temp
 
 
 def flip_orientation_of_edge_in_first_layer(cubies, id_array, index):
@@ -134,6 +134,24 @@ def flip_orientation_of_edge_in_first_layer(cubies, id_array, index):
         rotate_right_cubies(cubies, id_array)
         rotate_front_cubies(cubies, id_array)
         rotate_front_cubies(cubies, id_array)
+
+
+def test_cross(cubies, id_array):
+    # insert cubie 14
+    if cubies[13].pos2[0] != "5":
+        if is_in_layer(id_array, 2, 14) or cubies[13].pos2[0] == "0":
+            print("IF")
+            while cubies[13].pos1[1] != "7":
+                print("WHILE")
+                rotate_by_side_idx(cubies, id_array, cubies[13].pos1[0])
+
+        if cubies[13].pos2[0] != "0" and is_in_layer(id_array, 1, 14):
+            rotate_by_side_idx(cubies, id_array, cubies[13].pos2[0])
+            rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos1[0])
+
+        if is_in_layer(id_array, 3, 14):
+            rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos2[0])
+            rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos1[0])
 
 
 def white_cross(cubies, id_array):
