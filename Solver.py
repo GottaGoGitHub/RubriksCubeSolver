@@ -136,38 +136,24 @@ def flip_orientation_of_edge_in_first_layer(cubies, id_array, index):
         rotate_front_cubies(cubies, id_array)
 
 
-def test_cross(cubies, id_array):
+def insert_14(cubies, id_array):
     # insert cubie 14
-    if cubies[13].pos2[0] != "5":
-        if is_in_layer(id_array, 2, 14) or cubies[13].pos2[0] == "0":
-            print("IF")
-            while cubies[13].pos1[1] != "7":
-                print("WHILE")
-                rotate_by_side_idx(cubies, id_array, cubies[13].pos1[0])
-
-        if cubies[13].pos2[0] != "0" and is_in_layer(id_array, 1, 14):
-            rotate_by_side_idx(cubies, id_array, cubies[13].pos2[0])
-            rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos1[0])
-
+    if cubies[13].pos2[0] != 5:
         if is_in_layer(id_array, 3, 14):
             rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos2[0])
             rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos1[0])
 
-
-def white_cross(cubies, id_array):
-    # insert cubie 14
-    if cubies[13].pos2[0] != 5:
-        if is_in_layer(id_array, 2, 14) or cubies[13].pos2[0] == 0:
+        elif cubies[13].pos2[0] == 0 or is_in_layer(id_array, 2, 14):
             while cubies[13].pos1[1] != 7:
                 rotate_by_side_idx(cubies, id_array, cubies[13].pos1[0])
 
-        if cubies[13].pos2[0] != 0 and is_in_layer(id_array, 1, 14):
+        elif cubies[13].pos2[0] != 0 and is_in_layer(id_array, 1, 14):
             rotate_by_side_idx(cubies, id_array, cubies[13].pos2[0])
             rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos1[0])
 
-        if is_in_layer(id_array, 3, 14):
-            rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos2[0])
-            rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos1[0])
+    # rotate the down side until cubie 14 is at index 3
+    while cubies[13].pos2[1] != 3:
+        rotate_down_cubies(cubies, id_array)
 
     # insert cubie 18
     # if cubie 18 is in second layer
@@ -201,26 +187,43 @@ def white_cross(cubies, id_array):
             rotate_by_side_idx(cubies, id_array, cubies[17].pos2[0])
             rotate_down_cubies(cubies, id_array)
             rotate_prime_by_side_idx(cubies, id_array, cubies[17].pos1[0])
+        else:
+            rotate_by_side_idx(cubies, id_array, cubies[17].pos2[0])
+            temp = -1
+            if cubies[17].pos2[0] == 1:
+                temp = 1
+            elif cubies[17].pos2[0] == 2:
+                temp = 5
+            elif cubies[17].pos2[0] == 3:
+                temp = 7
+            elif cubies[17].pos2[0] == 4:
+                temp = 3
+
+            while cubies[13].pos2[1] != temp:
+                rotate_down_cubies(cubies, id_array)
+
+            rotate_prime_by_side_idx(cubies, id_array, cubies[17].pos1[0])
 
     # if the white side of cubie 18 is on the yellow face
     if 0 == cubies[17].pos2[0]:
         if 1 == cubies[17].pos2[1]:
-            while cubies[14].pos2[1] != 3:
+            while cubies[13].pos2[1] != 5:
                 rotate_down_cubies(cubies, id_array)
 
         if 3 == cubies[17].pos2[1]:
-            while cubies[14].pos2[1] != 7:
+            while cubies[13].pos2[1] != 7:
                 rotate_down_cubies(cubies, id_array)
 
         if 5 == cubies[17].pos2[1]:
-            while cubies[14].pos2[1] != 1:
+            while cubies[13].pos2[1] != 1:
                 rotate_down_cubies(cubies, id_array)
 
         if 7 == cubies[17].pos2[1]:
-            while cubies[14].pos2[1] != 5:
+            while cubies[13].pos2[1] != 3:
                 rotate_down_cubies(cubies, id_array)
 
-        rotate_by_side_idx(cubies, id_array, cubies[18].pos1[0])
+        rotate_by_side_idx(cubies, id_array, cubies[17].pos1[0])
+        rotate_by_side_idx(cubies, id_array, cubies[17].pos1[0])
 
     # rotate the down side until cubie 14 is at index 3
     while cubies[13].pos2[1] != 3:
@@ -234,12 +237,12 @@ def white_cross(cubies, id_array):
             rotate_left_cubies(cubies, id_array)
             rotate_down_cubies(cubies, id_array)
 
-        if 5 == cubies[17].pos1[1]:
+        elif 5 == cubies[17].pos1[1]:
             rotate_right_cubies(cubies, id_array)
             rotate_front_cubies(cubies, id_array)
 
-        if 7 == cubies[17].pos1[1]:
-            rotate_back_prime_cubies(cubies, id_array)
+        elif 7 == cubies[17].pos1[1]:
+            rotate_back_cubies(cubies, id_array)
             rotate_down_cubies(cubies, id_array)
             rotate_right_cubies(cubies, id_array)
             rotate_down_prime_cubies(cubies, id_array)
@@ -253,7 +256,7 @@ def white_cross(cubies, id_array):
             rotate_front_cubies(cubies, id_array)
             rotate_front_cubies(cubies, id_array)
 
-        if 7 == cubies[17].pos2[1]:
+        elif 7 == cubies[17].pos2[1]:
             rotate_back_cubies(cubies, id_array)
             rotate_back_cubies(cubies, id_array)
             rotate_up_cubies(cubies, id_array)
@@ -261,23 +264,29 @@ def white_cross(cubies, id_array):
             rotate_front_cubies(cubies, id_array)
             rotate_front_cubies(cubies, id_array)
 
-    # insert cubie 22
+# insert cubie 22
     # if cubie 22 is in the second layer
     if is_in_layer(id_array, 2, 22):
+        temp = cubies[21].pos2[0]
         if cubies[21].pos2[1] == 3:
-            temp = cubies[21].pos2[0]
             rotate_by_side_idx(cubies, id_array, temp)
+        elif cubies[21].pos2[1] == 5:
+            rotate_prime_by_side_idx(cubies, id_array, temp)
 
-            while 7 != cubies[21].pos1[1]:
-                rotate_up_cubies(cubies, id_array)
+        while 7 != cubies[21].pos1[1]:
+            rotate_up_cubies(cubies, id_array)
 
+        rotate_front_cubies(cubies, id_array)
+        rotate_right_prime_cubies(cubies, id_array)
+        rotate_front_prime_cubies(cubies, id_array)
+
+        # if cubie 22 was at the front or left side, cubie 14 will be affected by the rotation, which has to be undone
+        while cubies[17].pos1[1] != 7:
             rotate_front_cubies(cubies, id_array)
-            rotate_right_prime_cubies(cubies, id_array)
-            rotate_front_prime_cubies(cubies, id_array)
 
-            # if cubie 22 was at the front or left side, cubie 14 will be affected by the rotation, which has to be undone
-            if 1 == temp or 4 == temp:
-                rotate_prime_by_side_idx(cubies, id_array, temp)
+        while cubies[13].pos1[1] != 7:
+            rotate_left_prime_cubies(cubies, id_array)
+
 
     # if cubie 22 is in the first layer and the white face is not at the yellow side (up)
     if is_in_layer(id_array, 1, 22) and cubies[21].pos2[0] != 0:
@@ -290,7 +299,200 @@ def white_cross(cubies, id_array):
 
     # if cubie 22 is in the first layer and the white face is at the yellow side (up)
     if cubies[21].pos2[0] == 0:
-        while 5 != cubies[21].pos1[1]:
+        while 5 != cubies[21].pos2[1]:
+            rotate_up_cubies(cubies, id_array)
+
+        rotate_right_cubies(cubies, id_array)
+        rotate_right_cubies(cubies, id_array)
+
+    # if cubie 22 is in the thrid layer
+    if is_in_layer(id_array, 3, 22):
+        if cubies[21].pos2 == [3, 7]:
+            rotate_back_cubies(cubies, id_array)
+            rotate_right_cubies(cubies, id_array)
+
+        if cubies[21].pos2 == [5, 7]:
+            rotate_back_cubies(cubies, id_array)
+            rotate_back_cubies(cubies, id_array)
+            rotate_up_cubies(cubies, id_array)
+            rotate_right_cubies(cubies, id_array)
+            rotate_right_cubies(cubies, id_array)
+
+        if cubies[21].pos2 == [2, 7]:
+            rotate_right_cubies(cubies, id_array)
+            rotate_right_cubies(cubies, id_array)
+            rotate_up_cubies(cubies, id_array)
+            rotate_front_cubies(cubies, id_array)
+            rotate_right_prime_cubies(cubies, id_array)
+            rotate_front_prime_cubies(cubies, id_array)
+
+
+def test_cross(cubies, id_array):
+     print("TEST")
+
+def white_cross(cubies, id_array):
+    # insert cubie 14
+    if cubies[13].pos2[0] != 5:
+        if is_in_layer(id_array, 3, 14):
+            rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos2[0])
+            rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos1[0])
+
+        elif cubies[13].pos2[0] == 0 or is_in_layer(id_array, 2, 14):
+            while cubies[13].pos1[1] != 7:
+                rotate_by_side_idx(cubies, id_array, cubies[13].pos1[0])
+
+        elif cubies[13].pos2[0] != 0 and is_in_layer(id_array, 1, 14):
+            rotate_by_side_idx(cubies, id_array, cubies[13].pos2[0])
+            rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos1[0])
+
+    # rotate the down side until cubie 14 is at index 3
+    while cubies[13].pos2[1] != 3:
+        rotate_down_cubies(cubies, id_array)
+
+    # insert cubie 18
+    # if cubie 18 is in second layer
+    if is_in_layer(id_array, 2, 18):
+        if id_array[cubies[17].pos1[0]][7] == cubies[13].id1:
+            rotate_down_prime_cubies(cubies, id_array)
+            rotate_by_side_idx(cubies, id_array, cubies[17].pos1[0])
+        else:
+            if 1 == cubies[17].pos1[0]:
+                while cubies[13].pos2[1] != 3:
+                    rotate_down_cubies(cubies, id_array)
+
+            if 2 == cubies[17].pos1[0]:
+                while cubies[13].pos2[1] != 1:
+                    rotate_down_cubies(cubies, id_array)
+
+            if 3 == cubies[17].pos1[0]:
+                while cubies[13].pos2[1] != 5:
+                    rotate_down_cubies(cubies, id_array)
+
+            if 4 == cubies[17].pos1[0]:
+                while cubies[13].pos2[1] != 7:
+                    rotate_down_cubies(cubies, id_array)
+
+            rotate_by_side_idx(cubies, id_array, cubies[17].pos1[0])
+
+    # if cubie 18 is in first layer but the white face is not at the yellow side
+    if cubies[17].pos2[0] != 0 and is_in_layer(id_array, 1, 18):
+        if id_array[cubies[17].pos1[0]][7] == cubies[13].id1:
+            rotate_down_prime_cubies(cubies, id_array)
+            rotate_by_side_idx(cubies, id_array, cubies[17].pos2[0])
+            rotate_down_cubies(cubies, id_array)
+            rotate_prime_by_side_idx(cubies, id_array, cubies[17].pos1[0])
+        else:
+            rotate_by_side_idx(cubies, id_array, cubies[17].pos2[0])
+            temp = -1
+            if cubies[17].pos2[0] == 1:
+                temp = 1
+            elif cubies[17].pos2[0] == 2:
+                temp = 5
+            elif cubies[17].pos2[0] == 3:
+                temp = 7
+            elif cubies[17].pos2[0] == 4:
+                temp = 3
+
+            while cubies[13].pos2[1] != temp:
+                rotate_down_cubies(cubies, id_array)
+
+            rotate_prime_by_side_idx(cubies, id_array, cubies[17].pos1[0])
+
+    # if the white side of cubie 18 is on the yellow face
+    if 0 == cubies[17].pos2[0]:
+        if 1 == cubies[17].pos2[1]:
+            while cubies[13].pos2[1] != 5:
+                rotate_down_cubies(cubies, id_array)
+
+        if 3 == cubies[17].pos2[1]:
+            while cubies[13].pos2[1] != 7:
+                rotate_down_cubies(cubies, id_array)
+
+        if 5 == cubies[17].pos2[1]:
+            while cubies[13].pos2[1] != 1:
+                rotate_down_cubies(cubies, id_array)
+
+        if 7 == cubies[17].pos2[1]:
+            while cubies[13].pos2[1] != 3:
+                rotate_down_cubies(cubies, id_array)
+
+        rotate_by_side_idx(cubies, id_array, cubies[17].pos1[0])
+        rotate_by_side_idx(cubies, id_array, cubies[17].pos1[0])
+
+    # rotate the down side until cubie 14 is at index 3
+    while cubies[13].pos2[1] != 3:
+        rotate_down_cubies(cubies, id_array)
+
+    # if cubie 18 is in the third layer but the white face is not at the white side
+    if 5 == cubies[17].pos1[0]:
+        if 1 == cubies[17].pos1[1]:
+            rotate_front_cubies(cubies, id_array)
+            rotate_down_prime_cubies(cubies, id_array)
+            rotate_left_cubies(cubies, id_array)
+            rotate_down_cubies(cubies, id_array)
+
+        elif 5 == cubies[17].pos1[1]:
+            rotate_right_cubies(cubies, id_array)
+            rotate_front_cubies(cubies, id_array)
+
+        elif 7 == cubies[17].pos1[1]:
+            rotate_back_cubies(cubies, id_array)
+            rotate_down_cubies(cubies, id_array)
+            rotate_right_cubies(cubies, id_array)
+            rotate_down_prime_cubies(cubies, id_array)
+
+    # if cubie 18 is in the third layer and the white face is at the white side
+    if 5 == cubies[17].pos2[0]:
+        if 5 == cubies[17].pos2[1]:
+            rotate_right_cubies(cubies, id_array)
+            rotate_right_cubies(cubies, id_array)
+            rotate_up_cubies(cubies, id_array)
+            rotate_front_cubies(cubies, id_array)
+            rotate_front_cubies(cubies, id_array)
+
+        elif 7 == cubies[17].pos2[1]:
+            rotate_back_cubies(cubies, id_array)
+            rotate_back_cubies(cubies, id_array)
+            rotate_up_cubies(cubies, id_array)
+            rotate_up_cubies(cubies, id_array)
+            rotate_front_cubies(cubies, id_array)
+            rotate_front_cubies(cubies, id_array)
+
+    # insert cubie 22
+    # if cubie 22 is in the second layer
+    if is_in_layer(id_array, 2, 22):
+        temp = cubies[21].pos2[0]
+        if cubies[21].pos2[1] == 3:
+            rotate_by_side_idx(cubies, id_array, temp)
+        elif cubies[21].pos2[1] == 5:
+            rotate_prime_by_side_idx(cubies, id_array, temp)
+
+        while 7 != cubies[21].pos1[1]:
+            rotate_up_cubies(cubies, id_array)
+
+        rotate_front_cubies(cubies, id_array)
+        rotate_right_prime_cubies(cubies, id_array)
+        rotate_front_prime_cubies(cubies, id_array)
+
+        # if cubie 22 was at the front or left side, cubie 14 will be affected by the rotation, which has to be undone
+        while cubies[17].pos1[1] != 7:
+            rotate_front_cubies(cubies, id_array)
+
+        while cubies[13].pos1[1] != 7:
+            rotate_left_prime_cubies(cubies, id_array)
+
+    # if cubie 22 is in the first layer and the white face is not at the yellow side (up)
+    if is_in_layer(id_array, 1, 22) and cubies[21].pos2[0] != 0:
+        while 7 != cubies[21].pos1[1]:
+            rotate_up_cubies(cubies, id_array)
+
+        rotate_front_cubies(cubies, id_array)
+        rotate_right_prime_cubies(cubies, id_array)
+        rotate_front_prime_cubies(cubies, id_array)
+
+    # if cubie 22 is in the first layer and the white face is at the yellow side (up)
+    if cubies[21].pos2[0] == 0:
+        while 5 != cubies[21].pos2[1]:
             rotate_up_cubies(cubies, id_array)
 
         rotate_right_cubies(cubies, id_array)
