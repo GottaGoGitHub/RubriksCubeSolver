@@ -68,6 +68,11 @@ def actualize_cubie(cubies, id_array, temp_side, new_pos):
 
 # rotate the cubies
 
+# TODO: Rotationsfunktionen ueberarbeiten -> neuer Parameter, der die Rotationen
+# in einem Array speichert
+# TODO: Optimierungsalgorithmus fuer Sachen wie 3x front mit 1x front_prime ersetzen
+# etc. 
+
 # rotation-functions for rotating the whole cube
 def rotate_cube_right_cubies(cubies, id_array):
     downtemp0 = id_array[5][0]
@@ -379,6 +384,10 @@ def rotate_front_cubies(cubies, id_array):
 
 # "front" means the front part of the side of the cube etc.
 
+# TODO: Rotationsfunktionen ueberarbeiten -> neuer Parameter, der die Rotationen
+# in einem Array speichert
+# TODO: Optimierungsalgorithmus fuer Sachen wie 3x front mit 1x front_prime ersetzen
+# etc. 
 
 def rotate_front_prime_cubies(cubies, id_array):
     rotate_front_cubies(cubies, id_array)
