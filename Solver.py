@@ -138,6 +138,12 @@ def flip_orientation_of_edge_in_first_layer(cubies, id_array, index):
 
 def white_cross(cubies, id_array):
     # insert cubie 14
+    #
+    # When the cube is scrambled, the first necessary cubie can be in either the first,
+    # second or already in the thrid layer of the cube.
+    # First of all its checked in which of the three layers it is and then
+    # it will be correctly oriented brought to the third layer.
+    #
     if cubies[13].pos2[0] != 5:
         if is_in_layer(id_array, 3, 14):
             rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos2[0])
@@ -152,11 +158,18 @@ def white_cross(cubies, id_array):
             rotate_prime_by_side_idx(cubies, id_array, cubies[13].pos1[0])
 
     # rotate the down side until cubie 14 is at index 3
+    #
+    # Correcting the positioning, so that the following cubies will be in correct order
+    #
     while cubies[13].pos2[1] != 3:
         rotate_down_cubies(cubies, id_array)
 
     # insert cubie 18
-    # if cubie 18 is in second layer
+    #
+    # If cubie 18 is in the second layer it can be easily rotated down to the "white side"
+    # The already inserted cubie 14 shall be rotated if the rotation of cubie 18 would affect its
+    # positioning. Afterwards cubie 18 will be inserted in correct order.
+    #
     if is_in_layer(id_array, 2, 18):
         if id_array[cubies[17].pos1[0]][7] == cubies[13].id1:
             rotate_down_prime_cubies(cubies, id_array)
@@ -180,7 +193,14 @@ def white_cross(cubies, id_array):
 
             rotate_by_side_idx(cubies, id_array, cubies[17].pos1[0])
 
-    # if cubie 18 is in first layer but the white face is not at the yellow side
+    #
+    # If cubie 18 is in first layer but the "white face" is not at the "yellow side" (up):
+    #
+    # If the insertion of cubie 18 should affect the inserted cubie 14 it shall be inserted without
+    # removing the correct cubie. Else the cubie will be inserted by rotating the side with the white
+    # side of cubie 18, rotating down until its at the correct place and rotating side with the white
+    # side of cubie 18 yet again.
+    #
     if cubies[17].pos2[0] != 0 and is_in_layer(id_array, 1, 18):
         if id_array[cubies[17].pos1[0]][7] == cubies[13].id1:
             rotate_down_prime_cubies(cubies, id_array)
@@ -226,6 +246,9 @@ def white_cross(cubies, id_array):
         rotate_by_side_idx(cubies, id_array, cubies[17].pos1[0])
 
     # rotate the down side until cubie 14 is at index 3
+    #
+    # Correcting the positioning, so that the following cubies will be in correct order
+    #
     while cubies[13].pos2[1] != 3:
         rotate_down_cubies(cubies, id_array)
 
