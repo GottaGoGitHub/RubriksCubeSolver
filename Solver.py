@@ -37,9 +37,9 @@ def ruru(cubies, id_array):
 
 #   L U' L' U
 def lulu(cubies, id_array):
-    rotate_left_cubies(cubies, id_array)
-    rotate_up_prime_cubies(cubies, id_array)
     rotate_left_prime_cubies(cubies, id_array)
+    rotate_up_prime_cubies(cubies, id_array)
+    rotate_left_cubies(cubies, id_array)
     rotate_up_cubies(cubies, id_array)
 
 
@@ -401,3 +401,93 @@ def white_cross(cubies, id_array):
         rotate_cube_up_cubies(cubies, id_array)
         rotate_cube_up_cubies(cubies, id_array)
 
+
+def white_corners(cubies, id_array):
+
+    # insert cubie 15
+    # blue, red, white
+    if is_in_layer(id_array, 3, 15):
+        if id_array[5][2].rpartition("0")[0] == "15":
+            ruru(cubies, id_array)
+        
+        if id_array[5][6].rpartition("0")[0] == "15":
+            rotate_cube_right_cubies(cubies, id_array)
+            lulu(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+
+        if id_array[5][8].rpartition("0")[0] == "15":
+            rotate_cube_left_cubies(cubies, id_array)
+            ruru(cubies, id_array)
+            rotate_cube_right_cubies(cubies, id_array)
+
+        if id_array[5][0].rpartition("0")[0] == "15":
+            while not (id_array[4][8] == "1501" and id_array[1][6] == "1502" and id_array[5][0] == "1503"):
+                lulu(cubies, id_array)
+
+    
+    if is_in_layer(id_array, 1, 15):
+        while id_array[0][6].rpartition("0")[0] != "15":
+            rotate_up_cubies(cubies, id_array)
+
+        while not (id_array[4][8] == "1501" and id_array[1][6] == "1502" and id_array[5][0] == "1503"):
+            lulu(cubies, id_array)
+
+
+    # insert cubie 19
+    # red, green, white
+    if is_in_layer(id_array, 3, 19):
+        if id_array[5][6].rpartition("0")[0] == "19":
+            rotate_cube_right_cubies(cubies, id_array)
+            lulu(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+
+        if id_array[5][8].rpartition("0")[0] == "19":
+            rotate_cube_left_cubies(cubies, id_array)
+            ruru(cubies, id_array)
+            rotate_cube_right_cubies(cubies, id_array)
+
+        if id_array[5][2].rpartition("0")[0] == "19":
+            while not (id_array[1][8] == "1901" and id_array[2][6] == "1902" and id_array[5][2] == "1903"):
+                ruru(cubies, id_array)
+
+    if is_in_layer(id_array, 1, 19):
+        while id_array[0][8].rpartition("0")[0] != "19":
+            rotate_up_cubies(cubies, id_array)
+        
+        while not (id_array[1][8] == "1901" and id_array[2][6] == "1902" and id_array[5][2] == "1903"):
+                ruru(cubies, id_array)
+        
+
+    # insert cubie 23
+    # green, orange, white
+    rotate_cube_right_cubies(cubies, id_array)
+    rotate_cube_right_cubies(cubies, id_array)
+
+    if is_in_layer(id_array, 3, 23):
+        if id_array[5][2].rpartition("0")[0] == "23":
+            ruru(cubies, id_array)
+
+        if id_array[5][0].rpartition("0")[0] == "23":
+            while not (id_array[4][8] == "2301" and id_array[1][6] == "2302" and id_array[5][0] == "2303"):
+                lulu(cubies, id_array)
+
+    if is_in_layer(id_array, 1, 23):
+        while id_array[0][6].rpartition("0")[0] != "23":
+            rotate_up_cubies(cubies, id_array)
+
+        while not (id_array[4][8] == "2301" and id_array[1][6] == "2302" and id_array[5][0] == "2303"):
+            lulu(cubies, id_array)
+
+
+    # insert cubie 13
+    # blue, orange, white
+    if is_in_layer(id_array, 1, 13):
+        while id_array[0][8].rpartition("0")[0] != "13":
+            rotate_up_cubies(cubies, id_array)
+        
+    while not (id_array[1][8] == "1302" and id_array[2][6] == "1301" and id_array[5][2] == "1303"):
+            ruru(cubies, id_array)
+
+    
+    rotate_cube_right_cubies(cubies, id_array)
+    rotate_cube_right_cubies(cubies, id_array)
