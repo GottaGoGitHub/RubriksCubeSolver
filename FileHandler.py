@@ -1,9 +1,9 @@
 from cubies import *
 
 
-def import_cube_from_csv(filepath):
+def create_cubie_list_from_csv(filepath):
     """
-    imports a cube form a csv file
+    creates a list of cubies form a csv file
 
     the file consists of one header row (Line 1), 26 cubies with their values
     and an empty line (Line 28) and 14 columns whith data
@@ -34,6 +34,16 @@ def import_cube_from_csv(filepath):
 
     filehandler.close()
     return cubies
+
+
+def import_cube_from_csv(cubies_list, filepath):
+    """
+    imports a cube form a csv file and overwrites the cubies_list (existing cubie)
+    """
+    temp = create_cubie_list_from_csv(filepath)
+
+    for idx, item in enumerate(temp):
+        cubies_list[idx] = item
 
 
 def export_cube_to_csv(cubies_list, filepath):
