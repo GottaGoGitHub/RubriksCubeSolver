@@ -223,8 +223,10 @@ def white_cross(cubies, id_array):
                 rotate_down_cubies(cubies, id_array)
 
             rotate_prime_by_side_idx(cubies, id_array, cubies[17].pos1[0])
-
-    # if the white side of cubie 18 is on the yellow face
+    #
+    # if the white side of cubie 18 is on the yellow face, down will be rotated until
+    # the cubie can be inserted by two simple rotations of the side where the red face of cubie 18 is
+    #
     if 0 == cubies[17].pos2[0]:
         if 1 == cubies[17].pos2[1]:
             while cubies[13].pos2[1] != 5:
@@ -252,7 +254,11 @@ def white_cross(cubies, id_array):
     while cubies[13].pos2[1] != 3:
         rotate_down_cubies(cubies, id_array)
 
-    # if cubie 18 is in the third layer but the white face is not at the white side
+    #
+    # Cubie 18 can be easily inserted if it is in the third layer but the white
+    # face is not at the white side. With a few simple moves you can insert
+    # the cubie correctly oriented into its slot
+    #
     if 5 == cubies[17].pos1[0]:
         if 1 == cubies[17].pos1[1]:
             rotate_front_cubies(cubies, id_array)
@@ -270,7 +276,11 @@ def white_cross(cubies, id_array):
             rotate_right_cubies(cubies, id_array)
             rotate_down_prime_cubies(cubies, id_array)
 
+    #
     # if cubie 18 is in the third layer and the white face is at the white side
+    # then you need to correct its position and/or its orientation
+    # the position of cubie 14 can be ignored but should not be affected
+    #
     if 5 == cubies[17].pos2[0]:
         if 5 == cubies[17].pos2[1]:
             rotate_right_cubies(cubies, id_array)
@@ -287,8 +297,10 @@ def white_cross(cubies, id_array):
             rotate_front_cubies(cubies, id_array)
             rotate_front_cubies(cubies, id_array)
 
-# insert cubie 22
+    # insert cubie 22
     # if cubie 22 is in the second layer
+    # same as 18 but with corrections if 14 or 18 is affected
+    #
     if is_in_layer(id_array, 2, 22):
         temp = cubies[21].pos2[0]
         if cubies[21].pos2[1] == 3:
@@ -303,15 +315,18 @@ def white_cross(cubies, id_array):
         rotate_right_prime_cubies(cubies, id_array)
         rotate_front_prime_cubies(cubies, id_array)
 
+        #
         # if cubie 22 was at the front or left side, cubie 14 will be affected by the rotation, which has to be undone
+        #
         while cubies[17].pos1[1] != 7:
             rotate_front_cubies(cubies, id_array)
 
         while cubies[13].pos1[1] != 7:
             rotate_left_prime_cubies(cubies, id_array)
 
-
+    #
     # if cubie 22 is in the first layer and the white face is not at the yellow side (up)
+    #
     if is_in_layer(id_array, 1, 22) and cubies[21].pos2[0] != 0:
         while 7 != cubies[21].pos1[1]:
             rotate_up_cubies(cubies, id_array)
@@ -320,7 +335,9 @@ def white_cross(cubies, id_array):
         rotate_right_prime_cubies(cubies, id_array)
         rotate_front_prime_cubies(cubies, id_array)
 
+    #
     # if cubie 22 is in the first layer and the white face is at the yellow side (up)
+    #
     if cubies[21].pos2[0] == 0:
         while 5 != cubies[21].pos2[1]:
             rotate_up_cubies(cubies, id_array)
@@ -328,7 +345,9 @@ def white_cross(cubies, id_array):
         rotate_right_cubies(cubies, id_array)
         rotate_right_cubies(cubies, id_array)
 
+    #
     # if cubie 22 is in the thrid layer
+    #
     if is_in_layer(id_array, 3, 22):
         if cubies[21].pos2 == [3, 7]:
             rotate_back_cubies(cubies, id_array)
@@ -351,6 +370,7 @@ def white_cross(cubies, id_array):
 
     # insert cubie 25
     # if cubie 25 is in the second layer
+    #
     if is_in_layer(id_array, 2, 25):
         if cubies[24].pos1 == [3, 3]:
             rotate_back_prime_cubies(cubies, id_array)
@@ -375,7 +395,9 @@ def white_cross(cubies, id_array):
             rotate_back_cubies(cubies, id_array)
             rotate_back_cubies(cubies, id_array)
 
+    #
     # if cubie 25 is in the first layer and the white face is on the yellow side
+    #
     if cubies[24].pos2[0] == 0:
         while 1 != cubies[24].pos2[1]:
             rotate_up_cubies(cubies, id_array)
@@ -383,7 +405,9 @@ def white_cross(cubies, id_array):
         rotate_back_cubies(cubies, id_array)
         rotate_back_cubies(cubies, id_array)
 
+    #
     # if cubie 25 is in the first layer and the white face is not on the yellow side
+    #
     if is_in_layer(id_array, 1, 25) and cubies[24].pos2[0] != 0:
         while 1 != cubies[24].pos1[1]:
             rotate_up_cubies(cubies, id_array)
@@ -393,7 +417,9 @@ def white_cross(cubies, id_array):
         rotate_right_cubies(cubies, id_array)
         rotate_down_cubies(cubies, id_array)
 
+    #
     # if cubie 25 is already at the right spot but flipped
+    #
     if cubies[24].pos2 == [3, 7]:
         rotate_cube_up_cubies(cubies, id_array)
         rotate_cube_up_cubies(cubies, id_array)
@@ -403,13 +429,16 @@ def white_cross(cubies, id_array):
 
 
 def white_corners(cubies, id_array):
-
+    """
+    Inserts cubie 13, 15, 19 and 23 to their intended places.
+    """
     # insert cubie 15
     # blue, red, white
-    """
-    First we swap cubie 15 from 3rd layer in 1st layer.
-    There are 4 possibilities, where cubie 15 can be in the 3rd layer.
-    """
+    #
+    # First we swap cubie 15 from 3rd layer in 1st layer.
+    # There are 4 possibilities, where cubie 15 can be in the 3rd layer.
+    #
+
     if is_in_layer(id_array, 3, 15):
         if id_array[5][2].rpartition("0")[0] == "15":
             ruru(cubies, id_array)
@@ -429,13 +458,14 @@ def white_corners(cubies, id_array):
             while not (id_array[4][8] == "1501" and id_array[1][6] == "1502" and id_array[5][0] == "1503"):
                 lulu(cubies, id_array)
 
-    """
-    If cubie 15 is in the 1st layer, we rotate the up-side as long as 
-    cubie 15 is not directly over the position in 3rd layer, where it 
-    should be.
-    Then we use the "lulu"-algorithm to swap cubie 15 at it's right 
-    position. 
-    """
+    #
+    # If cubie 15 is in the 1st layer, we rotate the up-side as long as
+    # cubie 15 is not directly over the position in 3rd layer, where it
+    # should be.
+    # Then we use the "lulu"-algorithm to swap cubie 15 at it's right
+    # position.
+    #
+
     if is_in_layer(id_array, 1, 15):
         while id_array[0][6].rpartition("0")[0] != "15":
             rotate_up_cubies(cubies, id_array)
@@ -443,14 +473,13 @@ def white_corners(cubies, id_array):
         while not (id_array[4][8] == "1501" and id_array[1][6] == "1502" and id_array[5][0] == "1503"):
             lulu(cubies, id_array)
 
-
     # insert cubie 19
     # red, green, white
-    """
-    Now there are 3 possibilities where cubie 19 can be in the 3rd layer, 
-    because cubie 15 is already inserted correctly.
-    We swap cubie 19 from 3rd layer to 1st layer too.
-    """
+    #
+    # Now there are 3 possibilities where cubie 19 can be in the 3rd layer,
+    # because cubie 15 is already inserted correctly.
+    # We swap cubie 19 from 3rd layer to 1st layer too.
+    #
     if is_in_layer(id_array, 3, 19):
         if id_array[5][6].rpartition("0")[0] == "19":
             rotate_cube_right_cubies(cubies, id_array)
@@ -466,13 +495,13 @@ def white_corners(cubies, id_array):
             while not (id_array[1][8] == "1901" and id_array[2][6] == "1902" and id_array[5][2] == "1903"):
                 ruru(cubies, id_array)
 
-    """
-    If cubie 19 is in the 1st layer, we rotate the up-side as long as 
-    cubie 19 is not directly over the position in 3rd layer, where it 
-    should be.
-    Then we use the "ruru"-algorithm to swap cubie 19 at it's right 
-    position. 
-    """
+    #
+    # If cubie 19 is in the 1st layer, we rotate the up-side as long as
+    # cubie 19 is not directly over the position in 3rd layer, where it
+    # should be.
+    # Then we use the "ruru"-algorithm to swap cubie 19 at it's right
+    # position.
+    #
     if is_in_layer(id_array, 1, 19):
         while id_array[0][8].rpartition("0")[0] != "19":
             rotate_up_cubies(cubies, id_array)
@@ -483,13 +512,14 @@ def white_corners(cubies, id_array):
 
     # insert cubie 23
     # green, orange, white
-    """
-    Now there are 2 possibilities where cubie 23 can be in the 3rd layer, 
-    because cubie 15 and cubie 19 are already inserted correctly.
-    That we can use the "lulu" and "ruru"-algorithms, we have to rotate the
-    whole cube 2 times (rotate_cube_right_cubies()).
-    We swap cubie 23 from 3rd layer to 1st layer too.
-    """
+    #
+    # Now there are 2 possibilities where cubie 23 can be in the 3rd layer,
+    # because cubie 15 and cubie 19 are already inserted correctly.
+    # That we can use the "lulu" and "ruru"-algorithms, we have to rotate the
+    # whole cube 2 times (rotate_cube_right_cubies()).
+    # We swap cubie 23 from 3rd layer to 1st layer too.
+    #
+
     rotate_cube_right_cubies(cubies, id_array)
     rotate_cube_right_cubies(cubies, id_array)
 
@@ -501,13 +531,14 @@ def white_corners(cubies, id_array):
             while not (id_array[4][8] == "2301" and id_array[1][6] == "2302" and id_array[5][0] == "2303"):
                 lulu(cubies, id_array)
 
-    """
-    If cubie 23 is in the 1st layer, we rotate the up-side as long as 
-    cubie 23 is not directly over the position in 3rd layer, where it 
-    should be.
-    Then we use the "lulu"-algorithm to swap cubie 23 at it's right 
-    position. 
-    """
+    #
+    # If cubie 23 is in the 1st layer, we rotate the up-side as long as
+    # cubie 23 is not directly over the position in 3rd layer, where it
+    # should be.
+    # Then we use the "lulu"-algorithm to swap cubie 23 at it's right
+    # position.
+    #
+
     if is_in_layer(id_array, 1, 23):
         while id_array[0][6].rpartition("0")[0] != "23":
             rotate_up_cubies(cubies, id_array)
@@ -515,15 +546,15 @@ def white_corners(cubies, id_array):
         while not (id_array[4][8] == "2301" and id_array[1][6] == "2302" and id_array[5][0] == "2303"):
             lulu(cubies, id_array)
 
-
     # insert cubie 13
     # blue, orange, white
-    """
-    Now there is only 1 possibility left where cubie 13 can be in the 3rd layer, 
-    because cubie 15, cubie 19 and cubie 23 are already inserted correctly.
-    We swap cubie 13 from 3rd layer to 1st layer too.
-    Then we use the "ruru"-algorithm to swap cubie 13 at it's right position.
-    """
+    #
+    # Now there is only 1 possibility left where cubie 13 can be in the 3rd layer,
+    # because cubie 15, cubie 19 and cubie 23 are already inserted correctly.
+    # We swap cubie 13 from 3rd layer to 1st layer too.
+    # Then we use the "ruru"-algorithm to swap cubie 13 at it's right position.
+    #
+
     if is_in_layer(id_array, 1, 13):
         while id_array[0][8].rpartition("0")[0] != "13":
             rotate_up_cubies(cubies, id_array)
@@ -531,9 +562,10 @@ def white_corners(cubies, id_array):
     while not (id_array[1][8] == "1302" and id_array[2][6] == "1301" and id_array[5][2] == "1303"):
             ruru(cubies, id_array)
 
-    """
-    We have to rotate the whole cube 2 times again, that we are at the same
-    position like at the beginning again.
-    """
+    #
+    # We have to rotate the whole cube 2 times again, that we are at the same
+    # position like at the beginning again.
+    #
+
     rotate_cube_right_cubies(cubies, id_array)
     rotate_cube_right_cubies(cubies, id_array)
