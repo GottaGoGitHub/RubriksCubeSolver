@@ -174,4 +174,11 @@ def other_test():
 other_test_button = Button(root, text="White Cross", command=other_test)
 other_test_button.grid(row=12, column=1)
 
+def corner_test():
+    white_corners(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+
+corner_test_button = Button(root, text="White Corners", command=corner_test)
+corner_test_button.grid(row=12, column=2)
+
 root.mainloop()
