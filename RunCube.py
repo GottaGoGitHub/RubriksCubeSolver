@@ -24,9 +24,8 @@ window.grid(row=5, column=0, columnspan=5, sticky=W)
 
 
 # Creation of the cube
-
 cube = create_cube_hexomino(window, 45, 199)
-cubies_list = import_cube_from_csv("IMPORT.csv")
+cubies_list = create_cubie_list_from_csv("DEFAULT.csv")
 cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)
@@ -137,12 +136,12 @@ root.bind('<Right>', rotate_right_for_key)
 
 
 # Import and export of the cube
-def button_import_func():
-    cubies_list = import_cube_from_csv("IMPORT.csv")
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+def button_import_func(list_of_cubies):
+    import_cube_from_csv(list_of_cubies, "IMPORT.csv")
+    set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
 
 
-button_import = Button(root, text="Import", command=button_import_func)
+button_import = Button(root, text="Import", command=lambda: button_import_func(cubies_list))
 button_import.configure(width=5)
 button_import.grid(row=10, column=0, sticky=W)
 
@@ -174,9 +173,11 @@ def other_test():
 other_test_button = Button(root, text="White Cross", command=other_test)
 other_test_button.grid(row=12, column=1)
 
+
 def corner_test():
     white_corners(cubies_list, cubies_id)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
+
 
 corner_test_button = Button(root, text="White Corners", command=corner_test)
 corner_test_button.grid(row=12, column=2)
