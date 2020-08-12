@@ -62,7 +62,7 @@ def second_layer_left(cubies, id_array):
 
 
 #   F R U R' U' F'
-def top_cross(cubies, id_array):
+def fruruf(cubies, id_array):
     rotate_front_cubies(cubies, id_array)
     ruru(cubies, id_array)
     rotate_front_prime_cubies(cubies, id_array)
@@ -698,9 +698,73 @@ def second_layer(cubies, id_array):
     rotate_cube_right_cubies(cubies, id_array)
 
 
+def top_cross(cubies, id_array):
+    print("hi :D")
+
+    temp = False
+
+    yellow_ids = ["0201", "0401", "0601", "0801"]
+
+    # while not (id_array[0][1].rpartition("0")[2] == 1 and id_array[0][3].rpartition("0")[2] == 1 and
+    #            id_array[0][5].rpartition("0")[2] == 1 and id_array[0][7].rpartition("0")[2] == 1):
+
+    while not temp:
+
+        if (id_array[0][1] in yellow_ids and id_array[0][3] in yellow_ids and
+            id_array[0][5] in yellow_ids and id_array[0][7] in yellow_ids):
+            temp = True
+            break
+
+        temparray = [id_array[0][1].rpartition("0")[2], id_array[0][3].rpartition("0")[2],
+                        id_array[0][5].rpartition("0")[2], id_array[0][7].rpartition("0")[2]]
+
+        if not (id_array[0][1] in yellow_ids or id_array[0][3] in yellow_ids 
+                or id_array[0][5] in yellow_ids or id_array[0][7] in yellow_ids):
+            fruruf(cubies, id_array)
+
+        if temparray[0] == "1":
+            # L up
+            if temparray[3] != "1" and temparray[1] == "1":
+                fruruf(cubies, id_array)
+
+            # L down
+            if temparray[1] != "1" and temparray[2] == "1":
+                rotate_up_prime_cubies(cubies, id_array)
+                fruruf(cubies, id_array)
+
+            # line
+            if temparray[3] == "1":
+                rotate_up_cubies(cubies, id_array)
+                fruruf(cubies, id_array)
+                temp = True
+
+        if temparray[0] != "1":
+            # L 
+            if temparray[1] == "1" and temparray[3] == "1":
+                rotate_up_cubies(cubies, id_array)
+                fruruf(cubies, id_array)
+
+            if temparray[2] == "1" and temparray[3] == "1":
+                rotate_up_cubies(cubies, id_array)
+                rotate_up_cubies(cubies, id_array)
+                fruruf(cubies, id_array)
+                    
+            #line
+            if temparray[1] == "1" and temparray[2] == "1":
+                fruruf(cubies, id_array)
+                temp = True
 
 
+    # insert cubie 2
+    # yellow, orange
 
+    # insert cubie 4
+    # yellow, blue
 
+    # insert cubie 6
+    # yellow, green
+
+    # insert cubie 8
+    # yellow, red
 
 
