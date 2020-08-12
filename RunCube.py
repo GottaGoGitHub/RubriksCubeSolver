@@ -192,4 +192,13 @@ second_layer_test_button = Button(root, text="Second Layer", command=second_laye
 second_layer_test_button.grid(row=12, column=3)
 
 
+def top_cross_test():
+    top_cross(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+
+
+top_cross_test_button = Button(root, text="Top Cross", command=top_cross_test)
+top_cross_test_button.grid(row=12, column=4)
+
+
 root.mainloop()
