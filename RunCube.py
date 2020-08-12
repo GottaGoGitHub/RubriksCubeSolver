@@ -10,7 +10,7 @@ from Solver import *
 root = Tk()
 
 root.title("Rubik's Cube - Hexomino")
-root.geometry("510x700")
+root.geometry("700x900")
 
 
 # Setting font styles
@@ -199,6 +199,14 @@ def top_cross_test():
 
 top_cross_test_button = Button(root, text="Top Cross", command=top_cross_test)
 top_cross_test_button.grid(row=12, column=4)
+
+def correct_top_cross_test():
+    correct_top_cross(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+
+
+correct_top_cross_test_button = Button(root, text="Correct Top Cross", command=correct_top_cross_test)
+correct_top_cross_test_button.grid(row=12, column=5)
 
 
 root.mainloop()
