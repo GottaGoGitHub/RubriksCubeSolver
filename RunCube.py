@@ -182,4 +182,14 @@ def corner_test():
 corner_test_button = Button(root, text="White Corners", command=corner_test)
 corner_test_button.grid(row=12, column=2)
 
+
+def second_layer_test():
+    second_layer(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+
+
+second_layer_test_button = Button(root, text="Second Layer", command=second_layer_test)
+second_layer_test_button.grid(row=12, column=3)
+
+
 root.mainloop()
