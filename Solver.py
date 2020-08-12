@@ -35,7 +35,7 @@ def ruru(cubies, id_array):
     rotate_up_prime_cubies(cubies, id_array)
 
 
-#   L U' L' U
+#   L' U' L U
 def lulu(cubies, id_array):
     rotate_left_prime_cubies(cubies, id_array)
     rotate_up_prime_cubies(cubies, id_array)
@@ -47,16 +47,18 @@ def lulu(cubies, id_array):
 def second_layer_right(cubies, id_array):
     rotate_up_cubies(cubies, id_array)
     ruru(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
+    rotate_cube_left_cubies(cubies, id_array)
     lulu(cubies, id_array)
+    rotate_cube_right_cubies(cubies, id_array)
 
 
 #   U' L U' L' U y' R U R' U'
 def second_layer_left(cubies, id_array):
     rotate_up_prime_cubies(cubies, id_array)
     lulu(cubies, id_array)
-    rotate_cube_left_cubies(cubies, id_array)
+    rotate_cube_right_cubies(cubies, id_array)
     ruru(cubies, id_array)
+    rotate_cube_left_cubies(cubies, id_array)
 
 
 #   F R U R' U' F'
@@ -569,3 +571,136 @@ def white_corners(cubies, id_array):
 
     rotate_cube_right_cubies(cubies, id_array)
     rotate_cube_right_cubies(cubies, id_array)
+
+
+def second_layer(cubies, id_array):
+    # alle verbliebenen cubies mit 2 Farben, die NICHT gelb als Teilfarbe haben
+
+    # insert cubie 12
+    # blue, red
+    if is_in_layer(id_array, 2, 12):
+        if id_array[1][3] == "1201":
+            second_layer_left(cubies, id_array)
+
+        elif id_array[1][5].rpartition("0")[0] == "12":
+            second_layer_right(cubies, id_array)
+
+        elif id_array[3][3].rpartition("0")[0] == "12":
+            rotate_cube_left_cubies(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+            second_layer_left(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+
+        elif id_array[3][5].rpartition("0")[0] == "12":
+            rotate_cube_left_cubies(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+            second_layer_right(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+
+    if is_in_layer(id_array, 1, 12):
+        if cubies[11].pos1[0] == 0:
+            while not (id_array[0][7] == "1201"):
+                rotate_up_cubies(cubies, id_array)
+            second_layer_left(cubies, id_array)
+
+        else:
+            while not (id_array[0][3] == "1202"):
+                rotate_up_cubies(cubies, id_array)
+            rotate_cube_right_cubies(cubies, id_array)
+            second_layer_right(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+
+
+    # insert cubie 17
+    # red, green
+    if is_in_layer(id_array, 2, 17):
+        if id_array[1][5] == "1702":
+            print("if 1")
+            second_layer_right(cubies, id_array)
+
+        elif id_array[3][3].rpartition("0")[0] == "17":
+            rotate_cube_left_cubies(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+            second_layer_left(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+
+        elif id_array[3][5].rpartition("0")[0] == "17":
+            rotate_cube_left_cubies(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+            second_layer_right(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+
+
+    if is_in_layer(id_array, 1, 17):
+        if cubies[16].pos2[0] == 0:
+            while not (id_array[0][7] == "1702"):
+                rotate_up_cubies(cubies, id_array)
+            second_layer_right(cubies, id_array)
+
+        else:
+            while not (id_array[0][5] == "1701"):
+                rotate_up_cubies(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+            second_layer_left(cubies, id_array)
+            rotate_cube_right_cubies(cubies, id_array)
+
+
+    # insert cubie 21
+    # green, orange
+
+    rotate_cube_right_cubies(cubies, id_array)
+    rotate_cube_right_cubies(cubies, id_array)
+
+    if id_array[1][3] == "2101":
+        second_layer_left(cubies, id_array)
+
+    elif id_array[1][5].rpartition("0")[0] == "21":
+        second_layer_right(cubies, id_array)
+
+
+    if is_in_layer(id_array, 1, 21):
+        if cubies[20].pos1[0] == 0:
+            while not (id_array[0][7] == "2101"):
+                rotate_up_cubies(cubies, id_array)
+            second_layer_left(cubies, id_array)
+
+        else:
+            while not (id_array[0][3] == "2102"):
+                rotate_up_cubies(cubies, id_array)
+            rotate_cube_right_cubies(cubies, id_array)
+            second_layer_right(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+    
+
+    # insert cubie 10
+    # blue, orange
+
+    if id_array[1][5] == "1001":
+        second_layer_right(cubies, id_array)
+    
+    if cubies[9].pos1[0] == 0:
+        while not (id_array[0][7] == "1001"):
+            rotate_up_cubies(cubies, id_array)
+        second_layer_right(cubies, id_array)
+
+    else:
+        while not (id_array[0][5] == "1002"):
+            rotate_up_cubies(cubies, id_array)
+        rotate_cube_left_cubies(cubies, id_array)
+        second_layer_left(cubies, id_array)
+        rotate_cube_right_cubies(cubies, id_array)
+
+    rotate_cube_right_cubies(cubies, id_array)
+    rotate_cube_right_cubies(cubies, id_array)
+
+
+
+
+
+
+
+
