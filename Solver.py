@@ -699,8 +699,6 @@ def second_layer(cubies, id_array):
 
 
 def top_cross(cubies, id_array):
-    print("hi :D")
-
     temp = False
 
     yellow_ids = ["0201", "0401", "0601", "0801"]
@@ -755,6 +753,7 @@ def top_cross(cubies, id_array):
                 temp = True
 
 
+def correct_top_cross(cubies, id_array):
     # insert cubie 2
     # yellow, orange
 
@@ -766,5 +765,39 @@ def top_cross(cubies, id_array):
 
     # insert cubie 8
     # yellow, red
+
+    while not (id_array[0][1] == "0201"):
+        print("while not 1")
+        rotate_up_cubies(cubies, id_array)
+
+    while not (id_array[0][3] == "0401" and id_array[0][5] == "0601" and id_array[0][7] == "0801"):
+        print("while not 2")
+
+        if id_array[0][7] == "0801":
+            correct_front(cubies, id_array)
+
+        elif id_array[0][3] == "0401":
+            rotate_cube_right_cubies(cubies, id_array)
+            correct_front(cubies, id_array)
+            rotate_cube_left_cubies(cubies, id_array)
+
+        elif id_array[0][5] == "0601": 
+            correct_front(cubies, id_array)
+
+        elif id_array[0][3] == "0801" and id_array[0][5] == "0401":
+            rotate_up_prime_cubies(cubies, id_array)
+            rotate_up_prime_cubies(cubies, id_array)
+            correct_front(cubies, id_array)
+
+        elif id_array[0][3] == "0601" and id_array[0][5] == "0801":
+            rotate_up_cubies(cubies, id_array)
+            correct_front(cubies, id_array)
+
+        while not (id_array[0][1] == "0201"):
+            print("while not 3")
+            rotate_up_cubies(cubies, id_array)
+        
+
+    
 
 
