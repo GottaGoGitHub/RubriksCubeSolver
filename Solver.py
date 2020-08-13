@@ -81,15 +81,15 @@ def correct_front(cubies, id_array):
 
 
 #   U R U' L U R' U' L'
-def sort_corners(cubies, id_array):
+def sort_corners_algorithm(cubies, id_array):
     rotate_up_cubies(cubies, id_array)
     rotate_right_cubies(cubies, id_array)
     rotate_up_prime_cubies(cubies, id_array)
-    rotate_left_cubies(cubies, id_array)
+    rotate_left_prime_cubies(cubies, id_array)
     rotate_up_cubies(cubies, id_array)
     rotate_right_prime_cubies(cubies, id_array)
     rotate_up_prime_cubies(cubies, id_array)
-    rotate_left_prime_cubies(cubies, id_array)
+    rotate_left_cubies(cubies, id_array)
 
 
 def is_in_layer(id_array, layer, cubie_name):
@@ -767,11 +767,9 @@ def correct_top_cross(cubies, id_array):
     # yellow, red
 
     while not (id_array[0][1] == "0201"):
-        print("while not 1")
         rotate_up_cubies(cubies, id_array)
 
     while not (id_array[0][3] == "0401" and id_array[0][5] == "0601" and id_array[0][7] == "0801"):
-        print("while not 2")
 
         if id_array[0][7] == "0801":
             correct_front(cubies, id_array)
@@ -794,10 +792,40 @@ def correct_top_cross(cubies, id_array):
             correct_front(cubies, id_array)
 
         while not (id_array[0][1] == "0201"):
-            print("while not 3")
             rotate_up_cubies(cubies, id_array)
         
 
-    
+def sort_corners(cubies, id_array):
+    # sort the last 4 corners (cubies 1, 7, 9, 3)
 
+    # check if cubie 1 is at right position
+    cubie_1_right = id_array[0][0].rpartition("0")[0] == "01"
+    cubie_3_right = id_array[0][2].rpartition("0")[0] == "03"
+    cubie_7_right = id_array[0][6].rpartition("0")[0] == "07"
+    cubie_9_right = id_array[0][8].rpartition("0")[0] == "09"
+    corners_right = False
+
+    if not (cubie_1_right and cubie_3_right and cubie_7_right and cubie_9_right):
+        if cubie_1_right:
+            rotate_cube_right_cubies(cubies, id_array)
+            rotate_cube_right_cubies(cubies, id_array)
+
+        elif cubie_3_right:
+            rotate_cube_left_cubies(cubies, id_array)
+
+        elif cubie_7_right:
+            rotate_cube_right_cubies(cubies, id_array)
+
+        while not (corners_right):
+            sort_corners_algorithm(cubies, id_array)
+
+            corners = [id_array[0][0].rpartition("0")[0], id_array[0][2].rpartition("0")[0], 
+                       id_array[0][8].rpartition("0")[0], id_array[0][6].rpartition("0")[0]]
+
+            if (corners == ["01", "03", "09", "07"] or corners == ["03", "09", "07", "01"] 
+                or corners == ["09", "07", "01", "03"] or corners == ["07", "01", "03", "09"]):
+                corners_right = True
+
+        while not (id_array[0][7] == "0801"):
+            rotate_cube_right_cubies(cubies, id_array)
 
