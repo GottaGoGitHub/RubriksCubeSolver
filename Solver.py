@@ -617,7 +617,6 @@ def second_layer(cubies, id_array):
     # red, green
     if is_in_layer(id_array, 2, 17):
         if id_array[1][5] == "1702":
-            print("if 1")
             second_layer_right(cubies, id_array)
 
         elif id_array[3][3].rpartition("0")[0] == "17":
@@ -831,7 +830,7 @@ def sort_corners(cubies, id_array):
 
 
 def correct_corners(cubies, id_array):
-    
+
     rotate_cube_up_cubies(cubies, id_array)
     rotate_cube_up_cubies(cubies, id_array)
 
