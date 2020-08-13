@@ -829,3 +829,32 @@ def sort_corners(cubies, id_array):
         while not (id_array[0][7] == "0801"):
             rotate_cube_right_cubies(cubies, id_array)
 
+
+def correct_corners(cubies, id_array):
+    
+    rotate_cube_up_cubies(cubies, id_array)
+    rotate_cube_up_cubies(cubies, id_array)
+
+    while not (id_array[5][2] == "0301" and id_array[2][6] == "0302" and id_array[1][8] == "0303"):
+        ruru(cubies, id_array)
+
+    rotate_down_cubies(cubies, id_array)
+
+    while not (id_array[5][2] == "0101" and id_array[2][6] == "0103" and id_array[1][8] == "0102"):
+        ruru(cubies, id_array)
+
+    rotate_down_cubies(cubies, id_array)
+
+    while not (id_array[5][2] == "0701" and id_array[2][6] == "0702" and id_array[1][8] == "0703"):
+        ruru(cubies, id_array)
+
+    rotate_down_cubies(cubies, id_array)
+
+    while not (id_array[5][2] == "0901" and id_array[2][6] == "0902" and id_array[1][8] == "0903"):
+        ruru(cubies, id_array)
+
+    while not (id_array[5][0] == "0101"):
+        rotate_down_cubies(cubies, id_array)
+
+    rotate_cube_up_cubies(cubies, id_array)
+    rotate_cube_up_cubies(cubies, id_array)
