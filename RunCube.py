@@ -209,4 +209,13 @@ correct_top_cross_test_button = Button(root, text="Correct Top Cross", command=c
 correct_top_cross_test_button.grid(row=12, column=5)
 
 
+def sort_corners_test():
+    sort_corners(cubies_list, cubies_id)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+
+
+sort_corners_test_button = Button(root, text="Sort Corners", command=sort_corners_test)
+sort_corners_test_button.grid(row=12, column=6)
+
+
 root.mainloop()
