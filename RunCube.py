@@ -30,6 +30,9 @@ cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)
 
+# initialize array for every step of rotation
+scramble_rotations = []
+rotations = [] 
 
 # Generating the prompt in the upper right hand corner.
 generate_prompt(window, text_font, text_font_bold)
@@ -157,7 +160,9 @@ button_export.grid(row=10, column=0, sticky=E)
 
 # TEST BUTTON
 def button_test_func():
-    scramble(cubies_list, cubies_id)
+    scramble(cubies_list, cubies_id, scramble_rotations)
+    print("scramble")
+    print(scramble_rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -166,7 +171,7 @@ test_button.grid(row=12, column=0)
 
 
 def other_test():
-    white_cross(cubies_list, cubies_id)
+    white_cross(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -175,7 +180,7 @@ other_test_button.grid(row=12, column=1)
 
 
 def corner_test():
-    white_corners(cubies_list, cubies_id)
+    white_corners(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -184,7 +189,7 @@ corner_test_button.grid(row=12, column=2)
 
 
 def second_layer_test():
-    second_layer(cubies_list, cubies_id)
+    second_layer(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -193,7 +198,7 @@ second_layer_test_button.grid(row=12, column=3)
 
 
 def top_cross_test():
-    top_cross(cubies_list, cubies_id)
+    top_cross(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -202,7 +207,7 @@ top_cross_test_button.grid(row=12, column=4)
 
 
 def correct_top_cross_test():
-    correct_top_cross(cubies_list, cubies_id)
+    correct_top_cross(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -211,7 +216,7 @@ correct_top_cross_test_button.grid(row=12, column=5)
 
 
 def sort_corners_test():
-    sort_corners(cubies_list, cubies_id)
+    sort_corners(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -220,12 +225,34 @@ sort_corners_test_button.grid(row=12, column=6)
 
 
 def correct_corners_test():
-    correct_corners(cubies_list, cubies_id)
+    correct_corners(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 correct_corners_test_button = Button(root, text="Correct Corners", command=correct_corners_test)
 correct_corners_test_button.grid(row=12, column=7)
+
+
+def rotations_test():
+    # rotate_cube_right_cubies(cubies_list, cubies_id, rotations)
+    rotate_by_side_idx(cubies_list, cubies_id, 2, rotations)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    print(rotations)
+
+
+rotations_test_button = Button(root, text="Rotation Array", command=rotations_test)
+rotations_test_button.grid(row=12, column=8)
+
+
+def solve_cube_test():
+    solve_cube(cubies_list, cubies_id, rotations)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    print("solve")
+    print(rotations)
+
+
+solve_cube_test_button = Button(root, text="Solve", command=solve_cube_test)
+solve_cube_test_button.grid(row=13, column=2)
 
 
 root.mainloop()
