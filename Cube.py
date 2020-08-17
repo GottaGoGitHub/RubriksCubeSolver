@@ -74,7 +74,7 @@ def actualize_cubie(cubies, id_array, temp_side, new_pos):
 # etc. 
 
 # rotation-functions for rotating the whole cube
-def rotate_cube_right_cubies(cubies, id_array):
+def rotate_cube_right_cubies(cubies, id_array, rotations):
     downtemp0 = id_array[5][0]
     downtemp1 = id_array[5][1]
     downtemp2 = id_array[5][2]
@@ -195,14 +195,21 @@ def rotate_cube_right_cubies(cubies, id_array):
     actualize_cubie(cubies, id_array, backtemp7, [4, 7])
     actualize_cubie(cubies, id_array, backtemp8, [4, 8])
 
-
-def rotate_cube_left_cubies(cubies, id_array):
-    rotate_cube_right_cubies(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
+    rotations.append("x")
 
 
-def rotate_cube_up_cubies(cubies, id_array):
+def rotate_cube_left_cubies(cubies, id_array, rotations):
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("x'")
+
+
+def rotate_cube_up_cubies(cubies, id_array, rotations):
     downtemp0 = id_array[5][0]
     downtemp1 = id_array[5][1]
     downtemp2 = id_array[5][2]
@@ -323,14 +330,32 @@ def rotate_cube_up_cubies(cubies, id_array):
     actualize_cubie(cubies, id_array, downtemp7, [1, 7])
     actualize_cubie(cubies, id_array, downtemp8, [1, 8])
 
-
-def rotate_cube_down_cubies(cubies, id_array):
-    rotate_cube_up_cubies(cubies, id_array)
-    rotate_cube_up_cubies(cubies, id_array)
-    rotate_cube_up_cubies(cubies, id_array)
+    rotations.append("y")
 
 
-def rotate_front_cubies(cubies, id_array):
+def rotate_cube_down_cubies(cubies, id_array, rotations):
+    rotate_cube_up_cubies(cubies, id_array, rotations)
+    rotate_cube_up_cubies(cubies, id_array, rotations)
+    rotate_cube_up_cubies(cubies, id_array, rotations)
+
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("y'")
+
+
+# ---------------------------------------------------------------------------#
+# rotations of parts of the cube
+
+# "front" means the front part of the side of the cube etc.
+
+# TODO: Rotationsfunktionen ueberarbeiten -> neuer Parameter, der die Rotationen
+# in einem Array speichert
+# TODO: Optimierungsalgorithmus fuer Sachen wie 3x front mit 1x front_prime ersetzen
+# etc. 
+
+
+def rotate_front_cubies(cubies, id_array, rotations):
     # temp values (identifier)
     fronttemp0 = id_array[1][0]
     fronttemp1 = id_array[1][1]
@@ -377,115 +402,164 @@ def rotate_front_cubies(cubies, id_array):
     actualize_cubie(cubies, id_array, untentemp2, [4, 5])
     actualize_cubie(cubies, id_array, untentemp3, [4, 8])
 
+    rotations.append("F")
 
 
-# ---------------------------------------------------------------------------#
-# rotations of parts of the cube
+def rotate_front_prime_cubies(cubies, id_array, rotations):
+    rotate_front_cubies(cubies, id_array, rotations)
+    rotate_front_cubies(cubies, id_array, rotations)
+    rotate_front_cubies(cubies, id_array, rotations)
 
-# "front" means the front part of the side of the cube etc.
-
-# TODO: Rotationsfunktionen ueberarbeiten -> neuer Parameter, der die Rotationen
-# in einem Array speichert
-# TODO: Optimierungsalgorithmus fuer Sachen wie 3x front mit 1x front_prime ersetzen
-# etc. 
-
-def rotate_front_prime_cubies(cubies, id_array):
-    rotate_front_cubies(cubies, id_array)
-    rotate_front_cubies(cubies, id_array)
-    rotate_front_cubies(cubies, id_array)
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("F'")
     
 
-def rotate_right_cubies(cubies, id_array):
-    rotate_cube_left_cubies(cubies, id_array)
-    rotate_front_cubies(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
+def rotate_right_cubies(cubies, id_array, rotations):
+    rotate_cube_left_cubies(cubies, id_array, rotations)
+    rotate_front_cubies(cubies, id_array, rotations)
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("R")
 
 
-def rotate_right_prime_cubies(cubies, id_array):
-    rotate_cube_left_cubies(cubies, id_array)
-    rotate_front_prime_cubies(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
+def rotate_right_prime_cubies(cubies, id_array, rotations):
+    rotate_cube_left_cubies(cubies, id_array, rotations)
+    rotate_front_prime_cubies(cubies, id_array, rotations)
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("R'")
 
 
-def rotate_left_cubies(cubies, id_array):
-    rotate_cube_right_cubies(cubies, id_array)
-    rotate_front_cubies(cubies, id_array)
-    rotate_cube_left_cubies(cubies, id_array)
+def rotate_left_cubies(cubies, id_array, rotations):
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    rotate_front_cubies(cubies, id_array, rotations)
+    rotate_cube_left_cubies(cubies, id_array, rotations)
+
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("L")
 
 
-def rotate_left_prime_cubies(cubies, id_array):
-    rotate_cube_right_cubies(cubies, id_array)
-    rotate_front_prime_cubies(cubies, id_array)
-    rotate_cube_left_cubies(cubies, id_array)
+def rotate_left_prime_cubies(cubies, id_array, rotations):
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    rotate_front_prime_cubies(cubies, id_array, rotations)
+    rotate_cube_left_cubies(cubies, id_array, rotations)
+
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("L'")
 
 
-def rotate_back_cubies(cubies, id_array):
-    rotate_cube_right_cubies(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
-    rotate_front_cubies(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
+def rotate_back_cubies(cubies, id_array, rotations):
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    rotate_front_cubies(cubies, id_array, rotations)
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("B")
 
 
-def rotate_back_prime_cubies(cubies, id_array):
-    rotate_cube_right_cubies(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
-    rotate_front_prime_cubies(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
-    rotate_cube_right_cubies(cubies, id_array)
+def rotate_back_prime_cubies(cubies, id_array, rotations):
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    rotate_front_prime_cubies(cubies, id_array, rotations)
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+    rotate_cube_right_cubies(cubies, id_array, rotations)
+
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("B'")
 
 
-def rotate_up_cubies(cubies, id_array):
-    rotate_cube_down_cubies(cubies, id_array)
-    rotate_front_cubies(cubies, id_array)
-    rotate_cube_up_cubies(cubies, id_array)
+def rotate_up_cubies(cubies, id_array, rotations):
+    rotate_cube_down_cubies(cubies, id_array, rotations)
+    rotate_front_cubies(cubies, id_array, rotations)
+    rotate_cube_up_cubies(cubies, id_array, rotations)
+
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("U")
 
 
-def rotate_up_prime_cubies(cubies, id_array):
-    rotate_cube_down_cubies(cubies, id_array)
-    rotate_front_prime_cubies(cubies, id_array)
-    rotate_cube_up_cubies(cubies, id_array)
+def rotate_up_prime_cubies(cubies, id_array, rotations):
+    rotate_cube_down_cubies(cubies, id_array, rotations)
+    rotate_front_prime_cubies(cubies, id_array, rotations)
+    rotate_cube_up_cubies(cubies, id_array, rotations)
+
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("U'")
+
+def rotate_down_cubies(cubies, id_array, rotations):
+    rotate_cube_up_cubies(cubies, id_array, rotations)
+    rotate_front_cubies(cubies, id_array, rotations)
+    rotate_cube_down_cubies(cubies, id_array, rotations)
+
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("D")
 
 
-def rotate_down_cubies(cubies, id_array):
-    rotate_cube_up_cubies(cubies, id_array)
-    rotate_front_cubies(cubies, id_array)
-    rotate_cube_down_cubies(cubies, id_array)
+def rotate_down_prime_cubies(cubies, id_array, rotations):
+    rotate_cube_up_cubies(cubies, id_array, rotations)
+    rotate_front_prime_cubies(cubies, id_array, rotations)
+    rotate_cube_down_cubies(cubies, id_array, rotations)
 
-
-def rotate_down_prime_cubies(cubies, id_array):
-    rotate_cube_up_cubies(cubies, id_array)
-    rotate_front_prime_cubies(cubies, id_array)
-    rotate_cube_down_cubies(cubies, id_array)
+    del rotations[-1]
+    del rotations[-1]
+    del rotations[-1]
+    rotations.append("D'")
 
 # ________________________________________________________________________________________________________#
 
 
-def rotate_by_side_idx(cubies, id_array, side_idx):
+def rotate_by_side_idx(cubies, id_array, side_idx, rotations):
     if 0 == side_idx:
-        rotate_up_cubies(cubies, id_array)
+        rotate_up_cubies(cubies, id_array, rotations)
     if 1 == side_idx:
-        rotate_front_cubies(cubies, id_array)
+        rotate_front_cubies(cubies, id_array, rotations)
     if 2 == side_idx:
-        rotate_right_cubies(cubies, id_array)
+        rotate_right_cubies(cubies, id_array, rotations)
     if 3 == side_idx:
-        rotate_back_cubies(cubies, id_array)
+        rotate_back_cubies(cubies, id_array, rotations)
     if 4 == side_idx:
-        rotate_left_cubies(cubies, id_array)
+        rotate_left_cubies(cubies, id_array, rotations)
     if 5 == side_idx:
-        rotate_down_cubies(cubies, id_array)
+        rotate_down_cubies(cubies, id_array, rotations)
 
 
-def rotate_prime_by_side_idx(cubies, id_array, side_idx):
+def rotate_prime_by_side_idx(cubies, id_array, side_idx, rotations):
     if 0 == side_idx:
-        rotate_up_prime_cubies(cubies, id_array)
+        rotate_up_prime_cubies(cubies, id_array, rotations)
     if 1 == side_idx:
-        rotate_front_prime_cubies(cubies, id_array)
+        rotate_front_prime_cubies(cubies, id_array, rotations)
     if 2 == side_idx:
-        rotate_right_prime_cubies(cubies, id_array)
+        rotate_right_prime_cubies(cubies, id_array, rotations)
     if 3 == side_idx:
-        rotate_back_prime_cubies(cubies, id_array)
+        rotate_back_prime_cubies(cubies, id_array, rotations)
     if 4 == side_idx:
-        rotate_left_prime_cubies(cubies, id_array)
+        rotate_left_prime_cubies(cubies, id_array, rotations)
     if 5 == side_idx:
-        rotate_down_prime_cubies(cubies, id_array)
+        rotate_down_prime_cubies(cubies, id_array, rotations)
