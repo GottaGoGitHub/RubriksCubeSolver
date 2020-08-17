@@ -4,6 +4,7 @@ from Cube import *
 from GUI import *
 from FileHandler import *
 from Solver import *
+from Optimize import *
 
 # Creating the workspace
 # root is the whole working space; it defines the properties of the popup
@@ -249,10 +250,30 @@ def solve_cube_test():
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
     print("solve")
     print(rotations)
+    # optimize_solver(rotations)
+    # print(rotations)
 
 
 solve_cube_test_button = Button(root, text="Solve", command=solve_cube_test)
 solve_cube_test_button.grid(row=13, column=2)
 
+
+def optimize_solve_cube_test():
+    optimize_solver(rotations)
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    print("optimize")
+    print(rotations)
+
+
+optimize_solve_cube_test_button = Button(root, text="Optimize", command=optimize_solve_cube_test)
+optimize_solve_cube_test_button.grid(row=13, column=3)
+
+def temp_test():
+    test_function()
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    print("TEST")
+
+temp_test_button = Button(root, text="TEST", command=temp_test)
+temp_test_button.grid(row=13, column=4)
 
 root.mainloop()
