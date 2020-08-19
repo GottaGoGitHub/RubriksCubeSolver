@@ -1,4 +1,5 @@
 from CubeMesh import *
+from itertools import permutations
 
 
 def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
@@ -127,6 +128,77 @@ def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
 
         # Deleting answer 2 for better user experience
         answer2.delete(0, END)
+
+
+def actualize_id_array(cubies, id_array, colors):
+    cubies_positions = []
+
+    for item in cubies:
+        if item.number == 2:
+            temp = [item.pos1, item.pos2]
+            cubies_positions.append(temp)
+
+        if item.number == 3:
+            temp = [item.pos1, item.pos2, item.pos3]
+            cubies_positions.append(temp)
+
+    print("pos", cubies_positions)
+
+    for item in cubies_positions:
+        temp_colors = []
+
+        for pos in item:
+            temp_colors.append(colors[pos[0]][pos[1]])
+
+        perm_temp_colors = permutations(temp_colors)
+        perm_temp_colors_list = []
+
+        for i in perm_temp_colors:
+            perm_temp_colors_list.append(list(i))
+
+        for cubie in cubies:           
+
+            print(cubie.name)
+            print(cubie.colors)
+            print(temp_colors)
+
+            if cubie.colors in perm_temp_colors_list and len(temp_colors) == len(cubie.colors):
+                for i, element in enumerate(temp_colors):
+                    print("for 221")
+                    if element == cubie.color1:
+                        cubie.pos1 = item[i]
+                        print(id_array[item[i][0]][item[i][1]])
+                        id_array[item[i][0]][item[i][1]] = cubie.id1
+                        print(id_array[item[i][0]][item[i][1]])
+                        print("if 1")
+                        print("item[i]: ", item[i])
+                        print("pos1: ", cubie.pos1)
+                        print("id1: ", cubie.id1)
+
+                    elif element == cubie.color2:
+                        cubie.pos2 = item[i]
+                        print(id_array[item[i][0]][item[i][1]])
+                        id_array[item[i][0]][item[i][1]] = cubie.id2
+                        print(id_array[item[i][0]][item[i][1]])
+                        print("if 2")
+                        print("item[i]: ", item[i])
+                        print("pos2: ", cubie.pos2)
+                        print("id2: ", cubie.id2)
+
+                    elif element == cubie.color3:
+                        cubie.pos3 = item[i]
+                        print(id_array[item[i][0]][item[i][1]])
+                        id_array[item[i][0]][item[i][1]] = cubie.id3
+                        print(id_array[item[i][0]][item[i][1]])
+                        print("if 3")
+                        print("item[i]: ", item[i])
+                        print("pos3: ", cubie.pos3)
+                        print("id3: ", cubie.id3)
+
+
+
+
+
 
 
 def generate_prompt(window, font1, font2):

@@ -21,3 +21,16 @@ class Cubie:
         self.color3 = color3
         self.pos3 = pos3
         self.id3 = id3
+        self.colors = []
+
+        if number == 1:
+            self.colors.append(color1)
+
+        if number == 2:
+            self.colors.append(color1)
+            self.colors.append(color2)
+
+        if number == 3:
+            self.colors.append(color1)
+            self.colors.append(color2)
+            self.colors.append(color3)

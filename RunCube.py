@@ -11,7 +11,7 @@ from Optimize import *
 root = Tk()
 
 root.title("Rubik's Cube - Hexomino")
-root.geometry("700x900")
+root.geometry("1000x900")
 
 
 # Setting font styles
@@ -20,16 +20,36 @@ text_font_bold = Font(family="Times New Roman", size=10, weight="bold")
 
 
 # window defines the canvas on which the hexomino will be drawn
-window = Canvas(root, width=500, height=500, bg="grey")
+window = Canvas(root, width=1000, height=500, bg="grey")
 window.grid(row=5, column=0, columnspan=5, sticky=W)
 
 
 # Creation of the cube
 cube = create_cube_hexomino(window, 45, 199)
-cubies_list = create_cubie_list_from_csv("DEFAULT.csv")
+cubies_list = create_cubie_list_from_csv("EXPORT.csv")
 cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)
+
+
+# Creation of a second cube, where we should drag&drop the
+# cubies at the end
+drag_cube = create_cube_hexomino(window, 550, 199)
+drag_cubies_list = create_cubie_list_from_csv("IMPORT.csv")
+drag_cubies_id = get_id_from_cubies(drag_cubies_list)
+drag_cubies_colors = get_colors_from_cubies(drag_cubies_list)
+set_colors(window, drag_cubies_colors, drag_cube)
+
+# submit input 
+def submit_test():
+    cubies_colors2 = get_colors_from_cubies(cubies_list)
+    print(cubies_colors2)
+    actualize_id_array(cubies_list, cubies_id, cubies_colors2)
+    print(cubies_id)
+
+submit_test_button = Button(root, text="SUBMIT", command=submit_test)
+submit_test_button.grid(row=14, column=1) 
+
 
 # initialize array for every step of rotation
 scramble_rotations = []
@@ -67,7 +87,7 @@ answer2.bind("<Return>", press_enter)
 
 # Creating the Rotation buttons
 def rotate_up_for_button():
-    rotate_cube_up_cubies(cubies_list, cubies_id)
+    rotate_cube_up_cubies(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -77,7 +97,7 @@ button_rotate_up.grid(row=6, column=2, sticky=S)
 
 
 def rotate_down_for_button():
-    rotate_cube_down_cubies(cubies_list, cubies_id)
+    rotate_cube_down_cubies(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -87,7 +107,7 @@ button_rotate_down.grid(row=8, column=2, sticky=N)
 
 
 def rotate_left_for_button():
-    rotate_cube_left_cubies(cubies_list, cubies_id)
+    rotate_cube_left_cubies(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -97,7 +117,7 @@ button_rotate_left.grid(row=7, column=1, sticky=E)
 
 
 def rotate_right_for_button():
-    rotate_cube_right_cubies(cubies_list, cubies_id)
+    rotate_cube_right_cubies(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -108,7 +128,7 @@ button_rotate_right.grid(row=7, column=3, sticky=W)
 
 # Binding the arrow key to the corresponding rotation
 def rotate_up_for_key(event):
-    rotate_cube_up_cubies(cubies_list, cubies_id)
+    rotate_cube_up_cubies(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -116,7 +136,7 @@ root.bind('<Up>', rotate_up_for_key)
 
 
 def rotate_down_for_key(event):
-    rotate_cube_down_cubies(cubies_list, cubies_id)
+    rotate_cube_down_cubies(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -124,7 +144,7 @@ root.bind('<Down>', rotate_down_for_key)
 
 
 def rotate_left_for_key(event):
-    rotate_cube_left_cubies(cubies_list, cubies_id)
+    rotate_cube_left_cubies(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -132,11 +152,20 @@ root.bind('<Left>', rotate_left_for_key)
 
 
 def rotate_right_for_key(event):
-    rotate_cube_left_cubies(cubies_list, cubies_id)
+    rotate_cube_left_cubies(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 root.bind('<Right>', rotate_right_for_key)
+
+# TODO: function which should at the end drag&drop the cubies
+# at the moment: if clicking the mouse it does the 
+# rotate_right_function()
+def click_something(event):
+    rotate_right_cubies(drag_cubies_list, drag_cubies_id, rotations)
+    set_colors(window, get_colors_from_cubies(drag_cubies_list), drag_cube)
+
+root.bind('<B1-Motion>', click_something)
 
 
 # Import and export of the cube
