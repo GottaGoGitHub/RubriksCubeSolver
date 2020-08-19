@@ -349,9 +349,6 @@ def rotate_cube_down_cubies(cubies, id_array, rotations):
 
 # "front" means the front part of the side of the cube etc.
 
-# TODO: Optimierungsalgorithmus fuer Sachen wie 3x front mit 1x front_prime ersetzen
-# etc. 
-
 
 def rotate_front_cubies(cubies, id_array, rotations):
     # temp values (identifier)

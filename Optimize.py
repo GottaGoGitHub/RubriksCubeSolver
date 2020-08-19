@@ -165,3 +165,13 @@ def test_function():
 
 def optimize_for_robot(rotations):
     print("hi")
+
+    # if cases:
+    # x, x', xx, xx' 
+    # y, y', yy, yy'
+    # xy, yx, x'y, yx', xy', y'x, x'y', y'x'
+
+def cases_for_robot(rotations):
+    print(":(")
+
+    
