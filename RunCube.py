@@ -26,30 +26,18 @@ window.grid(row=5, column=0, columnspan=5, sticky=W)
 
 # Creation of the cube
 cube = create_cube_hexomino(window, 45, 199)
-cubies_list = create_cubie_list_from_csv("EXPORT.csv")
+cubies_list = create_cubie_list_from_csv("IMPORT_EXAMPLE.csv")
 cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)
 
 
-# Creation of a second cube, where we should drag&drop the
-# cubies at the end
-drag_cube = create_cube_hexomino(window, 550, 199)
-drag_cubies_list = create_cubie_list_from_csv("IMPORT.csv")
-drag_cubies_id = get_id_from_cubies(drag_cubies_list)
-drag_cubies_colors = get_colors_from_cubies(drag_cubies_list)
-set_colors(window, drag_cubies_colors, drag_cube)
-
-# submit input 
-def submit_test():
-    cubies_colors2 = get_colors_from_cubies(cubies_list)
-    print(cubies_colors2)
-    actualize_id_array(cubies_list, cubies_id, cubies_colors2)
-    print(cubies_id)
-
-submit_test_button = Button(root, text="SUBMIT", command=submit_test)
-submit_test_button.grid(row=14, column=1) 
-
+# Creation of a second cube, which is supposed to be solved
+solved_cube = create_cube_hexomino(window, 550, 199)
+solved_cubies_list = create_cubie_list_from_csv("IMPORT.csv")
+solved_cubies_id = get_id_from_cubies(solved_cubies_list)
+solved_cubies_colors = get_colors_from_cubies(solved_cubies_list)
+set_colors(window, solved_cubies_colors, solved_cube)
 
 # initialize array for every step of rotation
 scramble_rotations = []
@@ -158,15 +146,6 @@ def rotate_right_for_key(event):
 
 root.bind('<Right>', rotate_right_for_key)
 
-# TODO: function which should at the end drag&drop the cubies
-# at the moment: if clicking the mouse it does the 
-# rotate_right_function()
-def click_something(event):
-    rotate_right_cubies(drag_cubies_list, drag_cubies_id, rotations)
-    set_colors(window, get_colors_from_cubies(drag_cubies_list), drag_cube)
-
-root.bind('<B1-Motion>', click_something)
-
 
 # Import and export of the cube
 def button_import_func(list_of_cubies):
@@ -210,8 +189,12 @@ other_test_button.grid(row=12, column=1)
 
 
 def corner_test():
+    print(cubies_id)
     white_corners(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    print(cubies_id)
+    for item in cubies_list:
+        print(item.__str__())
 
 
 corner_test_button = Button(root, text="White Corners", command=corner_test)
@@ -297,12 +280,28 @@ def optimize_solve_cube_test():
 optimize_solve_cube_test_button = Button(root, text="Optimize", command=optimize_solve_cube_test)
 optimize_solve_cube_test_button.grid(row=13, column=3)
 
+
 def temp_test():
     test_function()
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
     print("TEST")
 
+
 temp_test_button = Button(root, text="TEST", command=temp_test)
 temp_test_button.grid(row=13, column=4)
+
+
+# submit input
+def submit_test(list_of_cubies):
+    print(cubies_id)
+    cubies_colors2 = get_colors_from_cubies(list_of_cubies)
+    list_of_cubies = actualize_id_array(solved_cubies_list, cubies_id, cubies_colors2)
+
+    print(cubies_id)
+
+
+submit_test_button = Button(root, text="SUBMIT",  command=lambda: submit_test(cubies_list))
+submit_test_button.grid(row=14, column=1)
+
 
 root.mainloop()
