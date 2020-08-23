@@ -34,3 +34,17 @@ class Cubie:
             self.colors.append(color1)
             self.colors.append(color2)
             self.colors.append(color3)
+
+    def __str__(self):
+        return{"name = {" + str(self.name) + "} "
+               + " number = {" + str(self.number) + "} "
+               + " color1 = {" + str(self.color1) + "} "
+               + " pos1 = {" + str(self.pos1) + "} "
+               + " id1 = {" + str(self.id1) + "} "
+               + " color2 = {" + str(self.color2) + "} "
+               + " pos2 = {" + str(self.pos2) + "} "
+               + " id2 = {" + str(self.id2) + "} "
+               + " color3 = {" + str(self.color3) + "} "
+               + " pos3 = {" + str(self.pos3) + "} "
+               + " id3 = {" + str(self.id3) + "} "
+               + " colors = {" + str(self.colors) + "}"}
