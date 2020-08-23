@@ -1,4 +1,5 @@
-Cubies N,Colors number,Color 1,Pos Color 1 x,Pos Color 1 y,Identifier,Color 2,Pos Color 2 x,Pos Color 2 y,Identifier,Color 3,Pos Color 3 x,Pos Color 3 y,Identifier1,3,yellow,0,8,0101,blue,2,0,0102,orange,1,2,0103
+Cubies N,Colors number,Color 1,Pos Color 1 x,Pos Color 1 y,Identifier,Color 2,Pos Color 2 x,Pos Color 2 y,Identifier,Color 3,Pos Color 3 x,Pos Color 3 y,Identifier
+1,3,yellow,0,8,0101,blue,2,0,0102,orange,1,2,0103
 2,2,yellow,1,7,0201,orange,5,1,0202,None,-1,-1,None
 3,3,yellow,5,0,0301,green,1,6,0302,orange,4,8,0303
 4,2,yellow,4,1,0401,blue,0,3,0402,None,-1,-1,None
@@ -24,4 +25,3 @@ Cubies N,Colors number,Color 1,Pos Color 1 x,Pos Color 1 y,Identifier,Color 2,Po
 24,1,orange,3,4,2401,None,-1,-1,None,None,-1,-1,None
 25,2,orange,1,3,2501,white,4,5,2502,None,-1,-1,None
 26,1,white,4,4,2601,None,-1,-1,None,None,-1,-1,None
-,,,,,,,,,,,,,
