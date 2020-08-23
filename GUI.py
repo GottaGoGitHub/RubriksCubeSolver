@@ -130,24 +130,32 @@ def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
         answer2.delete(0, END)
 
 
-def actualize_id_array(cubies, id_array, colors):
-    cubies_positions = []
+def actualize_id_array(solved_cubies, id_array, colors):
+    cubies_positions = [[[0, 0], [4, 0], [3, 2]],
+                        [[0, 1], [3, 1]],
+                        [[0, 2], [2, 2], [3, 0]],
+                        [[0, 3], [4, 1]],
+                        [[0, 5], [2, 1]],
+                        [[0, 6], [4, 2], [1, 0]],
+                        [[0, 7], [1, 1]],
+                        [[0, 8], [1, 2], [2, 0]],
+                        [[4, 3], [3, 5]],
+                        [[4, 5], [1, 3]],
+                        [[4, 6], [3, 8], [5, 6]],
+                        [[4, 7], [5, 3]],
+                        [[4, 8], [1, 6], [5, 0]],
+                        [[1, 5], [2, 3]],
+                        [[1, 7], [5, 1]],
+                        [[1, 8], [2, 6], [5, 2]],
+                        [[2, 5], [3, 3]],
+                        [[2, 7], [5, 5]],
+                        [[2, 8], [3, 6], [5, 8]],
+                        [[3, 7], [5, 7]]]
 
-    for item in cubies:
-        if item.number == 2:
-            temp = [item.pos1, item.pos2]
-            cubies_positions.append(temp)
-
-        if item.number == 3:
-            temp = [item.pos1, item.pos2, item.pos3]
-            cubies_positions.append(temp)
-
-    print("pos", cubies_positions)
-
-    for item in cubies_positions:
+    for positions_of_cubie in cubies_positions:
         temp_colors = []
 
-        for pos in item:
+        for pos in positions_of_cubie:
             temp_colors.append(colors[pos[0]][pos[1]])
 
         perm_temp_colors = permutations(temp_colors)
@@ -156,50 +164,22 @@ def actualize_id_array(cubies, id_array, colors):
         for i in perm_temp_colors:
             perm_temp_colors_list.append(list(i))
 
-        for cubie in cubies:           
+        filtered = list(filter(lambda cubie: cubie.colors in perm_temp_colors_list, solved_cubies))
 
-            print(cubie.name)
-            print(cubie.colors)
-            print(temp_colors)
+        for i, element in enumerate(temp_colors):
+            if element == filtered[0].color1:
+                filtered[0].pos1 = positions_of_cubie[i]
+                id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id1
 
-            if cubie.colors in perm_temp_colors_list and len(temp_colors) == len(cubie.colors):
-                for i, element in enumerate(temp_colors):
-                    print("for 221")
-                    if element == cubie.color1:
-                        cubie.pos1 = item[i]
-                        print(id_array[item[i][0]][item[i][1]])
-                        id_array[item[i][0]][item[i][1]] = cubie.id1
-                        print(id_array[item[i][0]][item[i][1]])
-                        print("if 1")
-                        print("item[i]: ", item[i])
-                        print("pos1: ", cubie.pos1)
-                        print("id1: ", cubie.id1)
+            if element == filtered[0].color2:
+                filtered[0].pos2 = positions_of_cubie[i]
+                id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id2
 
-                    elif element == cubie.color2:
-                        cubie.pos2 = item[i]
-                        print(id_array[item[i][0]][item[i][1]])
-                        id_array[item[i][0]][item[i][1]] = cubie.id2
-                        print(id_array[item[i][0]][item[i][1]])
-                        print("if 2")
-                        print("item[i]: ", item[i])
-                        print("pos2: ", cubie.pos2)
-                        print("id2: ", cubie.id2)
+            if element == filtered[0].color3:
+                filtered[0].pos3 = positions_of_cubie[i]
+                id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id3
 
-                    elif element == cubie.color3:
-                        cubie.pos3 = item[i]
-                        print(id_array[item[i][0]][item[i][1]])
-                        id_array[item[i][0]][item[i][1]] = cubie.id3
-                        print(id_array[item[i][0]][item[i][1]])
-                        print("if 3")
-                        print("item[i]: ", item[i])
-                        print("pos3: ", cubie.pos3)
-                        print("id3: ", cubie.id3)
-
-
-
-
-
-
+    return solved_cubies
 
 def generate_prompt(window, font1, font2):
     # Generating the user prompt
