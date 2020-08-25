@@ -166,6 +166,18 @@ button_export = Button(root, text="Export", command=button_export_func)
 button_export.configure(width=5)
 button_export.grid(row=10, column=0, sticky=E)
 
+# actualize cubies_list
+def actualize_cubies_list(list_of_cubies):
+    cubies_colors2 = get_colors_from_cubies(list_of_cubies)
+    list_of_cubies = actualize_id_array(solved_cubies_list, cubies_id, cubies_colors2)
+
+    for i in list_of_cubies:
+        print(i.__str__())
+
+    return list_of_cubies
+
+cubies_list = actualize_cubies_list(cubies_list)
+
 
 # TEST BUTTON
 def button_test_func():
@@ -189,9 +201,13 @@ other_test_button.grid(row=12, column=1)
 
 
 def corner_test():
+    print("CORNERS")
     print(cubies_id)
+    for item in cubies_list:
+        print(item.__str__())
     white_corners(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    print("CORNERS")
     print(cubies_id)
     for item in cubies_list:
         print(item.__str__())
@@ -291,17 +307,24 @@ temp_test_button = Button(root, text="TEST", command=temp_test)
 temp_test_button.grid(row=13, column=4)
 
 
-# submit input
-def submit_test(list_of_cubies):
-    print(cubies_id)
-    cubies_colors2 = get_colors_from_cubies(list_of_cubies)
-    list_of_cubies = actualize_id_array(solved_cubies_list, cubies_id, cubies_colors2)
+# # submit input
+# def submit_test(list_of_cubies):
+#     print("SUBMIT")
+#     print("cubies_id: ", cubies_id)
+#     for i in list_of_cubies:
+#         print(i.__str__())
+#     print("SUBMIT")
+#     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
+#     list_of_cubies = actualize_id_array(solved_cubies_list, cubies_id, cubies_colors2)
 
-    print(cubies_id)
+#     print("SUBMIT")
+#     print("cubies_id: ", cubies_id)
+#     for i in list_of_cubies:
+#         print(i.__str__())
+#     print("SUBMIT")
 
-
-submit_test_button = Button(root, text="SUBMIT",  command=lambda: submit_test(cubies_list))
-submit_test_button.grid(row=14, column=1)
+# submit_test_button = Button(root, text="SUBMIT",  command=lambda: submit_test(cubies_list))
+# submit_test_button.grid(row=14, column=1)
 
 
 root.mainloop()
