@@ -11,6 +11,7 @@ def create_cubie_list_from_csv(filepath):
     filehandler = open(filepath)
 
     content = filehandler.read()
+    print(content)
 
     cubies = []
 
@@ -19,20 +20,34 @@ def create_cubie_list_from_csv(filepath):
     for i in range(1, len(rows)-1):
         temp = rows[i].split(',')
 
+        if len(temp[5]) == 3:
+            print("mag die 5 nicht mehr")
+
+        if len(temp[9]) == 3:
+            print("mag die 9 nicht mehr")
+        
+        if len(temp[13]) == 3:
+            print(type(temp[13]))
+            print("mag die 13 nicht mehr")
+            temp[13] = "0" + temp[13]
+            print(temp[13])
+            print(rows[i])
+
         temp_cubie = Cubie(temp[0],
                            int(temp[1]),
                            temp[2],
                            [int(temp[3]), int(temp[4])],
-                           temp[5],
+                           str(temp[5]),
                            temp[6],
                            [int(temp[7]), int(temp[8])],
-                           temp[9],
+                           str(temp[9]),
                            temp[10],
                            [int(temp[11]), int(temp[12])],
-                           temp[13])
+                           str(temp[13]))
         cubies.append(temp_cubie)
 
     filehandler.close()
+    print("Wuerfel ist da")
     return cubies
 
 
@@ -53,24 +68,24 @@ def export_cube_to_csv(cubies_list, filepath):
     filehandler = open(filepath, "w")
     header = "Cubies N,Colors number,Color 1,Pos Color 1 x,Pos Color 1 y," \
              "Identifier,Color 2,Pos Color 2 x,Pos Color 2 y,Identifier,Color 3" \
-             ",Pos Color 3 x,Pos Color 3 y,Identifier"
+             ",Pos Color 3 x,Pos Color 3 y,Identifier \n"
     filehandler.write(header)
 
     for cubie in cubies_list:
-        temp = cubie.name + ","
+        temp = str(cubie.name) + ","
         temp += str(cubie.number) + ","
-        temp += cubie.color1 + ","
+        temp += str(cubie.color1) + ","
         temp += str(cubie.pos1[0]) + ","
         temp += str(cubie.pos1[1]) + ","
-        temp += cubie.id1 + ","
-        temp += cubie.color2 + ","
+        temp += str(cubie.id1) + ","
+        temp += str(cubie.color2) + ","
         temp += str(cubie.pos2[0]) + ","
         temp += str(cubie.pos2[1]) + ","
-        temp += cubie.id2 + ","
-        temp += cubie.color3 + ","
+        temp += str(cubie.id2) + ","
+        temp += str(cubie.color3) + ","
         temp += str(cubie.pos3[0]) + ","
         temp += str(cubie.pos3[1]) + ","
-        temp += cubie.id3 + "\n"
+        temp += str(cubie.id3) + "\n"
         filehandler.write(temp)
 
     endl = ",,,,,,,,,,,,,"

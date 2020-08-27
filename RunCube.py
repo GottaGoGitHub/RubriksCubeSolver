@@ -171,6 +171,10 @@ def actualize_cubies_list(list_of_cubies):
     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
     list_of_cubies = actualize_id_array(solved_cubies_list, cubies_id, cubies_colors2)
 
+    print("cubies_id:")
+    print(cubies_id)
+
+    print("cubies_list:")
     for i in list_of_cubies:
         print(i.__str__())
 

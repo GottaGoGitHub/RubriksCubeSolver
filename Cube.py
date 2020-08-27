@@ -53,6 +53,7 @@ def actualize_cubie(cubies, id_array, temp_side, new_pos):
     id_array[new_pos[0]][new_pos[1]] = temp_side
     temp_partition = temp_side.rpartition("0")
     name = int(temp_partition[0]) - 1
+    # print(name)
 
     if "1" == temp_partition[2]:
         cubies[name].pos1 = new_pos
@@ -75,6 +76,8 @@ def actualize_cubie(cubies, id_array, temp_side, new_pos):
 
 # rotation-functions for rotating the whole cube
 def rotate_cube_right_cubies(cubies, id_array, rotations):
+    print("rotate cube right cubies")
+
     downtemp0 = id_array[5][0]
     downtemp1 = id_array[5][1]
     downtemp2 = id_array[5][2]
