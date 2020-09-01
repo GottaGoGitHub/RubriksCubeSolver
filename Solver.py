@@ -204,13 +204,17 @@ def white_cross(cubies, id_array, rotations):
     # side of cubie 18 yet again.
     #
     if cubies[17].pos2[0] != 0 and is_in_layer(id_array, 1, 18):
-        if id_array[cubies[17].pos1[0]][7] == cubies[13].id1:
+        print(cubies[17].pos2)
+        print(id_array[cubies[17].pos2[0]][7])
+        if id_array[cubies[17].pos2[0]][7] == cubies[13].id1:
             rotate_down_prime_cubies(cubies, id_array, rotations)
             rotate_by_side_idx(cubies, id_array, cubies[17].pos2[0], rotations)
             rotate_down_cubies(cubies, id_array, rotations)
             rotate_prime_by_side_idx(cubies, id_array, cubies[17].pos1[0], rotations)
         else:
+            print(id_array[5])
             rotate_by_side_idx(cubies, id_array, cubies[17].pos2[0], rotations)
+            print(id_array[5])
             temp = -1
             if cubies[17].pos2[0] == 1:
                 temp = 1
@@ -673,7 +677,7 @@ def second_layer(cubies, id_array, rotations):
             rotate_cube_right_cubies(cubies, id_array, rotations)
             second_layer_right(cubies, id_array, rotations)
             rotate_cube_left_cubies(cubies, id_array, rotations)
-    
+
 
     # insert cubie 10
     # blue, orange
@@ -686,7 +690,7 @@ def second_layer(cubies, id_array, rotations):
             rotate_up_cubies(cubies, id_array, rotations)
         second_layer_right(cubies, id_array, rotations)
 
-    else:
+    elif cubies[9].pos2[0] == 0:
         while not (id_array[0][5] == "1002"):
             rotate_up_cubies(cubies, id_array, rotations)
         rotate_cube_left_cubies(cubies, id_array, rotations)
