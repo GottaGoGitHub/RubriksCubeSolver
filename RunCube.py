@@ -259,7 +259,6 @@ correct_corners_test_button.grid(row=12, column=7)
 
 
 def rotations_test():
-    # rotate_cube_right_cubies(cubies_list, cubies_id, rotations)
     rotate_by_side_idx(cubies_list, cubies_id, 2, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
     print(rotations)
@@ -285,8 +284,8 @@ solve_cube_test_button.grid(row=13, column=2)
 def optimize_solve_cube_test():
     optimize_solver(rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-    # print("optimize")
-    # print(rotations)
+    print("optimize")
+    print(rotations)
 
 
 optimize_solve_cube_test_button = Button(root, text="Optimize", command=optimize_solve_cube_test)
@@ -303,24 +302,16 @@ temp_test_button = Button(root, text="TEST", command=temp_test)
 temp_test_button.grid(row=13, column=4)
 
 
-# # submit input
-# def submit_test(list_of_cubies):
-#     print("SUBMIT")
-#     print("cubies_id: ", cubies_id)
-#     for i in list_of_cubies:
-#         print(i.__str__())
-#     print("SUBMIT")
-#     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
-#     list_of_cubies = actualize_id_array(solved_cubies_list, cubies_id, cubies_colors2)
+def loop_test():
+    for i in range(1000):
+        print(i + 1)
+        button_test_func()
+        solve_cube_test()
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
-#     print("SUBMIT")
-#     print("cubies_id: ", cubies_id)
-#     for i in list_of_cubies:
-#         print(i.__str__())
-#     print("SUBMIT")
 
-# submit_test_button = Button(root, text="SUBMIT",  command=lambda: submit_test(cubies_list))
-# submit_test_button.grid(row=14, column=1)
+lopp_test_button = Button(root, text="LOOP TEST", command=loop_test)
+lopp_test_button.grid(row=15, column=4)
 
 
 root.mainloop()
