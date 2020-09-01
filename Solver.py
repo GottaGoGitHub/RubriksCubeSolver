@@ -805,6 +805,23 @@ def sort_corners(cubies, id_array, rotations):
     corners_right = False
 
     if not (cubie_1_right and cubie_3_right and cubie_7_right and cubie_9_right):
+
+        # TODO: if case fuer den Fall, dass kein cubie richtig liegt
+        if cubie_1_right == False and cubie_3_right == False and cubie_7_right == False and cubie_9_right == False:
+            sort_corners_algorithm(cubies, id_array, rotations)
+
+            if id_array[0][0].rpartition("0")[0] == "01":
+                cubie_1_right = True
+
+            if id_array[0][2].rpartition("0")[0] == "03":
+                cubie_3_right = True
+
+            if id_array[0][6].rpartition("0")[0] == "07":
+                cubie_7_right = True
+
+            if id_array[0][8].rpartition("0")[0] == "09":
+                cubie_9_right = True
+
         if cubie_1_right:
             rotate_cube_right_cubies(cubies, id_array, rotations)
             rotate_cube_right_cubies(cubies, id_array, rotations)
@@ -838,60 +855,60 @@ def correct_corners(cubies, id_array, rotations):
 
     help = [id_array[5][2], id_array[2][6], id_array[1][8]]
     
-    if not ("0301" in help and "0302" in help and "0303" in help):
-        print("help!!!")
-        print(help)
+    # if not ("0301" in help and "0302" in help and "0303" in help):
+        # print("help!!!")
+        # print(help)
 
     while not ((id_array[5][2] == "0301") and (id_array[2][6] == "0302") and (id_array[1][8] == "0303")):
-        print(id_array[5][2], end=" ")
-        print(id_array[2][6], end=" ")
-        print(id_array[1][8])
-        t += 1
-        if t == 20:
-            break
+        # print(id_array[5][2], end=" ")
+        # print(id_array[2][6], end=" ")
+        # print(id_array[1][8])
+        # t += 1
+        # if t == 20:
+        #     break
         ruru(cubies, id_array, rotations)
 
     rotate_down_cubies(cubies, id_array, rotations)
 
     help2 = [id_array[5][2], id_array[2][6], id_array[1][8]]
     
-    if not ("0101" in help2 and "0102" in help2 and "0103" in help2):
-        print("help2!!!")
-        print(help2)
+    # if not ("0101" in help2 and "0102" in help2 and "0103" in help2):
+        # print("help2!!!")
+        # print(help2)
 
     while not (id_array[5][2] == "0101" and id_array[2][6] == "0103" and id_array[1][8] == "0102"):
-        print("ruru")
-        print(id_array[5][2], end=" ")
-        print(id_array[2][6], end=" ")
-        print(id_array[1][8])
+        # print("ruru")
+        # print(id_array[5][2], end=" ")
+        # print(id_array[2][6], end=" ")
+        # print(id_array[1][8])
         ruru(cubies, id_array, rotations)
 
     rotate_down_cubies(cubies, id_array, rotations)
 
     help3 = [id_array[5][2], id_array[2][6], id_array[1][8]]
     
-    if not ("0701" in help3 and "0702" in help3 and "0703" in help3):
-        print("help3!!!")
-        print(help3)
+    # if not ("0701" in help3 and "0702" in help3 and "0703" in help3):
+        # print("help3!!!")
+        # print(help3)
 
     while not (id_array[5][2] == "0701" and id_array[2][6] == "0702" and id_array[1][8] == "0703"):
-        print(id_array[5][2], end=" ")
-        print(id_array[2][6], end=" ")
-        print(id_array[1][8])
+        # print(id_array[5][2], end=" ")
+        # print(id_array[2][6], end=" ")
+        # print(id_array[1][8])
         ruru(cubies, id_array, rotations)
 
     rotate_down_cubies(cubies, id_array, rotations)
 
     help4 = [id_array[5][2], id_array[2][6], id_array[1][8]]
     
-    if not ("0901" in help4 and "0902" in help4 and "0903" in help4):
-        print("help4!!!")
-        print(help4)
+    # if not ("0901" in help4 and "0902" in help4 and "0903" in help4):
+    #     print("help4!!!")
+    #     print(help4)
 
     while not (id_array[5][2] == "0901" and id_array[2][6] == "0902" and id_array[1][8] == "0903"):
-        print(id_array[5][2], end=" ")
-        print(id_array[2][6], end=" ")
-        print(id_array[1][8])
+        # print(id_array[5][2], end=" ")
+        # print(id_array[2][6], end=" ")
+        # print(id_array[1][8])
         ruru(cubies, id_array, rotations)
 
     while not (id_array[5][0] == "0101"):

@@ -26,7 +26,7 @@ window.grid(row=5, column=0, columnspan=5, sticky=W)
 
 # Creation of the cube
 cube = create_cube_hexomino(window, 45, 199)
-cubies_list = create_cubie_list_from_csv("IMPORT_EXAMPLE.csv")
+cubies_list = create_cubie_list_from_csv("IMPORT_EXAMPLE_WC.csv")
 cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)
@@ -171,12 +171,12 @@ def actualize_cubies_list(list_of_cubies):
     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
     list_of_cubies = actualize_id_array(solved_cubies_list, cubies_id, cubies_colors2)
 
-    print("cubies_id:")
-    print(cubies_id)
+    # print("cubies_id:")
+    # print(cubies_id)
 
-    print("cubies_list:")
-    for i in list_of_cubies:
-        print(i.__str__())
+    # print("cubies_list:")
+    # for i in list_of_cubies:
+    #     print(i.__str__())
 
     return list_of_cubies
 
@@ -186,8 +186,8 @@ cubies_list = actualize_cubies_list(cubies_list)
 # TEST BUTTON
 def button_test_func():
     scramble(cubies_list, cubies_id, scramble_rotations)
-    print("scramble")
-    print(scramble_rotations)
+    # print("scramble")
+    # print(scramble_rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -205,16 +205,8 @@ other_test_button.grid(row=12, column=1)
 
 
 def corner_test():
-    print("CORNERS")
-    print(cubies_id)
-    for item in cubies_list:
-        print(item.__str__())
     white_corners(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-    print("CORNERS")
-    print(cubies_id)
-    for item in cubies_list:
-        print(item.__str__())
 
 
 corner_test_button = Button(root, text="White Corners", command=corner_test)
@@ -280,8 +272,8 @@ rotations_test_button.grid(row=12, column=8)
 def solve_cube_test():
     solve_cube(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-    print("solve")
-    print(rotations)
+    # print("solve")
+    # print(rotations)
     # optimize_solver(rotations)
     # print(rotations)
 
@@ -293,8 +285,8 @@ solve_cube_test_button.grid(row=13, column=2)
 def optimize_solve_cube_test():
     optimize_solver(rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-    print("optimize")
-    print(rotations)
+    # print("optimize")
+    # print(rotations)
 
 
 optimize_solve_cube_test_button = Button(root, text="Optimize", command=optimize_solve_cube_test)

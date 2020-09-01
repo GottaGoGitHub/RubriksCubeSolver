@@ -76,7 +76,7 @@ def actualize_cubie(cubies, id_array, temp_side, new_pos):
 
 # rotation-functions for rotating the whole cube
 def rotate_cube_right_cubies(cubies, id_array, rotations):
-    print("rotate cube right cubies")
+    # print("rotate cube right cubies")
 
     downtemp0 = id_array[5][0]
     downtemp1 = id_array[5][1]

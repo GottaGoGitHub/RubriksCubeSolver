@@ -167,8 +167,6 @@ def actualize_id_array(solved_cubies, id_array, colors):
         filtered = list(filter(lambda cubie: cubie.colors in perm_temp_colors_list, solved_cubies))
 
         for i, element in enumerate(temp_colors):
-            print(i)
-            print(filtered)
             if element == filtered[0].color1:
                 filtered[0].pos1 = positions_of_cubie[i]
                 id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id1
