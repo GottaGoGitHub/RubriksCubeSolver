@@ -130,7 +130,7 @@ def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
         answer2.delete(0, END)
 
 
-def actualize_id_array(solved_cubies, id_array, colors):
+def actualize_id_array(cubies_list, solved_cubies, id_array, colors):
     cubies_positions = [[[0, 0], [4, 0], [3, 2]],
                         [[0, 1], [3, 1]],
                         [[0, 2], [2, 2], [3, 0]],
@@ -179,7 +179,9 @@ def actualize_id_array(solved_cubies, id_array, colors):
                 filtered[0].pos3 = positions_of_cubie[i]
                 id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id3
 
-    return solved_cubies
+    for idx, cubie in enumerate(solved_cubies):
+        cubies_list[idx] = cubie
+
 
 def generate_prompt(window, font1, font2):
     # Generating the user prompt
