@@ -13,7 +13,7 @@ def optimize_solver(rotations):
 
     # for example delete R R R R 
     
-    while (j != 3):
+    while (j != 2):
         if (rotations[j] == rotations[j - 1]) and (rotations[j - 1] == rotations[j - 2] and 
             rotations[j - 2] == rotations[j - 3]):
 
@@ -28,7 +28,7 @@ def optimize_solver(rotations):
     
     # for example R R R to R'
 
-    while (i != 2):
+    while (i != 1):
         if (rotations[i] == rotations[i - 1]) and (rotations[i - 1] == rotations[i - 2]):
 
             del rotations[i - 2]
@@ -88,7 +88,7 @@ def optimize_solver(rotations):
 
     # for example delete R R'
 
-    while (k != 1):
+    while (k != 0):
         if ((rotations[k] == "x" and rotations[k - 1] == "x'") or 
               (rotations[k] == "x'" and rotations[k - 1] == "x")):
 

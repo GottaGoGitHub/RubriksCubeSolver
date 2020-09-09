@@ -271,8 +271,8 @@ rotations_test_button.grid(row=12, column=8)
 def solve_cube_test():
     solve_cube(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-    # print("solve")
-    # print(rotations)
+    print("solve")
+    print(rotations)
     # optimize_solver(rotations)
     # print(rotations)
 
