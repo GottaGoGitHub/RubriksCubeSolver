@@ -26,7 +26,7 @@ window.grid(row=5, column=0, columnspan=5, sticky=W)
 
 # Creation of the cube
 cube = create_cube_hexomino(window, 45, 199)
-cubies_list = create_cubie_list_from_csv("IMPORT_EXAMPLE_SL.csv")
+cubies_list = create_cubie_list_from_csv("IMPORT.csv")
 cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)

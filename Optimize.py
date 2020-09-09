@@ -1,22 +1,20 @@
 from Solver import *
 
+
 def optimize_solver(rotations):
-    print("hallo")
-    
     # changing for example R R R to R' etc.
     # for doing 2 less steps for each 
-    
+
     j = len(rotations) - 1
 
     # we iterate from the end of the array to the begin of the array
     # because the length of the array decreases in every step we change
 
     # for example delete R R R R 
-    
-    while (j != 2):
-        if (rotations[j] == rotations[j - 1]) and (rotations[j - 1] == rotations[j - 2] and 
-            rotations[j - 2] == rotations[j - 3]):
 
+    while j != 2:
+        if (rotations[j] == rotations[j - 1]) and (rotations[j - 1] == rotations[j - 2] and
+                                                   rotations[j - 2] == rotations[j - 3]):
             del rotations[j - 3]
             del rotations[j - 3]
             del rotations[j - 3]
@@ -25,15 +23,15 @@ def optimize_solver(rotations):
         j = j - 1
 
     i = len(rotations) - 1
-    
+
     # for example R R R to R'
 
-    while (i != 1):
+    while i != 1:
         if (rotations[i] == rotations[i - 1]) and (rotations[i - 1] == rotations[i - 2]):
 
             del rotations[i - 2]
-            del rotations[i - 2] 
-            
+            del rotations[i - 2]
+
             if rotations[i - 2] == "x":
                 rotations[i - 2] = "x'"
 
@@ -82,58 +80,58 @@ def optimize_solver(rotations):
             elif rotations[i - 2] == "D'":
                 rotations[i - 2] = "D"
 
-        i = i - 1 
-        
+        i = i - 1
+
     k = len(rotations) - 1
 
     # for example delete R R'
 
-    while (k != 0):
-        if ((rotations[k] == "x" and rotations[k - 1] == "x'") or 
-              (rotations[k] == "x'" and rotations[k - 1] == "x")):
+    while k != 0:
+        if ((rotations[k] == "x" and rotations[k - 1] == "x'") or
+                (rotations[k] == "x'" and rotations[k - 1] == "x")):
 
             del rotations[k - 1]
             del rotations[k - 1]
 
-        elif ((rotations[k] == "y" and rotations[k - 1] == "y'") or 
+        elif ((rotations[k] == "y" and rotations[k - 1] == "y'") or
               (rotations[k] == "y'" and rotations[k - 1] == "y")):
-              
+
             del rotations[k - 1]
             del rotations[k - 1]
 
-        elif ((rotations[k] == "F" and rotations[k - 1] == "F'") or 
+        elif ((rotations[k] == "F" and rotations[k - 1] == "F'") or
               (rotations[k] == "F'" and rotations[k - 1] == "F")):
-              
+
             del rotations[k - 1]
             del rotations[k - 1]
 
-        elif ((rotations[k] == "B" and rotations[k - 1] == "B'") or 
+        elif ((rotations[k] == "B" and rotations[k - 1] == "B'") or
               (rotations[k] == "B'" and rotations[k - 1] == "B")):
-              
+
             del rotations[k - 1]
             del rotations[k - 1]
 
-        elif ((rotations[k] == "R" and rotations[k - 1] == "R'") or 
+        elif ((rotations[k] == "R" and rotations[k - 1] == "R'") or
               (rotations[k] == "R'" and rotations[k - 1] == "R")):
-              
+
             del rotations[k - 1]
             del rotations[k - 1]
 
-        elif ((rotations[k] == "L" and rotations[k - 1] == "L'") or 
+        elif ((rotations[k] == "L" and rotations[k - 1] == "L'") or
               (rotations[k] == "L'" and rotations[k - 1] == "L")):
-              
+
             del rotations[k - 1]
             del rotations[k - 1]
 
-        elif ((rotations[k] == "U" and rotations[k - 1] == "U'") or 
+        elif ((rotations[k] == "U" and rotations[k - 1] == "U'") or
               (rotations[k] == "U'" and rotations[k - 1] == "U")):
-              
+
             del rotations[k - 1]
             del rotations[k - 1]
 
-        elif ((rotations[k] == "D" and rotations[k - 1] == "D'") or 
+        elif ((rotations[k] == "D" and rotations[k - 1] == "D'") or
               (rotations[k] == "D'" and rotations[k - 1] == "D")):
-              
+
             del rotations[k - 1]
             del rotations[k - 1]
 
@@ -171,7 +169,6 @@ def optimize_for_robot(rotations):
     # y, y', yy, yy'
     # xy, yx, x'y, yx', xy', y'x, x'y', y'x'
 
+
 def cases_for_robot(rotations):
     print(":(")
-
-    
