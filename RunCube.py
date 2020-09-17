@@ -67,10 +67,14 @@ answer2.grid(row=3, column=0, columnspan=5)
 
 error_label = Label()
 
+which_cube = [1]
 
 # Binding the ENTER Key as event to the Entries "answer1" and "answer2"
 def press_enter(event):
-    evaluate_input(window, answer1, answer2, cube, cubies_list, error_label)
+    if which_cube[0] == 1:
+        evaluate_input(window, answer1, answer2, cube, cubies_list, error_label)
+    if which_cube[0] == 2:
+        evaluate_input(window, answer1, answer2, solved_cube, solved_cubies_list, error_label)
 
 
 answer1.bind("<Return>", press_enter)
@@ -305,6 +309,7 @@ def previous_step_func(start_idx):
 
     print(start_idx)
 
+
 previous_step_button = Button(root, text="previous", command=lambda: previous_step_func(lauf_idx))
 previous_step_button.configure(width=12)
 previous_step_button.grid(row=8, column=4, sticky=W+E)
@@ -338,6 +343,22 @@ solve_complete_button = Button(root, text="solve complete", command=solve_comple
 solve_complete_button.configure(width=12)
 solve_complete_button.grid(row=8, column=3)
 
+
+def set_which_cube_to_1(select_cube):
+    select_cube[0] = 1
+
+
+def set_which_cube_to_2(select_cube):
+    select_cube[0] = 2
+
+
+# Radiobuttons to select which cube shall be colored
+cube1_button = Radiobutton(root, text="Cube to solve (left)", value=1, command=lambda: set_which_cube_to_1(which_cube))
+cube2_button = Radiobutton(root, text="Solved Cube (right)", value=2, command=lambda: set_which_cube_to_2(which_cube))
+
+cube1_button.select()
+cube1_button.grid(row=1, column=7)
+cube2_button.grid(row=2, column=7)
 
 # def optimize_solve_cube_test():
 #     optimize_solver(rotations)
