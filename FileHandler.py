@@ -19,19 +19,6 @@ def create_cubie_list_from_csv(filepath):
     for i in range(1, len(rows)-1):
         temp = rows[i].split(',')
 
-        # if len(temp[5]) == 3:
-        #     print("mag die 5 nicht mehr")
-
-        # if len(temp[9]) == 3:
-        #     print("mag die 9 nicht mehr")
-        
-        # if len(temp[13]) == 3:
-        #     print(type(temp[13]))
-        #     print("mag die 13 nicht mehr")
-        #     temp[13] = "0" + temp[13]
-        #     print(temp[13])
-        #     print(rows[i])
-
         temp_cubie = Cubie(temp[0],
                            int(temp[1]),
                            temp[2],

@@ -23,10 +23,13 @@ for row in range(51):
 text_font = Font(family="Times New Roman", size=10)
 text_font_bold = Font(family="Times New Roman", size=10, weight="bold")
 
+hint_font = Font(family="Times New Roman", size=15)
+hint_font_bold = Font(family="Times New Roman", size=15, weight="bold")
+
 
 # window defines the canvas on which the hexomino will be drawn
 window = Canvas(root, width=1000, height=500, bg="grey")
-window.grid(row=5, column=0, columnspan=11, padx=9)
+window.grid(row=5, column=0, columnspan=11, rowspan=11, sticky=W+E, padx=(5, 0))
 
 # Creation of the cube
 cube = create_cube_hexomino(window, 45, 199)
@@ -89,7 +92,7 @@ def rotate_up_for_button():
 
 button_rotate_up = Button(root, text="Up", command=rotate_up_for_button)
 button_rotate_up.configure(width=5)
-button_rotate_up.grid(row=7, column=9, sticky=W+E+N+S)
+button_rotate_up.grid(row=18, column=9, sticky=W+E+N+S)
 
 
 def rotate_down_for_button():
@@ -99,7 +102,7 @@ def rotate_down_for_button():
 
 button_rotate_down = Button(root, text="Down", command=rotate_down_for_button)
 button_rotate_down.configure(width=5)
-button_rotate_down.grid(row=9, column=9, sticky=W+E+N+S)
+button_rotate_down.grid(row=20, column=9, sticky=W+E+N+S)
 
 
 def rotate_left_for_button():
@@ -109,7 +112,7 @@ def rotate_left_for_button():
 
 button_rotate_left = Button(root, text="Left", command=rotate_left_for_button)
 button_rotate_left.configure(width=5)
-button_rotate_left.grid(row=8, column=8, sticky=W+E+N+S)
+button_rotate_left.grid(row=19, column=8, sticky=W+E+N+S)
 
 
 def rotate_right_for_button():
@@ -120,7 +123,7 @@ def rotate_right_for_button():
 button_rotate_right = Button(root, text="Right", command=rotate_right_for_button)
 button_rotate_right.configure(width=5)
 # 3
-button_rotate_right.grid(row=8, column=10, sticky=W+E+N+S, padx=(0, 9))
+button_rotate_right.grid(row=19, column=10, sticky=W+E+N+S)
 
 
 # Binding the arrow key to the corresponding rotation
@@ -164,7 +167,7 @@ def button_import_func(list_of_cubies):
 
 button_import = Button(root, text="Import", command=lambda: button_import_func(cubies_list))
 button_import.configure(width=12)
-button_import.grid(row=7, column=0, padx=(5, 0))
+button_import.grid(row=18, column=0, padx=(5, 0))
 
 
 def button_export_func():
@@ -173,14 +176,15 @@ def button_export_func():
 
 button_export = Button(root, text="Export", command=button_export_func)
 button_export.configure(width=12)
-button_export.grid(row=7, column=1)
+button_export.grid(row=18, column=1)
 
-#____________________________________________________________________________________________________________________________________________________________________
+# ____________________________________________________________________________________________________________________________________________________________________
 
 
 def submit(list_of_cubies):
     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
     actualize_id_array(list_of_cubies, solved_cubies_list, cubies_id, cubies_colors2)
+
 
 submit_button = Button(root, text="Submit Input", command=lambda: submit(cubies_list))
 submit_button.configure(width=12)
@@ -194,154 +198,65 @@ def scramble_func():
 
 scramble_button = Button(root, text="Scramble", command=scramble_func)
 scramble_button.configure(width=12)
-scramble_button.grid(row=9, column=0, padx=(5, 0))
+scramble_button.grid(row=20, column=0, padx=(5, 0))
 
 
-# # TEST BUTTON
-# def button_test_func():
-#     scramble(cubies_list, cubies_id, scramble_rotations)
-#     # print("scramble")
-#     # print(scramble_rotations)
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
+def solve_optimize_func(rotation_list):
+    solve_cube(cubies_list, cubies_id, rotation_list)
+    optimize_solver(rotation_list)
+    set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
+    print(rotation_list)
 
 
-# test_button = Button(root, text="Click Me!\n I wanna test something. \n I don't know what but it may work.", command=button_test_func)
-# test_button.grid(row=12, column=0)
-
-
-# def other_test():
-#     white_cross(cubies_list, cubies_id, rotations)
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
-
-# other_test_button = Button(root, text="White Cross", command=other_test)
-# other_test_button.grid(row=12, column=1)
-
-
-# def corner_test():
-#     white_corners(cubies_list, cubies_id, rotations)
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
-
-# corner_test_button = Button(root, text="White Corners", command=corner_test)
-# corner_test_button.grid(row=12, column=2)
-
-
-# def second_layer_test():
-#     second_layer(cubies_list, cubies_id, rotations)
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
-
-# second_layer_test_button = Button(root, text="Second Layer", command=second_layer_test)
-# second_layer_test_button.grid(row=12, column=3)
-
-
-# def top_cross_test():
-#     top_cross(cubies_list, cubies_id, rotations)
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
-
-# top_cross_test_button = Button(root, text="Top Cross", command=top_cross_test)
-# top_cross_test_button.grid(row=12, column=4)
-
-
-# def correct_top_cross_test():
-#     correct_top_cross(cubies_list, cubies_id, rotations)
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
-
-# correct_top_cross_test_button = Button(root, text="Correct Top Cross", command=correct_top_cross_test)
-# correct_top_cross_test_button.grid(row=12, column=5)
-
-
-# def sort_corners_test():
-#     sort_corners(cubies_list, cubies_id, rotations)
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
-
-# sort_corners_test_button = Button(root, text="Sort Corners", command=sort_corners_test)
-# sort_corners_test_button.grid(row=12, column=6)
-
-
-# def correct_corners_test():
-#     correct_corners(cubies_list, cubies_id, rotations)
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
-
-# correct_corners_test_button = Button(root, text="Correct Corners", command=correct_corners_test)
-# correct_corners_test_button.grid(row=12, column=7)
-
-
-# def rotations_test():
-#     rotate_by_side_idx(cubies_list, cubies_id, 2, rotations)
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-#     print(rotations)
-
-
-# rotations_test_button = Button(root, text="Rotation Array", command=rotations_test)
-# rotations_test_button.grid(row=12, column=8)
-
-
-def solve_optimize_func():
-    solve_cube(cubies_list, cubies_id, rotations)
-    optimize_solver(rotations)
-    print(rotations)
-
-
-solve_optimize_button = Button(root, text="Generate Solution", command=solve_optimize_func)
+solve_optimize_button = Button(root, text="Generate Solution", command=lambda: solve_optimize_func(rotations))
 solve_optimize_button.configure(width=12)
-solve_optimize_button.grid(row=7, column=4, columnspan=2)
+solve_optimize_button.grid(row=18, column=4, columnspan=2)
 
+previous_label = Label(root, font=hint_font_bold, text="Previous step:")
+previous_text_label = Label(root, font=hint_font, text="There is no previous step.")
+
+next_label = Label(root, font=hint_font_bold, text="Next step:")
+next_text_label = Label(root, font=hint_font, text="You have to generate a solution first to see the correct steps.")
+
+previous_label.grid(row=6, column=12, sticky=W)
+previous_text_label.grid(row=7, column=12, sticky=W)
+next_label.grid(row=8, column=12, sticky=W)
+next_text_label.grid(row=9, column=12, sticky=W)
 
 lauf_idx = [0]
 
-def previous_step_func(start_idx):
-    print("previous_step")
-    print(cubies_colors)
-    print(rotations)
 
+def previous_step_func(start_idx):
     if start_idx[0] >= len(rotations):
         start_idx[0] = len(rotations)
 
     if start_idx[0] > 0:
         start_idx[0] -= 1
         previous_step(window, cubies_colors, cube, rotations, start_idx)
+        set_prev_and_next_label(previous_text_label, next_text_label, -1, rotations, start_idx)
 
-    print(start_idx)
 
 
 previous_step_button = Button(root, text="previous", command=lambda: previous_step_func(lauf_idx))
 previous_step_button.configure(width=12)
-previous_step_button.grid(row=8, column=4, sticky=W+E)
+previous_step_button.grid(row=19, column=4, sticky=W+E)
 
 
 def next_step_func(start_idx):
-    print("next_step")
-    print(cubies_colors)
-    print(rotations)
-
     if start_idx[0] < 0:
         start_idx[0] = 0
 
     if start_idx[0] < len(rotations):
         next_step(window, cubies_colors, cube, rotations, start_idx)
+        set_prev_and_next_label(previous_text_label, next_text_label, 1, rotations, start_idx)
         start_idx[0] += 1
 
     print(start_idx)
 
+
 next_step_button = Button(root, text="next", command=lambda: next_step_func(lauf_idx))
 next_step_button.configure(width=12)
-next_step_button.grid(row=8, column=5, sticky=W+E)
-
-
-def solve_complete_func():
-    print("solve complete")
-    solve_cube(cubies_list, cubies_id, rotations)
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
-solve_complete_button = Button(root, text="solve complete", command=solve_complete_func)
-solve_complete_button.configure(width=12)
-solve_complete_button.grid(row=8, column=3)
+next_step_button.grid(row=19, column=5, sticky=W+E)
 
 
 def set_which_cube_to_1(select_cube):
@@ -359,38 +274,6 @@ cube2_button = Radiobutton(root, text="Solved Cube (right)", value=2, command=la
 cube1_button.select()
 cube1_button.grid(row=1, column=7)
 cube2_button.grid(row=2, column=7)
-
-# def optimize_solve_cube_test():
-#     optimize_solver(rotations)
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-#     print("optimize")
-#     print(rotations)
-
-
-# optimize_solve_cube_test_button = Button(root, text="Optimize", command=optimize_solve_cube_test)
-# optimize_solve_cube_test_button.grid(row=13, column=3)
-
-
-# def temp_test():
-#     test_function()
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-#     print("TEST")
-
-
-# temp_test_button = Button(root, text="TEST", command=temp_test)
-# temp_test_button.grid(row=13, column=4)
-
-
-# def loop_test():
-#     for i in range(1000):
-#         print(i + 1)
-#         button_test_func()
-#         solve_cube_test()
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
-
-# lopp_test_button = Button(root, text="LOOP TEST", command=loop_test)
-# lopp_test_button.grid(row=15, column=4)
 
 
 root.mainloop()

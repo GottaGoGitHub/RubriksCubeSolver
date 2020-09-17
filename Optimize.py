@@ -136,39 +136,3 @@ def optimize_solver(rotations):
             del rotations[k - 1]
 
         k = k - 1
-
-
-def test_function():
-    temp = ["0", "1", "2", "3", "4", "5"]
-    print(temp)
-
-    i = len(temp) - 1
-    print(i)
-
-    i = i - 2
-    print(i)
-
-    del temp[i - 2]
-    print(temp)
-
-    del temp[i - 2]
-    print(temp)
-
-    temp[i - 2] = "8"
-    print(temp)
-
-
-# TODO: optimize algorithm for the robot, so that the whole cube
-# is not rotated anymore
-
-def optimize_for_robot(rotations):
-    print("hi")
-
-    # if cases:
-    # x, x', xx, xx' 
-    # y, y', yy, yy'
-    # xy, yx, x'y, yx', xy', y'x, x'y', y'x'
-
-
-def cases_for_robot(rotations):
-    print(":(")

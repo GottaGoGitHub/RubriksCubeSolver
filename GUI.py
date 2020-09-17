@@ -276,14 +276,8 @@ def next_step(window, colors, cube, optimized_array, start_idx):
 
     set_colors(window, colors, cube)
 
-    # if (start_idx[0] > 0) and (start_idx[0] < len(optimized_array) - 1):
-    #     start_idx[0] += 1
-
 
 def previous_step(window, colors, cube, optimized_array, start_idx):
-
-    # if (start_idx[0] > 0) and (start_idx[0] < len(optimized_array) - 1):
-    #     start_idx[0] -= 1
 
     if start_idx[0] < 0:
         print("There is no previous step.")
@@ -338,4 +332,85 @@ def previous_step(window, colors, cube, optimized_array, start_idx):
 
     set_colors(window, colors, cube)
 
-    
+
+def create_sentence(letter):
+    sentence = "Invalid operation."
+
+    if letter == "x":
+        sentence = "Rotate the cube to the right."
+
+    elif letter == "x'":
+        sentence = "Rotate the cube to the left."
+
+    elif letter == "y":
+        sentence = "Rotate the cube upwards."
+
+    elif letter == "y'":
+        sentence="Rotate the cube downwards."
+
+    elif letter == "F":
+        sentence = "Rotate the front side clockwise."
+
+    elif letter == "F'":
+        sentence = "Rotate the front side counterclockwise."
+
+    elif letter == "B":
+        sentence = "Rotate the back side clockwise."
+
+    elif letter == "B'":
+        sentence = "Rotate the back side counterclockwise."
+
+    elif letter == "R":
+        sentence = "Rotate the right side clockwise."
+
+    elif letter == "R'":
+        sentence = "Rotate the right side counterclockwise."
+
+    elif letter == "L":
+        sentence = "Rotate the left side clockwise."
+
+    elif letter == "L'":
+        sentence = "Rotate the left side counterclockwise."
+
+    elif letter == "U":
+        sentence = "Rotate the up side clockwise."
+
+    elif letter == "U'":
+        sentence = "Rotate the up side counterclockwise."
+
+    elif letter == "D":
+        sentence = "Rotate the down side clockwise."
+
+    elif letter == "D'":
+        sentence = "Rotate the down side counterclockwise."
+
+    return sentence
+
+
+def set_prev_and_next_label(prev_label, next_label, direction, optimized_array, start_idx):
+
+    if start_idx[0] < 0 or (start_idx[0] == 0 and direction == -1):
+        prev_label.configure(text="There is no previous step.")
+        next_prompt = create_sentence(optimized_array[0])
+        next_label.configure(text=next_prompt)
+
+    elif start_idx[0] >= len(optimized_array)-1:
+        next_label.configure(text="Your cube is solved. There is no next step.")
+        prev_prompt = create_sentence(optimized_array[len(optimized_array)-1])
+        prev_label.configure(text=prev_prompt)
+
+    elif len(optimized_array) > start_idx[0] > 0 and direction == -1:
+        next_prompt = create_sentence(optimized_array[start_idx[0]])
+        prev_prompt = create_sentence(optimized_array[start_idx[0]-1])
+        next_label.configure(text=next_prompt)
+        prev_label.configure(text=prev_prompt)
+
+    elif len(optimized_array) > start_idx[0] >= 0 and direction == 1:
+        next_prompt = create_sentence(optimized_array[start_idx[0]+1])
+        prev_prompt = create_sentence(optimized_array[start_idx[0]])
+        next_label.configure(text=next_prompt)
+        prev_label.configure(text=prev_prompt)
+
+
+
+

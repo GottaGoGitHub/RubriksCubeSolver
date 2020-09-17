@@ -444,7 +444,7 @@ def white_corners(cubies, id_array, rotations):
     if is_in_layer(id_array, 3, 15):
         if id_array[5][2].rpartition("0")[0] == "15":
             ruru(cubies, id_array, rotations)
-        
+
         if id_array[5][6].rpartition("0")[0] == "15":
             rotate_cube_right_cubies(cubies, id_array, rotations)
             lulu(cubies, id_array, rotations)
@@ -507,10 +507,9 @@ def white_corners(cubies, id_array, rotations):
     if is_in_layer(id_array, 1, 19):
         while id_array[0][8].rpartition("0")[0] != "19":
             rotate_up_cubies(cubies, id_array, rotations)
-        
+
         while not (id_array[1][8] == "1901" and id_array[2][6] == "1902" and id_array[5][2] == "1903"):
-                ruru(cubies, id_array, rotations)
-        
+            ruru(cubies, id_array, rotations)
 
     # insert cubie 23
     # green, orange, white
@@ -560,9 +559,9 @@ def white_corners(cubies, id_array, rotations):
     if is_in_layer(id_array, 1, 13):
         while id_array[0][8].rpartition("0")[0] != "13":
             rotate_up_cubies(cubies, id_array, rotations)
-        
+
     while not (id_array[1][8] == "1302" and id_array[2][6] == "1301" and id_array[5][2] == "1303"):
-            ruru(cubies, id_array, rotations)
+        ruru(cubies, id_array, rotations)
 
     #
     # We have to rotate the whole cube 2 times again, that we are at the same
@@ -612,7 +611,6 @@ def second_layer(cubies, id_array, rotations):
             second_layer_right(cubies, id_array, rotations)
             rotate_cube_left_cubies(cubies, id_array, rotations)
 
-
     # insert cubie 17
     # red, green
     if is_in_layer(id_array, 2, 17):
@@ -633,7 +631,6 @@ def second_layer(cubies, id_array, rotations):
             rotate_cube_left_cubies(cubies, id_array, rotations)
             rotate_cube_left_cubies(cubies, id_array, rotations)
 
-
     if is_in_layer(id_array, 1, 17):
         if cubies[16].pos2[0] == 0:
             while not (id_array[0][7] == "1702"):
@@ -647,7 +644,6 @@ def second_layer(cubies, id_array, rotations):
             second_layer_left(cubies, id_array, rotations)
             rotate_cube_right_cubies(cubies, id_array, rotations)
 
-
     # insert cubie 21
     # green, orange
 
@@ -659,7 +655,6 @@ def second_layer(cubies, id_array, rotations):
 
     elif id_array[1][5].rpartition("0")[0] == "21":
         second_layer_right(cubies, id_array, rotations)
-
 
     if is_in_layer(id_array, 1, 21):
         if cubies[20].pos1[0] == 0:
@@ -674,13 +669,12 @@ def second_layer(cubies, id_array, rotations):
             second_layer_right(cubies, id_array, rotations)
             rotate_cube_left_cubies(cubies, id_array, rotations)
 
-
     # insert cubie 10
     # blue, orange
 
     if id_array[1][5] == "1001":
         second_layer_right(cubies, id_array, rotations)
-    
+
     if cubies[9].pos1[0] == 0:
         while not (id_array[0][7] == "1001"):
             rotate_up_cubies(cubies, id_array, rotations)
@@ -702,20 +696,16 @@ def top_cross(cubies, id_array, rotations):
 
     yellow_ids = ["0201", "0401", "0601", "0801"]
 
-    # while not (id_array[0][1].rpartition("0")[2] == 1 and id_array[0][3].rpartition("0")[2] == 1 and
-    #            id_array[0][5].rpartition("0")[2] == 1 and id_array[0][7].rpartition("0")[2] == 1):
-
     while not temp:
-
         if (id_array[0][1] in yellow_ids and id_array[0][3] in yellow_ids and
-            id_array[0][5] in yellow_ids and id_array[0][7] in yellow_ids):
+                id_array[0][5] in yellow_ids and id_array[0][7] in yellow_ids):
             temp = True
             break
 
         temparray = [id_array[0][1].rpartition("0")[2], id_array[0][3].rpartition("0")[2],
-                        id_array[0][5].rpartition("0")[2], id_array[0][7].rpartition("0")[2]]
+                     id_array[0][5].rpartition("0")[2], id_array[0][7].rpartition("0")[2]]
 
-        if not (id_array[0][1] in yellow_ids or id_array[0][3] in yellow_ids 
+        if not (id_array[0][1] in yellow_ids or id_array[0][3] in yellow_ids
                 or id_array[0][5] in yellow_ids or id_array[0][7] in yellow_ids):
             fruruf(cubies, id_array, rotations)
 
@@ -745,8 +735,8 @@ def top_cross(cubies, id_array, rotations):
                 rotate_up_cubies(cubies, id_array, rotations)
                 rotate_up_cubies(cubies, id_array, rotations)
                 fruruf(cubies, id_array, rotations)
-                    
-            #line
+
+            # line
             if temparray[1] == "1" and temparray[2] == "1":
                 fruruf(cubies, id_array, rotations)
                 temp = True
@@ -778,7 +768,7 @@ def correct_top_cross(cubies, id_array, rotations):
             correct_front(cubies, id_array, rotations)
             rotate_cube_left_cubies(cubies, id_array, rotations)
 
-        elif id_array[0][5] == "0601": 
+        elif id_array[0][5] == "0601":
             correct_front(cubies, id_array, rotations)
 
         elif id_array[0][3] == "0801" and id_array[0][5] == "0401":
@@ -792,7 +782,7 @@ def correct_top_cross(cubies, id_array, rotations):
 
         while not (id_array[0][1] == "0201"):
             rotate_up_cubies(cubies, id_array, rotations)
-        
+
 
 def sort_corners(cubies, id_array, rotations):
     # sort the last 4 corners (cubies 1, 7, 9, 3)
@@ -805,8 +795,6 @@ def sort_corners(cubies, id_array, rotations):
     corners_right = False
 
     if not (cubie_1_right and cubie_3_right and cubie_7_right and cubie_9_right):
-
-        # TODO: if case fuer den Fall, dass kein cubie richtig liegt
         if cubie_1_right == False and cubie_3_right == False and cubie_7_right == False and cubie_9_right == False:
             sort_corners_algorithm(cubies, id_array, rotations)
 
@@ -835,11 +823,11 @@ def sort_corners(cubies, id_array, rotations):
         while not (corners_right):
             sort_corners_algorithm(cubies, id_array, rotations)
 
-            corners = [id_array[0][0].rpartition("0")[0], id_array[0][2].rpartition("0")[0], 
+            corners = [id_array[0][0].rpartition("0")[0], id_array[0][2].rpartition("0")[0],
                        id_array[0][8].rpartition("0")[0], id_array[0][6].rpartition("0")[0]]
 
-            if (corners == ["01", "03", "09", "07"] or corners == ["03", "09", "07", "01"] 
-                or corners == ["09", "07", "01", "03"] or corners == ["07", "01", "03", "09"]):
+            if (corners == ["01", "03", "09", "07"] or corners == ["03", "09", "07", "01"]
+                    or corners == ["09", "07", "01", "03"] or corners == ["07", "01", "03", "09"]):
                 corners_right = True
 
         while not (id_array[0][7] == "0801"):
@@ -847,7 +835,6 @@ def sort_corners(cubies, id_array, rotations):
 
 
 def correct_corners(cubies, id_array, rotations):
-
     rotate_cube_up_cubies(cubies, id_array, rotations)
     rotate_cube_up_cubies(cubies, id_array, rotations)
 
