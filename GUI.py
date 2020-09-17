@@ -165,6 +165,7 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors):
         for i in perm_temp_colors:
             perm_temp_colors_list.append(list(i))
 
+        # TODO: Error message for invalid cubies (invalid colors)
         filtered = list(filter(lambda cubie: cubie.colors in perm_temp_colors_list, solved_cubies))
 
         for i, element in enumerate(temp_colors):
@@ -190,7 +191,7 @@ def generate_prompt(window, font1, font2):
     line_1 = window.create_text(188, 10, text="The faces of the cube can be accessed via: front, left, right, up, down")
     line_2 = window.create_text(228, 25,
                                 text="To access the pieces, have a look for the numeration in the upper right hand corner.")
-    line_3 = window.create_text(196, 40,
+    line_3 = window.create_text(200, 40,
                                 text="The following colors are allowed: orange, blue, red, white, green, yellow")
     line_4 = window.create_text(218, 55,
                                 text="The input is not case sensitive and works also with just the first letter of a word.")
