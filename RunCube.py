@@ -236,7 +236,6 @@ def previous_step_func(start_idx):
         set_prev_and_next_label(previous_text_label, next_text_label, -1, rotations, start_idx)
 
 
-
 previous_step_button = Button(root, text="previous", command=lambda: previous_step_func(lauf_idx))
 previous_step_button.configure(width=12)
 previous_step_button.grid(row=19, column=4, sticky=W+E)
@@ -250,8 +249,6 @@ def next_step_func(start_idx):
         next_step(window, cubies_colors, cube, rotations, start_idx)
         set_prev_and_next_label(previous_text_label, next_text_label, 1, rotations, start_idx)
         start_idx[0] += 1
-
-    print(start_idx)
 
 
 next_step_button = Button(root, text="next", command=lambda: next_step_func(lauf_idx))
