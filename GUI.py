@@ -223,117 +223,117 @@ def generate_prompt(window, font1, font2):
 
 def next_step(window, colors, cube, optimized_array, start_idx):
 
-    if start_idx >= len(optimized_array) - 1:
+    if start_idx[0] >= len(optimized_array):
         print("There is no next step.")
 
-    elif optimized_array[start_idx] == "x":
+    elif optimized_array[start_idx[0]] == "x":
         rotate_cube_right_list(colors)
 
-    elif optimized_array[start_idx] == "x'":
+    elif optimized_array[start_idx[0]] == "x'":
         rotate_cube_left_list(colors)
 
-    elif optimized_array[start_idx] == "y":
+    elif optimized_array[start_idx[0]] == "y":
         rotate_cube_up_list(colors)
 
-    elif optimized_array[start_idx] == "y'":
+    elif optimized_array[start_idx[0]] == "y'":
         rotate_cube_down_list(colors)
 
-    elif optimized_array[start_idx] == "F":
+    elif optimized_array[start_idx[0]] == "F":
         rotate_front_list(colors)
 
-    elif optimized_array[start_idx] == "F'":
+    elif optimized_array[start_idx[0]] == "F'":
         rotate_front_prime_list(colors)
 
-    elif optimized_array[start_idx] == "B":
+    elif optimized_array[start_idx[0]] == "B":
         rotate_back_list(colors)
 
-    elif optimized_array[start_idx] == "B'":
+    elif optimized_array[start_idx[0]] == "B'":
         rotate_back_prime_list(colors)
 
-    elif optimized_array[start_idx] == "R":
+    elif optimized_array[start_idx[0]] == "R":
         rotate_right_list(colors)
 
-    elif optimized_array[start_idx] == "R'":
+    elif optimized_array[start_idx[0]] == "R'":
         rotate_right_prime_list(colors)
 
-    elif optimized_array[start_idx] == "L":
+    elif optimized_array[start_idx[0]] == "L":
         rotate_left_list(colors)
 
-    elif optimized_array[start_idx] == "L'":
+    elif optimized_array[start_idx[0]] == "L'":
         rotate_left_prime_list(colors)
 
-    elif optimized_array[start_idx] == "U":
+    elif optimized_array[start_idx[0]] == "U":
         rotate_up_list(colors)
 
-    elif optimized_array[start_idx] == "U'":
+    elif optimized_array[start_idx[0]] == "U'":
         rotate_up_prime_list(colors)
 
-    elif optimized_array[start_idx] == "D":
+    elif optimized_array[start_idx[0]] == "D":
         rotate_down_list(colors)
 
-    elif optimized_array[start_idx] == "D'":
+    elif optimized_array[start_idx[0]] == "D'":
         rotate_down_prime_list(colors)
 
     set_colors(window, colors, cube)
 
-    if start_idx > 0 and start_idx < len(optimized_array) - 1:
-        start_idx += 1
+    # if (start_idx[0] > 0) and (start_idx[0] < len(optimized_array) - 1):
+    #     start_idx[0] += 1
 
 
 def previous_step(window, colors, cube, optimized_array, start_idx):
 
-    if start_idx > 0 and start_idx < len(optimized_array) - 1:
-        start_idx -= 1
+    # if (start_idx[0] > 0) and (start_idx[0] < len(optimized_array) - 1):
+    #     start_idx[0] -= 1
 
-    if start_idx <= 0:
+    if start_idx[0] < 0:
         print("There is no previous step.")
     
-    elif optimized_array[start_idx] == "x":
+    elif optimized_array[start_idx[0]] == "x":
         rotate_cube_left_list(colors)
 
-    elif optimized_array[start_idx] == "x'":
+    elif optimized_array[start_idx[0]] == "x'":
         rotate_cube_right_list(colors)
 
-    elif optimized_array[start_idx] == "y":
+    elif optimized_array[start_idx[0]] == "y":
         rotate_cube_down_list(colors)
 
-    elif optimized_array[start_idx] == "y'":
+    elif optimized_array[start_idx[0]] == "y'":
         rotate_cube_up_list(colors)
 
-    elif optimized_array[start_idx] == "F":
+    elif optimized_array[start_idx[0]] == "F":
         rotate_front_prime_list(colors)
 
-    elif optimized_array[start_idx] == "F'":
+    elif optimized_array[start_idx[0]] == "F'":
         rotate_front_list(colors)
 
-    elif optimized_array[start_idx] == "B":
+    elif optimized_array[start_idx[0]] == "B":
         rotate_back_prime_list(colors)
 
-    elif optimized_array[start_idx] == "B'":
+    elif optimized_array[start_idx[0]] == "B'":
         rotate_back_list(colors)
 
-    elif optimized_array[start_idx] == "R":
+    elif optimized_array[start_idx[0]] == "R":
         rotate_right_prime_list(colors)
 
-    elif optimized_array[start_idx] == "R'":
+    elif optimized_array[start_idx[0]] == "R'":
         rotate_right_list(colors)
 
-    elif optimized_array[start_idx] == "L":
+    elif optimized_array[start_idx[0]] == "L":
         rotate_left_prime_list(colors)
 
-    elif optimized_array[start_idx] == "L'":
+    elif optimized_array[start_idx[0]] == "L'":
         rotate_left_list(colors)
 
-    elif optimized_array[start_idx] == "U":
+    elif optimized_array[start_idx[0]] == "U":
         rotate_up_prime_list(colors)
 
-    elif optimized_array[start_idx] == "U'":
+    elif optimized_array[start_idx[0]] == "U'":
         rotate_up_list(colors)
 
-    elif optimized_array[start_idx] == "D":
+    elif optimized_array[start_idx[0]] == "D":
         rotate_down_prime_list(colors)
 
-    elif optimized_array[start_idx] == "D'":
+    elif optimized_array[start_idx[0]] == "D'":
         rotate_down_list(colors)
 
     set_colors(window, colors, cube)

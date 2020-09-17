@@ -289,16 +289,21 @@ solve_optimize_button.configure(width=12)
 solve_optimize_button.grid(row=7, column=4, columnspan=2)
 
 
-lauf_idx = 0
+lauf_idx = [0]
 
 def previous_step_func(start_idx):
     print("previous_step")
     print(cubies_colors)
     print(rotations)
 
-    start_idx -= 1
-    previous_step(window, cubies_colors, cube, rotations, start_idx)
+    if start_idx[0] >= len(rotations):
+        start_idx[0] = len(rotations)
 
+    if start_idx[0] > 0:
+        start_idx[0] -= 1
+        previous_step(window, cubies_colors, cube, rotations, start_idx)
+
+    print(start_idx)
 
 previous_step_button = Button(root, text="previous", command=lambda: previous_step_func(lauf_idx))
 previous_step_button.configure(width=12)
@@ -310,9 +315,14 @@ def next_step_func(start_idx):
     print(cubies_colors)
     print(rotations)
 
-    next_step(window, cubies_colors, cube, rotations, start_idx)
-    start_idx += 1
+    if start_idx[0] < 0:
+        start_idx[0] = 0
 
+    if start_idx[0] < len(rotations):
+        next_step(window, cubies_colors, cube, rotations, start_idx)
+        start_idx[0] += 1
+
+    print(start_idx)
 
 next_step_button = Button(root, text="next", command=lambda: next_step_func(lauf_idx))
 next_step_button.configure(width=12)
