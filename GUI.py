@@ -1,6 +1,8 @@
 from CubeMesh import *
 from ListRotations import *
+from tkinter import messagebox
 from itertools import permutations
+from copy import deepcopy
 
 
 def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
@@ -153,36 +155,77 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors):
                         [[2, 8], [3, 6], [5, 8]],
                         [[3, 7], [5, 7]]]
 
+    # boolean for error message
+    exists_cubie_with_false_colors = False
+
+    # for each position, which resembles a single cubie in the list above; do
     for positions_of_cubie in cubies_positions:
         temp_colors = []
 
+        # Each cube has 2 - 3 colors, add each color to the current list of colors
         for pos in positions_of_cubie:
             temp_colors.append(colors[pos[0]][pos[1]])
 
+        # generate permutations of the colors
         perm_temp_colors = permutations(temp_colors)
         perm_temp_colors_list = []
 
+        # permutations returns a n-tupel therefore we are casting the content to a list
         for i in perm_temp_colors:
             perm_temp_colors_list.append(list(i))
 
-        # TODO: Error message for invalid cubies (invalid colors)
+        # gets the cubie which has the corresponding colors from the solved cubies
+        # its needed to write the correct ids into the id_array
         filtered = list(filter(lambda cubie: cubie.colors in perm_temp_colors_list, solved_cubies))
 
-        for i, element in enumerate(temp_colors):
-            if element == filtered[0].color1:
-                filtered[0].pos1 = positions_of_cubie[i]
-                id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id1
+        # filtered is always a list with len(1) if there is a cubie which has the colors
+        # filtered will be empty if there is somehow no cubie which has the colors
+        # the boolean (exists_cubie_with_false_colors) will be set to TRUE to throw an user prompt
+        # the corresponding fields are going to be set to blank/grey
+        if len(filtered) == 0:
+            exists_cubie_with_false_colors = True
 
-            if element == filtered[0].color2:
-                filtered[0].pos2 = positions_of_cubie[i]
-                id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id2
+            # finding the cube in the list of unsolved cubes
+            filter_unsolved = list(filter(lambda cubie: cubie.colors in perm_temp_colors_list, cubies_list))
 
-            if element == filtered[0].color3:
-                filtered[0].pos3 = positions_of_cubie[i]
-                id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id3
+            # removing false colors
+            filter_unsolved[0].color1 = "grey"
+            filter_unsolved[0].color2 = "grey"
 
-    for idx, cubie in enumerate(solved_cubies):
-        cubies_list[idx] = cubie
+            if filter_unsolved[0].number == 3:
+                filter_unsolved[0].color3 = "grey"
+                filter_unsolved[0].colors = ["grey", "grey", "grey"]
+            else:
+                filter_unsolved[0].colors = ["grey", "grey"]
+
+        else:
+            for i, element in enumerate(temp_colors):
+                if element == filtered[0].color1:
+                    filtered[0].pos1 = positions_of_cubie[i]
+                    id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id1
+
+                if element == filtered[0].color2:
+                    filtered[0].pos2 = positions_of_cubie[i]
+                    id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id2
+
+                if element == filtered[0].color3:
+                    filtered[0].pos3 = positions_of_cubie[i]
+                    id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id3
+
+    if exists_cubie_with_false_colors:
+        messagebox.showerror(title="Invalid coloring", message="Some of the colors were not correct, please set the "
+                                                               "colors for the grey field again and submit again.")
+    else:
+        messagebox.showinfo(title="Successful", message="Submission successful.")
+
+        for idx, cubie in enumerate(solved_cubies):
+            print(cubies_list[idx].__str__())
+            print(cubie.__str__())
+            cubies_list[idx] = deepcopy(cubie)
+            print(cubies_list[idx].__str__())
+            print()
+            print()
+            print()
 
 
 def generate_prompt(window, font1, font2):
