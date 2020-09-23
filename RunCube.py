@@ -152,7 +152,7 @@ root.bind('<Left>', rotate_left_for_key)
 
 
 def rotate_right_for_key(event):
-    rotate_cube_left_cubies(cubies_list, cubies_id, rotations)
+    rotate_cube_right_cubies(cubies_list, cubies_id, rotations)
     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
@@ -184,6 +184,8 @@ button_export.grid(row=18, column=1)
 def submit(list_of_cubies):
     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
     actualize_id_array(list_of_cubies, solved_cubies_list, cubies_id, cubies_colors2)
+    print(cubies_list[22].__str__())
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
 submit_button = Button(root, text="Submit Input", command=lambda: submit(cubies_list))
