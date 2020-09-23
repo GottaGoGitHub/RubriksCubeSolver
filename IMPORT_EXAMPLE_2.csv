@@ -21,7 +21,7 @@ Cubies N,Colors number,Color 1,Pos Color 1 x,Pos Color 1 y,Identifier,Color 2,Po
 20,1,green,2,4,2001,None,-1,-1,None,None,-1,-1,None
 21,2,green,5,5,2101,orange,2,7,2102,None,-1,-1,None
 22,2,green,5,3,2201,white,4,7,2202,None,-1,-1,None
-23,3,green,4,2,2301,orange,0,6,2302,white,1,0,2303
+23,3,green,4,2,2301,orange,0,6,2302,red,1,0,2303
 24,1,orange,3,4,2401,None,-1,-1,None,None,-1,-1,None
 25,2,orange,5,7,2501,white,3,7,2502,None,-1,-1,None
 26,1,white,5,4,2601,None,-1,-1,None,None,-1,-1,None
