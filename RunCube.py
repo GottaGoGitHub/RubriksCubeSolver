@@ -72,6 +72,7 @@ error_label = Label()
 
 which_cube = [1]
 
+
 # Binding the ENTER Key as event to the Entries "answer1" and "answer2"
 def press_enter(event):
     if which_cube[0] == 1:
@@ -179,12 +180,23 @@ button_export.configure(width=12)
 button_export.grid(row=18, column=1)
 
 # ____________________________________________________________________________________________________________________________________________________________________
+def actualize_color():
+    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+
+
+color_button = Button(root, text="Colors", command=actualize_color)
+color_button.configure(width=12)
+color_button.grid(row=2, column=11)
 
 
 def submit(list_of_cubies):
     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
     actualize_id_array(list_of_cubies, solved_cubies_list, cubies_id, cubies_colors2)
-    print(list_of_cubies[22].__str__())
+    list_of_colors = get_colors_from_cubies(list_of_cubies)
+
+    for i, item in enumerate(list_of_colors):
+        cubies_colors[i] = item
+
     set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
 
 
@@ -244,6 +256,7 @@ previous_step_button.grid(row=19, column=4, sticky=W+E)
 
 
 def next_step_func(start_idx):
+    print(cubies_list[22].__str__())
     if start_idx[0] < 0:
         start_idx[0] = 0
 
