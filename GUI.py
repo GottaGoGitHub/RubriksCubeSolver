@@ -3,6 +3,7 @@ from ListRotations import *
 from tkinter import messagebox
 from itertools import permutations
 from copy import deepcopy
+from FileHandler import *
 
 
 def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
