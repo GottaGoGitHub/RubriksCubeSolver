@@ -214,7 +214,7 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors):
 
     if exists_cubie_with_false_colors:
         messagebox.showerror(title="Invalid coloring", message="Some of the colors were not correct, please set the "
-                                                               "colors for the grey field again and submit again.")
+                                                               "colors for the grey fields again and submit again.")
     else:
         messagebox.showinfo(title="Successful", message="Submission successful.")
 
