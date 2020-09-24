@@ -184,8 +184,8 @@ button_export.grid(row=18, column=1)
 def submit(list_of_cubies):
     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
     actualize_id_array(list_of_cubies, solved_cubies_list, cubies_id, cubies_colors2)
-    print(cubies_list[22].__str__())
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    print(list_of_cubies[22].__str__())
+    set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
 
 
 submit_button = Button(root, text="Submit Input", command=lambda: submit(cubies_list))
