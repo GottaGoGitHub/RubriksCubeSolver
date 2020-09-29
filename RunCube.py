@@ -33,7 +33,7 @@ window.grid(row=5, column=0, columnspan=11, rowspan=11, sticky=W+E, padx=(5, 0))
 
 # Creation of the cube
 cube = create_cube_hexomino(window, 45, 199)
-cubies_list = create_cubie_list_from_csv("IMPORT_EXAMPLE_CE.csv")
+cubies_list = create_cubie_list_from_csv("IMPORT_EXAMPLE.csv")
 cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)
@@ -180,19 +180,20 @@ button_export.configure(width=12)
 button_export.grid(row=18, column=1)
 
 # ____________________________________________________________________________________________________________________________________________________________________
-def actualize_color():
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+# def actualize_color():
+#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
 
 
-color_button = Button(root, text="Colors", command=actualize_color)
-color_button.configure(width=12)
-color_button.grid(row=2, column=11)
+# color_button = Button(root, text="Colors", command=actualize_color)
+# color_button.configure(width=12)
+# color_button.grid(row=2, column=11)
 
 error = [False]
 
 def submit(list_of_cubies, error):
     error[0] = False
     export_cube_to_csv(list_of_cubies, "AUTOSAVE.csv")
+    export_cube_to_csv(list_of_cubies, "AUTOSAVE_START.csv")
     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
     actualize_id_array(list_of_cubies, solved_cubies_list, cubies_id, cubies_colors2)
     list_of_colors = get_colors_from_cubies(list_of_cubies)
@@ -223,10 +224,6 @@ def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window, cube)
     if temp_error[0] == False:
         optimize_solver(rotation_list)
         set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
-    # print(rotation_list)
-    # print("cubies: ")
-    # for u in cubies_list:
-    #     print(u.__str__())
 
 
 solve_optimize_button = Button(root, text="Generate Solution", command=lambda: solve_optimize_func(rotations, cubies_list, error, window, cube))
@@ -263,7 +260,6 @@ previous_step_button.grid(row=19, column=4, sticky=W+E)
 
 
 def next_step_func(start_idx):
-    print(cubies_list[22].__str__())
     if start_idx[0] < 0:
         start_idx[0] = 0
 
@@ -294,5 +290,38 @@ cube1_button.select()
 cube1_button.grid(row=1, column=7)
 cube2_button.grid(row=2, column=7)
 
+def reset(list_of_cubies, start_idx, rotation_list):
+    import_cube_from_csv(list_of_cubies, "AUTOSAVE_START.csv")
+    set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
+    start_idx[0] = 0
+    list_of_colors = get_colors_from_cubies(list_of_cubies)
+
+    for i, item in enumerate(list_of_colors):
+        cubies_colors[i] = item
+
+    set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
+
+reset_button = Button(root, text="Reset", command=lambda: reset(cubies_list, lauf_idx, rotations))
+reset_button.configure(width=12)
+reset_button.grid(row=20, column=4, columnspan=2)
+
+def reset_to_default(list_of_cubies, start_idx):
+    import_cube_from_csv(list_of_cubies, "DEFAULT.csv")
+    set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
+    start_idx[0] = 0
+    list_of_colors = get_colors_from_cubies(list_of_cubies)
+
+    for i, item in enumerate(list_of_colors):
+        cubies_colors[i] = item
+
+    previous_label = Label(root, font=hint_font_bold, text="Previous step:")
+    previous_text_label = Label(root, font=hint_font, text="There is no previous step.")
+
+    next_label = Label(root, font=hint_font_bold, text="Next step:")
+    next_text_label = Label(root, font=hint_font, text="You have to generate a solution first to see the correct steps.")
+
+reset_to_default_button = Button(root, text="Reset to Default", command=lambda: reset_to_default(cubies_list, lauf_idx))
+reset_to_default_button.configure(width=12)
+reset_to_default_button.grid(row=2, column=11)
 
 root.mainloop()

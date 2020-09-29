@@ -964,8 +964,6 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
 
             if counter == 9 and len(positions) != 0:
                 boolerror_message = True
-                print(cubies[12].__str__())
-                print(id(cubies[12]))
                 import_cube_from_csv(cubies,"AUTOSAVE.csv")
 
                 for i in range(4):
@@ -982,12 +980,7 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
                         cubies[positions[1][1]].colors = ["grey", "grey", "grey"]
 
                 export_cube_to_csv(cubies, "AUTOSAVE.csv")
-                print(cubies[12].__str__())
-                print(id(cubies[12]))
                 set_colors(window, get_colors_from_cubies(cubies), cube) 
-
-            print(cubies[12].__str__()) 
-            print(id(cubies[12]))
 
             while not (id_array[0][7] == "0801"):
                 rotate_cube_right_cubies(cubies, id_array, rotations)
@@ -996,17 +989,10 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
         messagebox.showerror("Flipped Corner Error", "Two yellow corners are swapped. Please swap the position of the two cubies.")
         error[0] = True
 
-    print(cubies[12].__str__()) 
-    print(id(cubies[12]))
-
-
 
 def correct_corners(cubies, id_array, rotations, error, window, cube):
 
     boolerror_message = False
-
-    print(cubies[12].__str__())
-    print(id(cubies[12]))
 
     if not error[0]:
 
