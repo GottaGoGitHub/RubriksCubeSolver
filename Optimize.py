@@ -5,6 +5,8 @@ def optimize_solver(rotations):
     # changing for example R R R to R' etc.
     # for doing 2 less steps for each 
 
+    print(rotations)
+
     j = len(rotations) - 1
 
     # we iterate from the end of the array to the begin of the array

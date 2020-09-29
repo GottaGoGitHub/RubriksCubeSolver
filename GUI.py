@@ -189,6 +189,8 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors):
             # finding the cube in the list of unsolved cubes
             filter_unsolved = list(filter(lambda cubie: cubie.colors in perm_temp_colors_list, cubies_list))
 
+            print(filter_unsolved)
+
             # removing false colors
             filter_unsolved[0].color1 = "grey"
             filter_unsolved[0].color2 = "grey"
@@ -219,14 +221,14 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors):
     else:
         messagebox.showinfo(title="Successful", message="Submission successful.")
 
-        for idx, cubie in enumerate(solved_cubies):
-            print(cubies_list[idx].__str__())
-            print(cubie.__str__())
-            cubies_list[idx] = deepcopy(cubie)
-            print(cubies_list[idx].__str__())
-            print()
-            print()
-            print()
+        # for idx, cubie in enumerate(solved_cubies):
+        #     print(cubies_list[idx].__str__())
+        #     print(cubie.__str__())
+        #     cubies_list[idx] = deepcopy(cubie)
+        #     print(cubies_list[idx].__str__())
+        #     print()
+        #     print()
+        #     print()
 
 
 def generate_prompt(window, font1, font2):
