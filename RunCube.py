@@ -223,6 +223,9 @@ def submit(list_of_cubies, error_):
     if solve_optimize_button["state"] == "disabled":
         solve_optimize_button.configure(state=NORMAL)
 
+    if scramble_button["state"] == "disabled":
+        scramble_button.configure(state=NORMAL)
+
 
 submit_button = Button(root, text="Submit Input", command=lambda: submit(cubies_list, error))
 submit_button.configure(width=12)
@@ -235,7 +238,7 @@ def scramble_func():
 
 
 scramble_button = Button(root, text="Scramble", command=scramble_func)
-scramble_button.configure(width=12)
+scramble_button.configure(width=12, state=DISABLED)
 scramble_button.grid(row=20, column=0, padx=(5, 0))
 
 
