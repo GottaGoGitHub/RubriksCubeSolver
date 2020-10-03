@@ -192,6 +192,21 @@ button_export.grid(row=18, column=1)
 error = [False]
 
 
+def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window_, cube_):
+    solve_cube(list_of_cubies, cubies_id, rotation_list, temp_error, window_, cube_)
+    if not temp_error[0]:
+        optimize_solver(rotation_list)
+        set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
+        next_step_button.configure(state=NORMAL)
+        reset_button.configure(state=NORMAL)
+
+
+solve_optimize_button = Button(root, text="Generate Solution",
+                               command=lambda: solve_optimize_func(rotations, cubies_list, error, window, cube))
+solve_optimize_button.configure(width=12, state=DISABLED)
+solve_optimize_button.grid(row=18, column=4, columnspan=2)
+
+
 def submit(list_of_cubies, error_):
     error_[0] = False
     export_cube_to_csv(list_of_cubies, "AUTOSAVE.csv")
@@ -204,6 +219,9 @@ def submit(list_of_cubies, error_):
         cubies_colors[i] = item
 
     set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
+
+    if solve_optimize_button["state"] == "disabled":
+        solve_optimize_button.configure(state=NORMAL)
 
 
 submit_button = Button(root, text="Submit Input", command=lambda: submit(cubies_list, error))
@@ -220,18 +238,6 @@ scramble_button = Button(root, text="Scramble", command=scramble_func)
 scramble_button.configure(width=12)
 scramble_button.grid(row=20, column=0, padx=(5, 0))
 
-
-def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window_, cube_):
-    solve_cube(list_of_cubies, cubies_id, rotation_list, temp_error, window_, cube_)
-    if not temp_error[0]:
-        optimize_solver(rotation_list)
-        set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
-
-
-solve_optimize_button = Button(root, text="Generate Solution",
-                               command=lambda: solve_optimize_func(rotations, cubies_list, error, window, cube))
-solve_optimize_button.configure(width=12)
-solve_optimize_button.grid(row=18, column=4, columnspan=2)
 
 previous_label = Label(root, font=hint_font_bold, text="Previous step:")
 previous_text_label = Label(root, font=hint_font, text="There is no previous step.")
@@ -256,13 +262,21 @@ def previous_step_func(start_idx):
         previous_step(window, cubies_colors, cube, rotations, start_idx)
         set_prev_and_next_label(previous_text_label, next_text_label, -1, rotations, start_idx)
 
+    # State management
+    if lauf_idx[0] <= 0:
+        previous_step_button.configure(state=DISABLED)
+
+    if start_idx[0] == len(rotations)-1:
+        next_step_button.configure(state=NORMAL)
+
 
 previous_step_button = Button(root, text="previous", command=lambda: previous_step_func(lauf_idx))
-previous_step_button.configure(width=12)
+previous_step_button.configure(width=12, state=DISABLED)
 previous_step_button.grid(row=19, column=4, sticky=W+E)
 
 
 def next_step_func(start_idx):
+
     if start_idx[0] < 0:
         start_idx[0] = 0
 
@@ -271,9 +285,15 @@ def next_step_func(start_idx):
         set_prev_and_next_label(previous_text_label, next_text_label, 1, rotations, start_idx)
         start_idx[0] += 1
 
+    if start_idx[0] == len(rotations):
+        next_step_button.configure(state=DISABLED)
+
+    if previous_step_button["state"] == "disabled":
+        previous_step_button.configure(state=NORMAL)
+
 
 next_step_button = Button(root, text="next", command=lambda: next_step_func(lauf_idx))
-next_step_button.configure(width=12)
+next_step_button.configure(width=12, state=DISABLED)
 next_step_button.grid(row=19, column=5, sticky=W+E)
 
 
@@ -304,10 +324,11 @@ def reset(list_of_cubies, start_idx, rotation_list):
         cubies_colors[i] = item
 
     set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
+    previous_step_button.configure(state=DISABLED)
 
 
 reset_button = Button(root, text="Reset", command=lambda: reset(cubies_list, lauf_idx, rotations))
-reset_button.configure(width=12)
+reset_button.configure(width=12, state=DISABLED)
 reset_button.grid(row=20, column=4, columnspan=2)
 
 
