@@ -393,7 +393,7 @@ def create_sentence(letter):
         sentence = "Rotate the cube upwards."
 
     elif letter == "y'":
-        sentence="Rotate the cube downwards."
+        sentence = "Rotate the cube downwards."
 
     elif letter == "F":
         sentence = "Rotate the front side clockwise."

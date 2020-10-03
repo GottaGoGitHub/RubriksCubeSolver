@@ -61,7 +61,8 @@ answer1 = Entry(root)
 answer1.configure(width=30)
 answer1.grid(row=1, column=0, columnspan=5)
 
-question2 = Label(root, font=text_font, text="How do you want to color your pieces? Please enter the number followed by the color. ")
+question2 = Label(root, font=text_font,
+                  text="How do you want to color your pieces? Please enter the number followed by the color. ")
 question2.grid(row=2, column=0, columnspan=5)
 
 answer2 = Entry(root)
@@ -190,8 +191,9 @@ button_export.grid(row=18, column=1)
 
 error = [False]
 
-def submit(list_of_cubies, error):
-    error[0] = False
+
+def submit(list_of_cubies, error_):
+    error_[0] = False
     export_cube_to_csv(list_of_cubies, "AUTOSAVE.csv")
     export_cube_to_csv(list_of_cubies, "AUTOSAVE_START.csv")
     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
@@ -219,14 +221,15 @@ scramble_button.configure(width=12)
 scramble_button.grid(row=20, column=0, padx=(5, 0))
 
 
-def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window, cube):
-    solve_cube(list_of_cubies, cubies_id, rotation_list, temp_error, window, cube)
-    if temp_error[0] == False:
+def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window_, cube_):
+    solve_cube(list_of_cubies, cubies_id, rotation_list, temp_error, window_, cube_)
+    if not temp_error[0]:
         optimize_solver(rotation_list)
         set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
 
 
-solve_optimize_button = Button(root, text="Generate Solution", command=lambda: solve_optimize_func(rotations, cubies_list, error, window, cube))
+solve_optimize_button = Button(root, text="Generate Solution",
+                               command=lambda: solve_optimize_func(rotations, cubies_list, error, window, cube))
 solve_optimize_button.configure(width=12)
 solve_optimize_button.grid(row=18, column=4, columnspan=2)
 
@@ -290,6 +293,7 @@ cube1_button.select()
 cube1_button.grid(row=1, column=7)
 cube2_button.grid(row=2, column=7)
 
+
 def reset(list_of_cubies, start_idx, rotation_list):
     import_cube_from_csv(list_of_cubies, "AUTOSAVE_START.csv")
     set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
@@ -301,11 +305,13 @@ def reset(list_of_cubies, start_idx, rotation_list):
 
     set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
 
+
 reset_button = Button(root, text="Reset", command=lambda: reset(cubies_list, lauf_idx, rotations))
 reset_button.configure(width=12)
 reset_button.grid(row=20, column=4, columnspan=2)
 
-def reset_to_default(list_of_cubies, start_idx):
+
+def reset_to_default(list_of_cubies, start_idx, prev_text, next_text):
     import_cube_from_csv(list_of_cubies, "DEFAULT.csv")
     set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
     start_idx[0] = 0
@@ -314,13 +320,12 @@ def reset_to_default(list_of_cubies, start_idx):
     for i, item in enumerate(list_of_colors):
         cubies_colors[i] = item
 
-    previous_label = Label(root, font=hint_font_bold, text="Previous step:")
-    previous_text_label = Label(root, font=hint_font, text="There is no previous step.")
+    prev_text.configure(text="There is no previous step.")
+    next_text.configure(text="You have to generate a solution first to see the correct steps.")
 
-    next_label = Label(root, font=hint_font_bold, text="Next step:")
-    next_text_label = Label(root, font=hint_font, text="You have to generate a solution first to see the correct steps.")
 
-reset_to_default_button = Button(root, text="Reset to Default", command=lambda: reset_to_default(cubies_list, lauf_idx))
+reset_to_default_button = Button(root, text="Reset to Default",
+                                 command=lambda: reset_to_default(cubies_list, lauf_idx, previous_text_label, next_text_label))
 reset_to_default_button.configure(width=12)
 reset_to_default_button.grid(row=2, column=11)
 
