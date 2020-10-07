@@ -89,9 +89,12 @@ answer2.bind("<Return>", press_enter)
 
 # Creating the Rotation buttons
 def rotate_up_for_button():
-    rotate_cube_up_cubies(cubies_list, cubies_id, rotations)
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
+    if which_cube[0] == 1:
+        rotate_cube_up_cubies(cubies_list, cubies_id, rotations)
+        set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 2:
+        rotate_cube_up_cubies(solved_cubies_list, solved_cubies_id, solved_rotations)
+        set_colors(window, get_colors_from_cubies(solved_cubies_list), solved_cube)
 
 button_rotate_up = Button(root, text="Up", command=rotate_up_for_button)
 button_rotate_up.configure(width=5)
@@ -99,8 +102,12 @@ button_rotate_up.grid(row=18, column=9, sticky=W+E+N+S)
 
 
 def rotate_down_for_button():
-    rotate_cube_down_cubies(cubies_list, cubies_id, rotations)
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 1:
+        rotate_cube_down_cubies(cubies_list, cubies_id, rotations)
+        set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 2:
+        rotate_cube_down_cubies(solved_cubies_list, solved_cubies_id, solved_rotations)
+        set_colors(window, get_colors_from_cubies(solved_cubies_list), solved_cube)
 
 
 button_rotate_down = Button(root, text="Down", command=rotate_down_for_button)
@@ -109,8 +116,12 @@ button_rotate_down.grid(row=20, column=9, sticky=W+E+N+S)
 
 
 def rotate_left_for_button():
-    rotate_cube_left_cubies(cubies_list, cubies_id, rotations)
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 1:
+        rotate_cube_left_cubies(cubies_list, cubies_id, rotations)
+        set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 2:
+        rotate_cube_left_cubies(solved_cubies_list, solved_cubies_id, solved_rotations)
+        set_colors(window, get_colors_from_cubies(solved_cubies_list), solved_cube)
 
 
 button_rotate_left = Button(root, text="Left", command=rotate_left_for_button)
@@ -119,8 +130,12 @@ button_rotate_left.grid(row=19, column=8, sticky=W+E+N+S)
 
 
 def rotate_right_for_button():
-    rotate_cube_right_cubies(cubies_list, cubies_id, rotations)
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 1:
+        rotate_cube_right_cubies(cubies_list, cubies_id, rotations)
+        set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 2:
+        rotate_cube_right_cubies(solved_cubies_list, solved_cubies_id, solved_rotations)
+        set_colors(window, get_colors_from_cubies(solved_cubies_list), solved_cube)
 
 
 button_rotate_right = Button(root, text="Right", command=rotate_right_for_button)
