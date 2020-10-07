@@ -3,6 +3,7 @@ from Cube import *
 import random
 from tkinter import messagebox
 from FileHandler import *
+from copy import *
 
 
 # random scrambling
@@ -896,6 +897,8 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
 
     boolerror_message = False
 
+    temp_cubies = []
+
     if not error[0]:
         # check if cubie 1 is at right position
         cubie_1_right = id_array[0][0].rpartition("0")[0] == "01"
@@ -905,8 +908,7 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
         corners_right = False
 
         if not (cubie_1_right and cubie_3_right and cubie_7_right and cubie_9_right):
-            while (
-                    cubie_1_right == False and cubie_3_right == False and cubie_7_right == False and cubie_9_right == False):
+            while (cubie_1_right == False and cubie_3_right == False and cubie_7_right == False and cubie_9_right == False):
                 sort_corners_algorithm(cubies, id_array, rotations)
 
                 if id_array[0][0].rpartition("0")[0] == "01":
@@ -978,16 +980,46 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
                         cubies[positions[1][1]].color3 = "grey"
                         cubies[positions[1][1]].colors = ["grey", "grey", "grey"]
 
+                print(get_colors_from_cubies(cubies))
                 export_cube_to_csv(cubies, "AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
+                # hier ist das Muster mit den grauen Feldern so wie es sein soll
+                print(get_colors_from_cubies(cubies))
+                # temp_cubies = cubies
+
+                temp_cubies = deepcopy(cubies)
+                    
+                # for i in temp_cubies:
+                #     print(i.__str__())
+
+                print(get_colors_from_cubies(temp_cubies))
+                
+            print("vor der while", get_colors_from_cubies(temp_cubies))
+            print(id(get_colors_from_cubies(cubies)))
 
             while not (id_array[0][7] == "0801"):
                 rotate_cube_right_cubies(cubies, id_array, rotations)
+
+            # temp_cubies hat plötzlich die Werte von cubies ?!
+            print("nach der while", get_colors_from_cubies(temp_cubies))
+            print(id(get_colors_from_cubies(cubies)))
+            # hier auch gelöstes Muster
+            for i, item in enumerate(temp_cubies):
+                cubies[i] = item
+
+            # cubies = temp_cubies
+            print(get_colors_from_cubies(cubies))
 
     if boolerror_message:
         messagebox.showerror("Flipped Corner Error",
                              "Two yellow corners are swapped. Please swap the position of the two cubies.")
         error[0] = True
+
+        # hier auch gelöstes Muster
+        print(get_colors_from_cubies(cubies))
+
+    # colors sind hier schon falsch, d.h. so aktualisiert, dass das gelöste Muster angezeigt wird
+    print(get_colors_from_cubies(cubies))
 
 
 def correct_corners(cubies, id_array, rotations, error, window, cube):
