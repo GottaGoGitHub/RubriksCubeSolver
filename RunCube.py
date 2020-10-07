@@ -49,6 +49,7 @@ set_colors(window, solved_cubies_colors, solved_cube)
 # initialize array for every step of rotation
 scramble_rotations = []
 rotations = [] 
+solved_rotations = []
 
 # Generating the prompt in the upper right hand corner.
 generate_prompt(window, text_font, text_font_bold)
@@ -130,50 +131,73 @@ button_rotate_right.grid(row=19, column=10, sticky=W+E+N+S)
 
 # Binding the arrow key to the corresponding rotation
 def rotate_up_for_key(event):
-    rotate_cube_up_cubies(cubies_list, cubies_id, rotations)
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 1:
+        rotate_cube_up_cubies(cubies_list, cubies_id, rotations)
+        set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 2:
+        rotate_cube_up_cubies(solved_cubies_list, solved_cubies_id, solved_rotations)
+        set_colors(window, get_colors_from_cubies(solved_cubies_list), solved_cube)
 
 
 root.bind('<Up>', rotate_up_for_key)
 
 
 def rotate_down_for_key(event):
-    rotate_cube_down_cubies(cubies_list, cubies_id, rotations)
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 1:
+        rotate_cube_down_cubies(cubies_list, cubies_id, rotations)
+        set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 2:
+        rotate_cube_down_cubies(solved_cubies_list, solved_cubies_id, solved_rotations)
+        set_colors(window, get_colors_from_cubies(solved_cubies_list), solved_cube)
 
 
 root.bind('<Down>', rotate_down_for_key)
 
 
 def rotate_left_for_key(event):
-    rotate_cube_left_cubies(cubies_list, cubies_id, rotations)
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 1:
+        rotate_cube_left_cubies(cubies_list, cubies_id, rotations)
+        set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 2:
+        rotate_cube_left_cubies(solved_cubies_list, solved_cubies_id, solved_rotations)
+        set_colors(window, get_colors_from_cubies(solved_cubies_list), solved_cube)
 
 
 root.bind('<Left>', rotate_left_for_key)
 
 
 def rotate_right_for_key(event):
-    rotate_cube_right_cubies(cubies_list, cubies_id, rotations)
-    set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 1:
+        rotate_cube_right_cubies(cubies_list, cubies_id, rotations)
+        set_colors(window, get_colors_from_cubies(cubies_list), cube)
+    if which_cube[0] == 2:
+        rotate_cube_right_cubies(solved_cubies_list, solved_cubies_id, solved_rotations)
+        set_colors(window, get_colors_from_cubies(solved_cubies_list), solved_cube)
 
 
 root.bind('<Right>', rotate_right_for_key)
 
 
 # Import and export of the cube
-def button_import_func(list_of_cubies):
-    import_cube_from_csv(list_of_cubies, "IMPORT_EXAMPLE.csv")
-    set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
+def button_import_func(list_of_cubies, solved_list_of_cubies):
+    if which_cube[0] == 1:
+        import_cube_from_csv(list_of_cubies, "IMPORT_EXAMPLE_WC.csv")
+        set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
+    if which_cube[0] == 2:
+        import_cube_from_csv(solved_list_of_cubies, "IMPORT_EXAMPLE_WC.csv")
+        set_colors(window, get_colors_from_cubies(solved_list_of_cubies), solved_cube)
 
 
-button_import = Button(root, text="Import", command=lambda: button_import_func(cubies_list))
+button_import = Button(root, text="Import", command=lambda: button_import_func(cubies_list, solved_cubies_list))
 button_import.configure(width=12)
 button_import.grid(row=18, column=0, padx=(5, 0))
 
 
 def button_export_func():
-    export_cube_to_csv(cubies_list, "EXPORT.csv")
+    if which_cube[0] == 1:
+        export_cube_to_csv(cubies_list, "EXPORT.csv")
+    if which_cube[0] == 2:
+        export_cube_to_csv(solved_cubies_list, "SOLVED_EXPORT.csv")
 
 
 button_export = Button(root, text="Export", command=button_export_func)
@@ -194,11 +218,13 @@ error = [False]
 
 def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window_, cube_):
     solve_cube(list_of_cubies, cubies_id, rotation_list, temp_error, window_, cube_)
+    print("runcube", get_colors_from_cubies(list_of_cubies))
     if not temp_error[0]:
         optimize_solver(rotation_list)
         set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
         next_step_button.configure(state=NORMAL)
         reset_button.configure(state=NORMAL)
+        print("runcube", get_colors_from_cubies(list_of_cubies))
 
 
 solve_optimize_button = Button(root, text="Generate Solution",
