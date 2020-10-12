@@ -980,46 +980,21 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
                         cubies[positions[1][1]].color3 = "grey"
                         cubies[positions[1][1]].colors = ["grey", "grey", "grey"]
 
-                print(get_colors_from_cubies(cubies))
                 export_cube_to_csv(cubies, "AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
-                # hier ist das Muster mit den grauen Feldern so wie es sein soll
-                print(get_colors_from_cubies(cubies))
-                # temp_cubies = cubies
 
                 temp_cubies = deepcopy(cubies)
-                    
-                # for i in temp_cubies:
-                #     print(i.__str__())
-
-                print(get_colors_from_cubies(temp_cubies))
-                
-            print("vor der while", get_colors_from_cubies(temp_cubies))
-            print(id(get_colors_from_cubies(cubies)))
 
             while not (id_array[0][7] == "0801"):
                 rotate_cube_right_cubies(cubies, id_array, rotations)
 
-            # temp_cubies hat plötzlich die Werte von cubies ?!
-            print("nach der while", get_colors_from_cubies(temp_cubies))
-            print(id(get_colors_from_cubies(cubies)))
-            # hier auch gelöstes Muster
             for i, item in enumerate(temp_cubies):
                 cubies[i] = item
 
-            # cubies = temp_cubies
-            print(get_colors_from_cubies(cubies))
-
     if boolerror_message:
         messagebox.showerror("Flipped Corner Error",
-                             "Two yellow corners are swapped. Please swap the position of the two cubies.")
+                             "Two corners are swapped. Please swap the position of the two corners.")
         error[0] = True
-
-        # hier auch gelöstes Muster
-        print(get_colors_from_cubies(cubies))
-
-    # colors sind hier schon falsch, d.h. so aktualisiert, dass das gelöste Muster angezeigt wird
-    print(get_colors_from_cubies(cubies))
 
 
 def correct_corners(cubies, id_array, rotations, error, window, cube):

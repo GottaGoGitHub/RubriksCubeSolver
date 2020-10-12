@@ -219,6 +219,17 @@ button_export = Button(root, text="Export", command=button_export_func)
 button_export.configure(width=12)
 button_export.grid(row=18, column=1)
 
+
+def export_rotations_to_file(rotations_, error_):
+    if not error_[0]:
+        filehandler = open("Rotations.txt", "w")
+        filehandler.write(str(rotations_))
+        filehandler.close()
+    
+button_rotations_export_to_file = Button(root, text="Export Rotations", command=lambda: export_rotations_to_file(rotations, error))
+button_rotations_export_to_file.configure(width=12, state=DISABLED)
+button_rotations_export_to_file.grid(row=20, column=1)
+
 # ____________________________________________________________________________________________________________________________________________________________________
 # def actualize_color():
 #     set_colors(window, get_colors_from_cubies(cubies_list), cube)
@@ -230,20 +241,26 @@ button_export.grid(row=18, column=1)
 
 error = [False]
 
+lauf_idx = [0]
 
-def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window_, cube_):
+
+def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window_, cube_, start_idx):
+    rotation_list.clear()
+    start_idx[0] = 0
     solve_cube(list_of_cubies, cubies_id, rotation_list, temp_error, window_, cube_)
-    print("runcube", get_colors_from_cubies(list_of_cubies))
     if not temp_error[0]:
         optimize_solver(rotation_list)
         set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
         next_step_button.configure(state=NORMAL)
         reset_button.configure(state=NORMAL)
-        print("runcube", get_colors_from_cubies(list_of_cubies))
+        button_rotations_export_to_file.configure(state=NORMAL)
+    if temp_error[0]:
+        solve_optimize_button.configure(state=DISABLED)
+        button_rotations_export_to_file.configure(state=DISABLED)
 
 
 solve_optimize_button = Button(root, text="Generate Solution",
-                               command=lambda: solve_optimize_func(rotations, cubies_list, error, window, cube))
+                               command=lambda: solve_optimize_func(rotations, cubies_list, error, window, cube, lauf_idx))
 solve_optimize_button.configure(width=12, state=DISABLED)
 solve_optimize_button.grid(row=18, column=4, columnspan=2)
 
@@ -279,8 +296,8 @@ def scramble_func():
 
 
 scramble_button = Button(root, text="Scramble", command=scramble_func)
-scramble_button.configure(width=12, state=DISABLED)
-scramble_button.grid(row=20, column=0, padx=(5, 0))
+scramble_button.configure(width=5, state=DISABLED)
+scramble_button.grid(row=23, column=9)
 
 
 previous_label = Label(root, font=hint_font_bold, text="Previous step:")
@@ -293,8 +310,6 @@ previous_label.grid(row=6, column=12, sticky=W)
 previous_text_label.grid(row=7, column=12, sticky=W)
 next_label.grid(row=8, column=12, sticky=W)
 next_text_label.grid(row=9, column=12, sticky=W)
-
-lauf_idx = [0]
 
 
 def previous_step_func(start_idx):
