@@ -189,8 +189,6 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors, error):
             # finding the cube in the list of unsolved cubes
             filter_unsolved = list(filter(lambda cubie: cubie.colors in perm_temp_colors_list, cubies_list))
 
-            print(filter_unsolved)
-
             # removing false colors
             filter_unsolved[0].color1 = "grey"
             filter_unsolved[0].color2 = "grey"
@@ -202,23 +200,18 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors, error):
                 filter_unsolved[0].colors = ["grey", "grey"]
 
         else:
-            print(filtered[0].__str__())
             for i, element in enumerate(temp_colors):
                 if element == filtered[0].color1:
                     filtered[0].pos1 = positions_of_cubie[i]
                     id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id1
-                    print(element, "if 1")
 
                 if element == filtered[0].color2:
                     filtered[0].pos2 = positions_of_cubie[i]
                     id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id2
-                    print(element, "if 2")
 
                 if element == filtered[0].color3:
                     filtered[0].pos3 = positions_of_cubie[i]
                     id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id3
-                    print(element, "if 3")
-            print()
 
     if exists_cubie_with_false_colors:
         messagebox.showerror(title="Invalid coloring", message="Some of the colors were not correct, please set the "
