@@ -134,7 +134,7 @@ def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
         answer2.delete(0, END)
 
 
-def actualize_id_array(cubies_list, solved_cubies, id_array, colors):
+def actualize_id_array(cubies_list, solved_cubies, id_array, colors, error):
     cubies_positions = [[[0, 0], [4, 0], [3, 2]],
                         [[0, 1], [3, 1]],
                         [[0, 2], [2, 2], [3, 0]],
@@ -202,35 +202,55 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors):
                 filter_unsolved[0].colors = ["grey", "grey"]
 
         else:
+            print(filtered[0].__str__())
             for i, element in enumerate(temp_colors):
                 if element == filtered[0].color1:
                     filtered[0].pos1 = positions_of_cubie[i]
                     id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id1
+                    print(element, "if 1")
 
                 if element == filtered[0].color2:
                     filtered[0].pos2 = positions_of_cubie[i]
                     id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id2
+                    print(element, "if 2")
 
                 if element == filtered[0].color3:
                     filtered[0].pos3 = positions_of_cubie[i]
                     id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id3
+                    print(element, "if 3")
+            print()
 
     if exists_cubie_with_false_colors:
         messagebox.showerror(title="Invalid coloring", message="Some of the colors were not correct, please set the "
                                                                "colors for the grey fields again and submit again.")
+        error[0] == True
     else:
         messagebox.showinfo(title="Successful", message="Submission successful.")
 
-        # for idx, cubie in enumerate(solved_cubies):
-        #     print(cubies_list[idx].__str__())
-        #     print(cubie.__str__())
-        #     cubies_list[idx] = deepcopy(cubie)
-        #     print(cubies_list[idx].__str__())
-        #     print()
-        #     print()
-        #     print()
 
+def correct_cubies_list(id_array, cubies, solved_cubies, error):
+    if not error[0]:
+        for i, side in enumerate(id_array):
+            for j, identifier in enumerate(side):
+                temp = identifier.rpartition("0")
+                cubies_number = int(temp[0]) - 1
+                
+                if temp[2] == "1":
+                    cubies[cubies_number].pos1[0] = i
+                    cubies[cubies_number].pos1[1] = j
+                    cubies[cubies_number].color1 = solved_cubies[cubies_number].color1
 
+                if temp[2] == "2":
+                    cubies[cubies_number].pos2[0] = i
+                    cubies[cubies_number].pos2[1] = j
+                    cubies[cubies_number].color2 = solved_cubies[cubies_number].color2
+
+                if temp[2] == "3":
+                    cubies[cubies_number].pos3[0] = i
+                    cubies[cubies_number].pos3[1] = j
+                    cubies[cubies_number].color3 = solved_cubies[cubies_number].color3
+
+            
 def generate_prompt(window, font1, font2):
     # Generating the user prompt
     grid_prompt = grid3x3(window, 380, 65)

@@ -463,6 +463,7 @@ def white_corners(cubies, id_array, rotations, error, window, cube):
         # if cubie 15 ist already at the right position, but swapped
         if id_array[5][0].rpartition("0")[0] == "15":
             while not (id_array[4][8] == "1501" and id_array[1][6] == "1502" and id_array[5][0] == "1503"):
+                print("help")
                 if id_array[4][8] == "1502" and id_array[1][6] == "1501" and id_array[5][0] == "1503":
                     boolerror_message = True
                     error[0] = True
@@ -797,6 +798,8 @@ def top_cross(cubies, id_array, rotations, error):
         for i in cubie_on_yellow_side:
             if i:
                 counter += 1
+
+        import_cube_from_csv(cubies, "AUTOSAVE.csv")
 
         if counter == 1 or counter == 3:
             messagebox.showerror("Flipped Cubie Error", "Please flip one of the 4 edge cubies with a yellow side.")

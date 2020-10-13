@@ -199,7 +199,7 @@ def button_import_func(list_of_cubies, solved_list_of_cubies):
         import_cube_from_csv(list_of_cubies, "IMPORT_EXAMPLE_WC.csv")
         set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
     if which_cube[0] == 2:
-        import_cube_from_csv(solved_list_of_cubies, "IMPORT_EXAMPLE_WC.csv")
+        import_cube_from_csv(solved_list_of_cubies, "SOLVED_EXPORT.csv")
         set_colors(window, get_colors_from_cubies(solved_list_of_cubies), solved_cube)
 
 
@@ -265,12 +265,13 @@ solve_optimize_button.configure(width=12, state=DISABLED)
 solve_optimize_button.grid(row=18, column=4, columnspan=2)
 
 
-def submit(list_of_cubies, error_):
+def submit(list_of_cubies, list_of_solved_cubies, list_of_cubies_ids, error_):
     error_[0] = False
     export_cube_to_csv(list_of_cubies, "AUTOSAVE.csv")
     export_cube_to_csv(list_of_cubies, "AUTOSAVE_START.csv")
     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
-    actualize_id_array(list_of_cubies, solved_cubies_list, cubies_id, cubies_colors2)
+    actualize_id_array(list_of_cubies, solved_cubies_list, cubies_id, cubies_colors2, error_)
+    correct_cubies_list(list_of_cubies_ids, list_of_cubies, list_of_solved_cubies, error_)
     list_of_colors = get_colors_from_cubies(list_of_cubies)
 
     for i, item in enumerate(list_of_colors):
@@ -284,8 +285,12 @@ def submit(list_of_cubies, error_):
     if scramble_button["state"] == "disabled":
         scramble_button.configure(state=NORMAL)
 
+    print(list_of_cubies[6].__str__())
+    print(list_of_solved_cubies[6].__str__())
+    print(list_of_cubies_ids)
 
-submit_button = Button(root, text="Submit Input", command=lambda: submit(cubies_list, error))
+
+submit_button = Button(root, text="Submit Input", command=lambda: submit(cubies_list, solved_cubies_list, cubies_id, error))
 submit_button.configure(width=12)
 submit_button.grid(row=2, column=5)
 
