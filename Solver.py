@@ -463,7 +463,6 @@ def white_corners(cubies, id_array, rotations, error, window, cube):
         # if cubie 15 ist already at the right position, but swapped
         if id_array[5][0].rpartition("0")[0] == "15":
             while not (id_array[4][8] == "1501" and id_array[1][6] == "1502" and id_array[5][0] == "1503"):
-                print("help")
                 if id_array[4][8] == "1502" and id_array[1][6] == "1501" and id_array[5][0] == "1503":
                     boolerror_message = True
                     error[0] = True

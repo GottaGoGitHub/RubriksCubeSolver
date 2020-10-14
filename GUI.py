@@ -482,6 +482,9 @@ def set_prev_and_next_label(prev_label, next_label, direction, optimized_array, 
     Updates the prev_label and next_label based on the start_index.
     """
 
+    if len(optimized_array) == 0:
+        return
+
     # If the cube is in its starting configuration
     if start_idx[0] < 0 or (start_idx[0] == 0 and direction == -1):
         prev_label.configure(text="There is no previous step.")
