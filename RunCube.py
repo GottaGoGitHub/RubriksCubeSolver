@@ -33,7 +33,7 @@ window.grid(row=5, column=0, columnspan=11, rowspan=11, sticky=W+E, padx=(5, 0))
 
 # Creation of the cube
 cube = create_cube_hexomino(window, 45, 199)
-cubies_list = create_cubie_list_from_csv("IMPORT_EXAMPLE.csv")
+cubies_list = create_cubie_list_from_csv("Files_Import/IMPORT_EXAMPLE.csv")
 cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)
@@ -41,7 +41,7 @@ set_colors(window, cubies_colors, cube)
 
 # Creation of a second cube, which is supposed to be solved
 solved_cube = create_cube_hexomino(window, 550, 199)
-solved_cubies_list = create_cubie_list_from_csv("IMPORT.csv")
+solved_cubies_list = create_cubie_list_from_csv("Files_Import/IMPORT.csv")
 solved_cubies_id = get_id_from_cubies(solved_cubies_list)
 solved_cubies_colors = get_colors_from_cubies(solved_cubies_list)
 set_colors(window, solved_cubies_colors, solved_cube)
@@ -194,12 +194,25 @@ root.bind('<Right>', rotate_right_for_key)
 
 
 # Import and export of the cube
+import_filepath = Entry(root)
+import_filepath.insert(END, "Filename")
+import_filepath.configure(width=20)
+import_filepath.grid(row=18, column=1, padx=(5, 0))
+
+
 def button_import_func(list_of_cubies, solved_list_of_cubies):
+    file = import_filepath.get()
+
+    if file[-4:] != ".csv":
+        file = "Files_Import/" + file + ".csv"
+    else:
+        file = "Files_Import/" + file
+
     if which_cube[0] == 1:
-        import_cube_from_csv(list_of_cubies, "IMPORT_EXAMPLE_WC.csv")
+        import_cube_from_csv(list_of_cubies, file)
         set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
     if which_cube[0] == 2:
-        import_cube_from_csv(solved_list_of_cubies, "SOLVED_EXPORT.csv")
+        import_cube_from_csv(solved_list_of_cubies, file)
         set_colors(window, get_colors_from_cubies(solved_list_of_cubies), solved_cube)
 
 
@@ -208,27 +221,55 @@ button_import.configure(width=12)
 button_import.grid(row=18, column=0, padx=(5, 0))
 
 
+export_filepath = Entry(root)
+export_filepath.insert(END, "Filename")
+export_filepath.configure(width=20)
+export_filepath.grid(row=19, column=1, padx=(5, 0))
+
+
 def button_export_func():
+    file = export_filepath.get()
+
+    if file[-4:] != ".csv":
+        file = "Files_Export/" + file + ".txt"
+    else:
+        file = "Files_Export/" + file
+
     if which_cube[0] == 1:
-        export_cube_to_csv(cubies_list, "EXPORT.csv")
+        export_cube_to_csv(cubies_list, file)
     if which_cube[0] == 2:
-        export_cube_to_csv(solved_cubies_list, "SOLVED_EXPORT.csv")
+        export_cube_to_csv(solved_cubies_list, file)
 
 
 button_export = Button(root, text="Export", command=button_export_func)
 button_export.configure(width=12)
-button_export.grid(row=18, column=1)
+button_export.grid(row=19, column=0)
+
+
+rotations_filepath = Entry(root)
+rotations_filepath.insert(END, "Filename")
+rotations_filepath.configure(width=20)
+rotations_filepath.grid(row=20, column=1, padx=(5, 0))
 
 
 def export_rotations_to_file(rotations_, error_):
     if not error_[0]:
-        filehandler = open("Rotations.txt", "w")
+        file = rotations_filepath.get()
+
+        if file[-4:] != ".txt":
+            file = "Export_Output/" + file + ".txt"
+        else:
+            file = "Files_Export/" + file
+
+        filehandler = open(file, "w")
         filehandler.write(str(rotations_))
         filehandler.close()
-    
-button_rotations_export_to_file = Button(root, text="Export Rotations", command=lambda: export_rotations_to_file(rotations, error))
+
+
+button_rotations_export_to_file = Button(root, text="Export Rotations",
+                                         command=lambda: export_rotations_to_file(rotations, error))
 button_rotations_export_to_file.configure(width=12, state=DISABLED)
-button_rotations_export_to_file.grid(row=20, column=1)
+button_rotations_export_to_file.grid(row=20, column=0)
 
 # ____________________________________________________________________________________________________________________________________________________________________
 # def actualize_color():
@@ -410,7 +451,8 @@ def reset_to_default(list_of_cubies, start_idx, prev_text, next_text):
 
 
 reset_to_default_button = Button(root, text="Reset to Default",
-                                 command=lambda: reset_to_default(cubies_list, lauf_idx, previous_text_label, next_text_label))
+                                 command=lambda: reset_to_default(cubies_list, lauf_idx,
+                                                                  previous_text_label, next_text_label))
 reset_to_default_button.configure(width=12)
 reset_to_default_button.grid(row=2, column=11)
 
