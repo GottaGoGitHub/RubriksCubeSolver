@@ -493,12 +493,12 @@ def white_corners(cubies, id_array, rotations, error, window, cube):
     if boolerror_message:
         messagebox.showerror("Flipped Corner Cubie Error", "Some of the colors of a white corner cubie are flipped,"
                                                            "please set the colors for the grey fields again and submit again.")
-        import_cube_from_csv(cubies, "AUTOSAVE.csv")
+        import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
         cubies[14].color1 = "grey"
         cubies[14].color2 = "grey"
         cubies[14].color3 = "grey"
         cubies[14].colors = ["grey", "grey", "grey"]
-        export_cube_to_csv(cubies, "AUTOSAVE.csv")
+        export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
         set_colors(window, get_colors_from_cubies(cubies), cube)
 
         # insert cubie 19
@@ -552,12 +552,12 @@ def white_corners(cubies, id_array, rotations, error, window, cube):
     if boolerror_message:
         messagebox.showerror("Flipped Corner Cubie Error", "Some of the colors of a white corner cubie are flipped,"
                                                            "please set the colors for the grey fields again and submit again.")
-        import_cube_from_csv(cubies, "AUTOSAVE.csv")
+        import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
         cubies[18].color1 = "grey"
         cubies[18].color2 = "grey"
         cubies[18].color3 = "grey"
         cubies[18].colors = ["grey", "grey", "grey"]
-        export_cube_to_csv(cubies, "AUTOSAVE.csv")
+        export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
         set_colors(window, get_colors_from_cubies(cubies), cube)
 
         # insert cubie 23
@@ -610,12 +610,12 @@ def white_corners(cubies, id_array, rotations, error, window, cube):
         messagebox.showerror("Flipped Corner Cubie Error",
                              "Some of the colors of a white corner cubie are flipped,"
                              "please set the colors for the grey fields again and submit again.")
-        import_cube_from_csv(cubies, "AUTOSAVE.csv")
+        import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
         cubies[22].color1 = "grey"
         cubies[22].color2 = "grey"
         cubies[22].color3 = "grey"
         cubies[22].colors = ["grey", "grey", "grey"]
-        export_cube_to_csv(cubies, "AUTOSAVE.csv")
+        export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
         set_colors(window, get_colors_from_cubies(cubies), cube)
 
         # insert cubie 13
@@ -651,12 +651,12 @@ def white_corners(cubies, id_array, rotations, error, window, cube):
         messagebox.showerror("Flipped Corner Cubie Error",
                              "Some of the colors of a white corner cubie are flipped,"
                              "please set the colors for the grey fields again and submit again.")
-        import_cube_from_csv(cubies, "AUTOSAVE.csv")
+        import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
         cubies[12].color1 = "grey"
         cubies[12].color2 = "grey"
         cubies[12].color3 = "grey"
         cubies[12].colors = ["grey", "grey", "grey"]
-        export_cube_to_csv(cubies, "AUTOSAVE.csv")
+        export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
         set_colors(window, get_colors_from_cubies(cubies), cube)
 
 
@@ -799,7 +799,7 @@ def top_cross(cubies, id_array, rotations, error):
             if i:
                 counter += 1
 
-        import_cube_from_csv(cubies, "AUTOSAVE.csv")
+        import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
 
         if counter == 1 or counter == 3:
             messagebox.showerror("Flipped Cubie Error", "Please flip one of the 4 edge cubies with a yellow side.")
@@ -968,7 +968,7 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
 
             if counter == 9 and len(positions) != 0:
                 boolerror_message = True
-                import_cube_from_csv(cubies, "AUTOSAVE.csv")
+                import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
 
                 for i in range(4):
                     if i == positions[0][0]:
@@ -983,7 +983,7 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
                         cubies[positions[1][1]].color3 = "grey"
                         cubies[positions[1][1]].colors = ["grey", "grey", "grey"]
 
-                export_cube_to_csv(cubies, "AUTOSAVE.csv")
+                export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
 
                 temp_cubies = deepcopy(cubies)
@@ -1013,45 +1013,45 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
         if cubie1yellowtrue[0]:
             if "0102" == id_array[3][2]:
                 boolerror_message = True
-                import_cube_from_csv(cubies, "AUTOSAVE.csv")
+                import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 cubies[0].color1 = "grey"
                 cubies[0].color2 = "grey"
                 cubies[0].color3 = "grey"
                 cubies[0].colors = ["grey", "grey", "grey"]
-                export_cube_to_csv(cubies, "AUTOSAVE.csv")
+                export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
 
         if cubie3yellowtrue[0]:
             if "0303" == id_array[2][2]:
                 boolerror_message = True
-                import_cube_from_csv(cubies, "AUTOSAVE.csv")
+                import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 cubies[2].color1 = "grey"
                 cubies[2].color2 = "grey"
                 cubies[2].color3 = "grey"
                 cubies[2].colors = ["grey", "grey", "grey"]
-                export_cube_to_csv(cubies, "AUTOSAVE.csv")
+                export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
 
         if cubie7yellowtrue[0]:
             if "0703" == id_array[4][2]:
                 boolerror_message = True
-                import_cube_from_csv(cubies, "AUTOSAVE.csv")
+                import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 cubies[6].color1 = "grey"
                 cubies[6].color2 = "grey"
                 cubies[6].color3 = "grey"
                 cubies[6].colors = ["grey", "grey", "grey"]
-                export_cube_to_csv(cubies, "AUTOSAVE.csv")
+                export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
 
         if cubie9yellowtrue[0]:
             if "0903" == id_array[1][2]:
                 boolerror_message = True
-                import_cube_from_csv(cubies, "AUTOSAVE.csv")
+                import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 cubies[8].color1 = "grey"
                 cubies[8].color2 = "grey"
                 cubies[8].color3 = "grey"
                 cubies[8].colors = ["grey", "grey", "grey"]
-                export_cube_to_csv(cubies, "AUTOSAVE.csv")
+                export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
 
         if boolerror_message:
@@ -1072,12 +1072,12 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
             # TODO: correct error message 
             for i in cubies_on_yellow_side:
                 if i[0] == False:
-                    import_cube_from_csv(cubies, "AUTOSAVE.csv")
+                    import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                     cubies[i[1]].color1 = "grey"
                     cubies[i[1]].color2 = "grey"
                     cubies[i[1]].color3 = "grey"
                     cubies[i[1]].colors = ["grey", "grey", "grey"]
-                    export_cube_to_csv(cubies, "AUTOSAVE.csv")
+                    export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                     set_colors(window, get_colors_from_cubies(cubies), cube)
 
             error[0] = True
@@ -1091,12 +1091,12 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
             if id_array[5][2] == "0301" and id_array[2][6] == "0303" and id_array[1][8] == "0302":
                 boolerror_message = True
                 error[0] = True
-                import_cube_from_csv(cubies, "AUTOSAVE.csv")
+                import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 cubies[2].color1 = "grey"
                 cubies[2].color2 = "grey"
                 cubies[2].color3 = "grey"
                 cubies[2].colors = ["grey", "grey", "grey"]
-                export_cube_to_csv(cubies, "AUTOSAVE.csv")
+                export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
                 break
             ruru(cubies, id_array, rotations)
@@ -1108,12 +1108,12 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
             if id_array[5][2] == "0101" and id_array[2][6] == "0102" and id_array[1][8] == "0103":
                 boolerror_message = True
                 error[0] = True
-                import_cube_from_csv(cubies, "AUTOSAVE.csv")
+                import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 cubies[0].color1 = "grey"
                 cubies[0].color2 = "grey"
                 cubies[0].color3 = "grey"
                 cubies[0].colors = ["grey", "grey", "grey"]
-                export_cube_to_csv(cubies, "AUTOSAVE.csv")
+                export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
                 break
             ruru(cubies, id_array, rotations)
@@ -1125,12 +1125,12 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
             if id_array[5][2] == "0701" and id_array[2][6] == "0703" and id_array[1][8] == "0702":
                 boolerror_message = True
                 error[0] = True
-                import_cube_from_csv(cubies, "AUTOSAVE.csv")
+                import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 cubies[6].color1 = "grey"
                 cubies[6].color2 = "grey"
                 cubies[6].color3 = "grey"
                 cubies[6].colors = ["grey", "grey", "grey"]
-                export_cube_to_csv(cubies, "AUTOSAVE.csv")
+                export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
                 break
             ruru(cubies, id_array, rotations)
@@ -1142,12 +1142,12 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
             if id_array[5][2] == "0901" and id_array[2][6] == "0903" and id_array[1][8] == "0902":
                 boolerror_message = True
                 error[0] = True
-                import_cube_from_csv(cubies, "AUTOSAVE.csv")
+                import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 cubies[8].color1 = "grey"
                 cubies[8].color2 = "grey"
                 cubies[8].color3 = "grey"
                 cubies[8].colors = ["grey", "grey", "grey"]
-                export_cube_to_csv(cubies, "AUTOSAVE.csv")
+                export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
                 break
             ruru(cubies, id_array, rotations)

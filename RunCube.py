@@ -33,7 +33,7 @@ window.grid(row=5, column=0, columnspan=11, rowspan=11, sticky=W+E, padx=(5, 0))
 
 # Creation of the cube
 cube = create_cube_hexomino(window, 45, 199)
-cubies_list = create_cubie_list_from_csv("Files_Import/IMPORT_EXAMPLE.csv")
+cubies_list = create_cubie_list_from_csv("Files_Import/DEFAULT.csv")
 cubies_id = get_id_from_cubies(cubies_list)
 cubies_colors = get_colors_from_cubies(cubies_list)
 set_colors(window, cubies_colors, cube)
@@ -95,6 +95,7 @@ def rotate_up_for_button():
     if which_cube[0] == 2:
         rotate_cube_up_cubies(solved_cubies_list, solved_cubies_id, solved_rotations)
         set_colors(window, get_colors_from_cubies(solved_cubies_list), solved_cube)
+
 
 button_rotate_up = Button(root, text="Up", command=rotate_up_for_button)
 button_rotate_up.configure(width=5)
@@ -308,8 +309,8 @@ solve_optimize_button.grid(row=18, column=4, columnspan=2)
 
 def submit(list_of_cubies, list_of_solved_cubies, list_of_cubies_ids, error_):
     error_[0] = False
-    export_cube_to_csv(list_of_cubies, "AUTOSAVE.csv")
-    export_cube_to_csv(list_of_cubies, "AUTOSAVE_START.csv")
+    export_cube_to_csv(list_of_cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
+    export_cube_to_csv(list_of_cubies, "Files_Export/AUTOSAVE/AUTOSAVE_START.csv")
     cubies_colors2 = get_colors_from_cubies(list_of_cubies)
     actualize_id_array(list_of_cubies, solved_cubies_list, cubies_id, cubies_colors2, error_)
     correct_cubies_list(list_of_cubies_ids, list_of_cubies, list_of_solved_cubies, error_)
@@ -420,7 +421,7 @@ cube2_button.grid(row=2, column=7)
 
 
 def reset(list_of_cubies, start_idx, rotation_list):
-    import_cube_from_csv(list_of_cubies, "AUTOSAVE_START.csv")
+    import_cube_from_csv(list_of_cubies, "Files_Export/AUTOSAVE/AUTOSAVE_START.csv")
     set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
     start_idx[0] = 0
     list_of_colors = get_colors_from_cubies(list_of_cubies)
@@ -438,7 +439,7 @@ reset_button.grid(row=20, column=4, columnspan=2)
 
 
 def reset_to_default(list_of_cubies, start_idx, prev_text, next_text):
-    import_cube_from_csv(list_of_cubies, "DEFAULT.csv")
+    import_cube_from_csv(list_of_cubies, "Files_Import/DEFAULT.csv")
     set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
     start_idx[0] = 0
     list_of_colors = get_colors_from_cubies(list_of_cubies)
