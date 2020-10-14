@@ -232,7 +232,7 @@ def button_export_func():
     file = export_filepath.get()
 
     if file[-4:] != ".csv":
-        file = "Files_Export/" + file + ".txt"
+        file = "Files_Export/" + file + ".csv"
     else:
         file = "Files_Export/" + file
 
@@ -258,7 +258,7 @@ def export_rotations_to_file(rotations_, error_):
         file = rotations_filepath.get()
 
         if file[-4:] != ".txt":
-            file = "Export_Output/" + file + ".txt"
+            file = "Files_Export/" + file + ".txt"
         else:
             file = "Files_Export/" + file
 
@@ -273,13 +273,6 @@ button_rotations_export_to_file.configure(width=12, state=DISABLED)
 button_rotations_export_to_file.grid(row=20, column=0)
 
 # ____________________________________________________________________________________________________________________________________________________________________
-# def actualize_color():
-#     set_colors(window, get_colors_from_cubies(cubies_list), cube)
-
-
-# color_button = Button(root, text="Colors", command=actualize_color)
-# color_button.configure(width=12)
-# color_button.grid(row=2, column=11)
 
 error = [False]
 
@@ -296,6 +289,10 @@ def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window_, cube
         next_step_button.configure(state=NORMAL)
         reset_button.configure(state=NORMAL)
         button_rotations_export_to_file.configure(state=NORMAL)
+        if len(rotation_list) == 0:
+            next_text_label.configure(text="Your cube is already solved.")
+            next_step_button.configure(state=DISABLED)
+
     if temp_error[0]:
         solve_optimize_button.configure(state=DISABLED)
         button_rotations_export_to_file.configure(state=DISABLED)
@@ -326,10 +323,6 @@ def submit(list_of_cubies, list_of_solved_cubies, list_of_cubies_ids, error_):
 
     if scramble_button["state"] == "disabled":
         scramble_button.configure(state=NORMAL)
-
-    print(list_of_cubies[6].__str__())
-    print(list_of_solved_cubies[6].__str__())
-    print(list_of_cubies_ids)
 
 
 submit_button = Button(root, text="Submit Input", command=lambda: submit(cubies_list, solved_cubies_list, cubies_id, error))
