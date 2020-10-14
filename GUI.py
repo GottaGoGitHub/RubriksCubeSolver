@@ -7,10 +7,11 @@ from FileHandler import *
 
 
 def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
-    # This function shall be called with the two entries (answer1, answer2) and evaluates their input
+    """ This function shall be called with the two entries (answer1, answer2) and evaluates their input
 
-    # Depending on the input of answer1 and answer2 the corresponding face and piece of the cube will be selected
-    # and colored. Therefore a window and a cube have to be committed as well.
+    Depending on the input of answer1 and answer2 the corresponding face and piece of the cube will be selected
+    and colored. Therefore a window and a cube have to be committed as well.
+    """
 
     string_of_answer1 = answer1.get()
     string_of_answer2 = answer2.get()
@@ -113,7 +114,7 @@ def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
         if "w" == list_of_answer2[1]:
             color = "white"
 
-        # Coloring the piece
+        # Coloring the piece, except its a centre piece
         if "4" != list_of_answer2[0]:
 
             ids = get_id_from_cubies(cubies)
@@ -135,6 +136,9 @@ def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
 
 
 def actualize_id_array(cubies_list, solved_cubies, id_array, colors, error):
+    """
+    Actualizes the id_array by comparing the cubies of the input/scrambled cube with the solved cube.
+    """
     cubies_positions = [[[0, 0], [4, 0], [3, 2]],
                         [[0, 1], [3, 1]],
                         [[0, 2], [2, 2], [3, 0]],
@@ -199,6 +203,7 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors, error):
             else:
                 filter_unsolved[0].colors = ["grey", "grey"]
 
+        # Actualizing the entries in the id_array based on the IDs of the solved cubies
         else:
             for i, element in enumerate(temp_colors):
                 if element == filtered[0].color1:
@@ -213,6 +218,7 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors, error):
                     filtered[0].pos3 = positions_of_cubie[i]
                     id_array[positions_of_cubie[i][0]][positions_of_cubie[i][1]] = filtered[0].id3
 
+    # User prompt and error messages
     if exists_cubie_with_false_colors:
         messagebox.showerror(title="Invalid coloring", message="Some of the colors were not correct, please set the "
                                                                "colors for the grey fields again and submit again.")
@@ -222,7 +228,11 @@ def actualize_id_array(cubies_list, solved_cubies, id_array, colors, error):
 
 
 def correct_cubies_list(id_array, cubies, solved_cubies, error):
+    """
+    Correcting the entries (position/color) of the unsolved cubies based on the id_array and solved_cubies.
+    """
     if not error[0]:
+        # Going through all the fields of the id_array and overwrite the current values of the corresponding cubie
         for i, side in enumerate(id_array):
             for j, identifier in enumerate(side):
                 temp = identifier.rpartition("0")
@@ -245,8 +255,12 @@ def correct_cubies_list(id_array, cubies, solved_cubies, error):
 
             
 def generate_prompt(window, font1, font2):
-    # Generating the user prompt
+    """ Generating the user prompt with fixed positions and values."""
+
+    # example grid in the upper right hand corner
     grid_prompt = grid3x3(window, 380, 65)
+
+    # Text lines in the upper left hand corner.
     line_1 = window.create_text(188, 10, text="The faces of the cube can be accessed via: front, left, right, up, down")
     line_2 = window.create_text(228, 25,
                                 text="To access the pieces, have a look for the numeration in the upper right hand corner.")
@@ -260,7 +274,7 @@ def generate_prompt(window, font1, font2):
     text_1 = window.create_text(430, 80, text="1")
     text_2 = window.create_text(465, 80, text="2")
     text_3 = window.create_text(395, 115, text="3")
-    # INDEX 4 IS INVALID
+    # INDEX 4 IS INVALID AND WILL NOT BE DISPLAYED
     text_5 = window.create_text(465, 115, text="5")
     text_6 = window.create_text(395, 147, text="6")
     text_7 = window.create_text(430, 147, text="7")
@@ -282,6 +296,12 @@ def generate_prompt(window, font1, font2):
 
 
 def next_step(window, colors, cube, optimized_array, start_idx):
+    """
+    Actualizes the display of the current state to the state when the next rotation was executed.
+
+    Evaluates the rotation acronyms ("x","x'", etc.) of the optimized_array and calls the corresponding rotation
+    function explicit for the display. The cubies are not affected at all!
+    """
 
     if start_idx[0] >= len(optimized_array):
         print("There is no next step.")
@@ -338,6 +358,12 @@ def next_step(window, colors, cube, optimized_array, start_idx):
 
 
 def previous_step(window, colors, cube, optimized_array, start_idx):
+    """
+    Actualizes the display of the current state to the state before the rotation was executed.
+
+    Evaluates the rotation acronyms ("x","x'", etc.) of the optimized_array and calls the corresponding inverted
+    rotation function explicit for the display. The cubies are not affected at all!
+    """
 
     if start_idx[0] < 0:
         print("There is no previous step.")
@@ -394,6 +420,10 @@ def previous_step(window, colors, cube, optimized_array, start_idx):
 
 
 def create_sentence(letter):
+    """
+    Converts the rotation acronyms ("x","x'", etc.) to an actual sentence.
+    """
+
     sentence = "Invalid operation."
 
     if letter == "x":
@@ -448,23 +478,30 @@ def create_sentence(letter):
 
 
 def set_prev_and_next_label(prev_label, next_label, direction, optimized_array, start_idx):
+    """
+    Updates the prev_label and next_label based on the start_index.
+    """
 
+    # If the cube is in its starting configuration
     if start_idx[0] < 0 or (start_idx[0] == 0 and direction == -1):
         prev_label.configure(text="There is no previous step.")
         next_prompt = create_sentence(optimized_array[0])
         next_label.configure(text=next_prompt)
 
+    # if the cube is solved
     elif start_idx[0] >= len(optimized_array)-1:
         next_label.configure(text="Your cube is solved. There is no next step.")
         prev_prompt = create_sentence(optimized_array[len(optimized_array)-1])
         prev_label.configure(text=prev_prompt)
 
+    # if a valid previous step operation is performed
     elif len(optimized_array) > start_idx[0] > 0 and direction == -1:
         next_prompt = create_sentence(optimized_array[start_idx[0]])
         prev_prompt = create_sentence(optimized_array[start_idx[0]-1])
         next_label.configure(text=next_prompt)
         prev_label.configure(text=prev_prompt)
 
+    # if a valid next step operation is performed
     elif len(optimized_array) > start_idx[0] >= 0 and direction == 1:
         next_prompt = create_sentence(optimized_array[start_idx[0]+1])
         prev_prompt = create_sentence(optimized_array[start_idx[0]])
