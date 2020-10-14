@@ -69,14 +69,14 @@ def actualize_cubie(cubies, id_array, temp_side, new_pos):
 
 # rotate the cubies
 
-# TODO: Rotationsfunktionen ueberarbeiten -> neuer Parameter, der die Rotationen
-# in einem Array speichert
-# TODO: Optimierungsalgorithmus fuer Sachen wie 3x front mit 1x front_prime ersetzen
-# etc. 
+# rotation functions for rotating the whole cube
 
-# rotation-functions for rotating the whole cube
 def rotate_cube_right_cubies(cubies, id_array, rotations):
-    # print("rotate cube right cubies")
+    """
+    rotates the whole cube to the right
+    """
+
+    # generate temp variables to save the current position of every field on every side
 
     downtemp0 = id_array[5][0]
     downtemp1 = id_array[5][1]
@@ -137,6 +137,9 @@ def rotate_cube_right_cubies(cubies, id_array, rotations):
     backtemp6 = id_array[3][6]
     backtemp7 = id_array[3][7]
     backtemp8 = id_array[3][8]
+
+    # use the actualize_cubie() function to actualize the id_array in that way, 
+    # that we can simulate a rotation of the whole cube to the right side
 
     actualize_cubie(cubies, id_array, uptemp2, [0, 0])
     actualize_cubie(cubies, id_array, uptemp5, [0, 1])
@@ -202,6 +205,9 @@ def rotate_cube_right_cubies(cubies, id_array, rotations):
 
 
 def rotate_cube_left_cubies(cubies, id_array, rotations):
+    """
+    rotates the whole cube to the left
+    """
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
@@ -213,6 +219,12 @@ def rotate_cube_left_cubies(cubies, id_array, rotations):
 
 
 def rotate_cube_up_cubies(cubies, id_array, rotations):
+    """
+    rotates the whole cube upwards
+    """
+
+    # generate temp variables to save the current position of every field on every side
+
     downtemp0 = id_array[5][0]
     downtemp1 = id_array[5][1]
     downtemp2 = id_array[5][2]
@@ -272,6 +284,9 @@ def rotate_cube_up_cubies(cubies, id_array, rotations):
     backtemp6 = id_array[3][6]
     backtemp7 = id_array[3][7]
     backtemp8 = id_array[3][8]
+
+    # use the actualize_cubie() function to actualize the id_array in that way, 
+    # that we can simulate a rotation of the whole cube upwards
 
     actualize_cubie(cubies, id_array, righttemp6, [2, 0])
     actualize_cubie(cubies, id_array, righttemp3, [2, 1])
@@ -337,6 +352,9 @@ def rotate_cube_up_cubies(cubies, id_array, rotations):
 
 
 def rotate_cube_down_cubies(cubies, id_array, rotations):
+    """
+    rotates the whole cube downwards
+    """
     rotate_cube_up_cubies(cubies, id_array, rotations)
     rotate_cube_up_cubies(cubies, id_array, rotations)
     rotate_cube_up_cubies(cubies, id_array, rotations)
@@ -347,14 +365,23 @@ def rotate_cube_down_cubies(cubies, id_array, rotations):
     rotations.append("y'")
 
 
-# ---------------------------------------------------------------------------#
-# rotations of parts of the cube
+# --------------------------------------------------------------------------------------#
+# rotations of every part of the cube
 
-# "front" means the front part of the side of the cube etc.
+# we assume that the yellow side is default the up side (0), red is the front side (1),
+# green is the right side (2), orange is the back side (3), blue is the left side (4)
+# and white is the down side (5)
+# notation: "front" means the front part of the side of the cube,
+#           "right" means the right side of the cube etc.
 
 
 def rotate_front_cubies(cubies, id_array, rotations):
-    # temp values (identifier)
+    """
+    rotates the front side of the cube clockwise
+    """
+
+    # generate temp variables to save the current position of every field on every side
+
     fronttemp0 = id_array[1][0]
     fronttemp1 = id_array[1][1]
     fronttemp2 = id_array[1][2]
@@ -364,20 +391,26 @@ def rotate_front_cubies(cubies, id_array, rotations):
     fronttemp6 = id_array[1][6]
     fronttemp7 = id_array[1][7]
     fronttemp8 = id_array[1][8]
+
     obentemp1 = id_array[0][6]
     obentemp2 = id_array[0][7]
     obentemp3 = id_array[0][8]
+    
     rechtstemp1 = id_array[2][0]
     rechtstemp2 = id_array[2][3]
     rechtstemp3 = id_array[2][6]
+    
     untentemp1 = id_array[5][0]
     untentemp2 = id_array[5][1]
     untentemp3 = id_array[5][2]
+    
     linkstemp1 = id_array[4][2]
     linkstemp2 = id_array[4][5]
     linkstemp3 = id_array[4][8]
 
-    # swapping the elements
+    # use the actualize_cubie() function to actualize the id_array in that way, 
+    # that we can simulate a rotation of the right side of the cube clockwise
+
     actualize_cubie(cubies, id_array, fronttemp6, [1, 0])
     actualize_cubie(cubies, id_array, fronttemp3, [1, 1])
     actualize_cubie(cubies, id_array, fronttemp0, [1, 2])
@@ -387,15 +420,19 @@ def rotate_front_cubies(cubies, id_array, rotations):
     actualize_cubie(cubies, id_array, fronttemp8, [1, 6])
     actualize_cubie(cubies, id_array, fronttemp5, [1, 7])
     actualize_cubie(cubies, id_array, fronttemp2, [1, 8])
+
     actualize_cubie(cubies, id_array, linkstemp3, [0, 6])
     actualize_cubie(cubies, id_array, linkstemp2, [0, 7])
     actualize_cubie(cubies, id_array, linkstemp1, [0, 8])
+    
     actualize_cubie(cubies, id_array, obentemp1, [2, 0])
     actualize_cubie(cubies, id_array, obentemp2, [2, 3])
     actualize_cubie(cubies, id_array, obentemp3, [2, 6])
+    
     actualize_cubie(cubies, id_array, rechtstemp3, [5, 0])
     actualize_cubie(cubies, id_array, rechtstemp2, [5, 1])
     actualize_cubie(cubies, id_array, rechtstemp1, [5, 2])
+    
     actualize_cubie(cubies, id_array, untentemp1, [4, 2])
     actualize_cubie(cubies, id_array, untentemp2, [4, 5])
     actualize_cubie(cubies, id_array, untentemp3, [4, 8])
@@ -404,6 +441,9 @@ def rotate_front_cubies(cubies, id_array, rotations):
 
 
 def rotate_front_prime_cubies(cubies, id_array, rotations):
+    """
+    rotates the front side of the cube counterclockwise
+    """
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
@@ -415,6 +455,9 @@ def rotate_front_prime_cubies(cubies, id_array, rotations):
     
 
 def rotate_right_cubies(cubies, id_array, rotations):
+    """
+    rotates the right side of the cube clockwise
+    """
     rotate_cube_left_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
@@ -426,6 +469,9 @@ def rotate_right_cubies(cubies, id_array, rotations):
 
 
 def rotate_right_prime_cubies(cubies, id_array, rotations):
+    """
+    rotates the right side of the cube counterclockwise
+    """
     rotate_cube_left_cubies(cubies, id_array, rotations)
     rotate_front_prime_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
@@ -437,6 +483,9 @@ def rotate_right_prime_cubies(cubies, id_array, rotations):
 
 
 def rotate_left_cubies(cubies, id_array, rotations):
+    """
+    rotates the left side of the cube clockwise
+    """
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_cube_left_cubies(cubies, id_array, rotations)
@@ -448,6 +497,9 @@ def rotate_left_cubies(cubies, id_array, rotations):
 
 
 def rotate_left_prime_cubies(cubies, id_array, rotations):
+    """
+    rotates the left side of the cube counterclockwise
+    """
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_front_prime_cubies(cubies, id_array, rotations)
     rotate_cube_left_cubies(cubies, id_array, rotations)
@@ -459,6 +511,9 @@ def rotate_left_prime_cubies(cubies, id_array, rotations):
 
 
 def rotate_back_cubies(cubies, id_array, rotations):
+    """
+    rotates the back side of the cube clockwise
+    """
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
@@ -474,6 +529,9 @@ def rotate_back_cubies(cubies, id_array, rotations):
 
 
 def rotate_back_prime_cubies(cubies, id_array, rotations):
+    """
+    rotates the back side of the cube counterclockwise
+    """
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_front_prime_cubies(cubies, id_array, rotations)
@@ -489,6 +547,9 @@ def rotate_back_prime_cubies(cubies, id_array, rotations):
 
 
 def rotate_up_cubies(cubies, id_array, rotations):
+    """
+    rotates the up side of the cube clockwise
+    """
     rotate_cube_down_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_cube_up_cubies(cubies, id_array, rotations)
@@ -500,6 +561,9 @@ def rotate_up_cubies(cubies, id_array, rotations):
 
 
 def rotate_up_prime_cubies(cubies, id_array, rotations):
+    """
+    rotates the up side of the cube counterclockwise
+    """
     rotate_cube_down_cubies(cubies, id_array, rotations)
     rotate_front_prime_cubies(cubies, id_array, rotations)
     rotate_cube_up_cubies(cubies, id_array, rotations)
@@ -510,6 +574,9 @@ def rotate_up_prime_cubies(cubies, id_array, rotations):
     rotations.append("U'")
 
 def rotate_down_cubies(cubies, id_array, rotations):
+    """
+    rotates the down side of the cube clockwise
+    """
     rotate_cube_up_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_cube_down_cubies(cubies, id_array, rotations)
@@ -521,6 +588,9 @@ def rotate_down_cubies(cubies, id_array, rotations):
 
 
 def rotate_down_prime_cubies(cubies, id_array, rotations):
+    """
+    rotates the down side of the cube counterclockwise
+    """
     rotate_cube_up_cubies(cubies, id_array, rotations)
     rotate_front_prime_cubies(cubies, id_array, rotations)
     rotate_cube_down_cubies(cubies, id_array, rotations)
@@ -534,6 +604,9 @@ def rotate_down_prime_cubies(cubies, id_array, rotations):
 
 
 def rotate_by_side_idx(cubies, id_array, side_idx, rotations):
+    """
+    rotates the side of the cube according to the given index clockwise
+    """
     if 0 == side_idx:
         rotate_up_cubies(cubies, id_array, rotations)
     if 1 == side_idx:
@@ -549,6 +622,9 @@ def rotate_by_side_idx(cubies, id_array, side_idx, rotations):
 
 
 def rotate_prime_by_side_idx(cubies, id_array, side_idx, rotations):
+    """
+    rotates the side of the cube according to the given index counterclockwise
+    """
     if 0 == side_idx:
         rotate_up_prime_cubies(cubies, id_array, rotations)
     if 1 == side_idx:

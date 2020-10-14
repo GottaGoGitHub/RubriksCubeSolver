@@ -2,8 +2,11 @@ from Solver import *
 
 
 def optimize_solver(rotations):
-    # changing for example R R R to R' etc.
-    # for doing 2 less steps for each 
+    """
+    optimizing the rotation steps
+    """
+
+    # after every optimization step we get a much smaller rotations array
 
     print(rotations)
 
@@ -12,6 +15,7 @@ def optimize_solver(rotations):
     # we iterate from the end of the array to the begin of the array
     # because the length of the array decreases in every step we change
 
+    # optimize step 1:
     # for example delete R R R R 
 
     while j != 2:
@@ -26,6 +30,7 @@ def optimize_solver(rotations):
 
     i = len(rotations) - 1
 
+    # optimize step 2:
     # for example R R R to R'
 
     while i != 1:
@@ -86,6 +91,7 @@ def optimize_solver(rotations):
 
     k = len(rotations) - 1
 
+    # optimize step 3:
     # for example delete R R'
 
     while k != 0:
