@@ -480,6 +480,10 @@ def create_sentence(letter):
 def set_prev_and_next_label(prev_label, next_label, direction, optimized_array, start_idx):
     """
     Updates the prev_label and next_label based on the start_index.
+
+
+    Direction -1 is used for a previous step.
+    Direction 1 is used for a next step.
     """
 
     if len(optimized_array) == 0:
