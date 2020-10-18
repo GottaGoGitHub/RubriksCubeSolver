@@ -1,4 +1,3 @@
-# from RubriksCubeSolver.Cube import *
 from Cube import *
 import random
 from tkinter import messagebox
@@ -6,8 +5,11 @@ from FileHandler import *
 from copy import *
 
 
-# random scrambling
 def scramble(cubies, id_array, rotations):
+    """
+    Performs 50 random cube rotations.
+    """
+
     for _ in range(50):
         temp = random.randrange(6)
 
@@ -32,6 +34,12 @@ def scramble(cubies, id_array, rotations):
 
 #   R U R' U'
 def ruru(cubies, id_array, rotations):
+    """
+    Wrapper function to perform the following rotation sequence:
+
+    right, up, right prime , up prime
+    """
+
     rotate_right_cubies(cubies, id_array, rotations)
     rotate_up_cubies(cubies, id_array, rotations)
     rotate_right_prime_cubies(cubies, id_array, rotations)
@@ -40,6 +48,12 @@ def ruru(cubies, id_array, rotations):
 
 #   L' U' L U
 def lulu(cubies, id_array, rotations):
+    """
+    Wrapper function to perform the following rotation sequence:
+
+    left prime, up prime, left, up
+    """
+
     rotate_left_prime_cubies(cubies, id_array, rotations)
     rotate_up_prime_cubies(cubies, id_array, rotations)
     rotate_left_cubies(cubies, id_array, rotations)
@@ -48,6 +62,13 @@ def lulu(cubies, id_array, rotations):
 
 #   U R U R' U' y L U' L' U
 def second_layer_right(cubies, id_array, rotations):
+    """
+    Inserting the edge of the 1st level (up) to the right side of the 2nd level (middle).
+
+    Wrapper function to perform the following rotation sequence:
+    up, right, up, right prime, up prime, turn cube left, left prime, up prime, left, up
+    """
+
     rotate_up_cubies(cubies, id_array, rotations)
     ruru(cubies, id_array, rotations)
     rotate_cube_left_cubies(cubies, id_array, rotations)
@@ -57,6 +78,13 @@ def second_layer_right(cubies, id_array, rotations):
 
 #   U' L U' L' U y' R U R' U'
 def second_layer_left(cubies, id_array, rotations):
+    """
+    Inserting the edge of the 1st level (up) to the left side of the 2nd level (middle).
+
+    Wrapper function to perform the following rotation sequence:
+    up prime, left , up prime, left prime, up, turn cube right, right, up, right prime , up prime
+    """
+
     rotate_up_prime_cubies(cubies, id_array, rotations)
     lulu(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
@@ -66,6 +94,13 @@ def second_layer_left(cubies, id_array, rotations):
 
 #   F R U R' U' F'
 def fruruf(cubies, id_array, rotations):
+    """
+    Essential rotation sequence to create the top cross (yellow cross).
+
+    Wrapper function to perform the following rotation sequence:
+    front, right, up, right prime, up prime, front prime
+    """
+
     rotate_front_cubies(cubies, id_array, rotations)
     ruru(cubies, id_array, rotations)
     rotate_front_prime_cubies(cubies, id_array, rotations)
@@ -73,6 +108,13 @@ def fruruf(cubies, id_array, rotations):
 
 #   R U R' U R 2U' R'
 def correct_front(cubies, id_array, rotations):
+    """
+    Rotation sequence to correct the top cross. (results in color matching)
+
+    Wrapper function to perform the following rotation sequence:
+    right, up, right prime, up, right, up prime, up prime, right prime
+    """
+
     rotate_right_cubies(cubies, id_array, rotations)
     rotate_up_cubies(cubies, id_array, rotations)
     rotate_right_prime_cubies(cubies, id_array, rotations)
@@ -85,6 +127,14 @@ def correct_front(cubies, id_array, rotations):
 
 #   U R U' L U R' U' L'
 def sort_corners_algorithm(cubies, id_array, rotations):
+    """
+    Rotation sequence which is used to insert the corner cubies of the first layer into their destined "slot".
+    May require multiple executions.
+
+    Wrapper function to perform the following rotation sequence:
+    up, right, up prime, left, up, right prime, up prime, left prime
+    """
+
     rotate_up_cubies(cubies, id_array, rotations)
     rotate_right_cubies(cubies, id_array, rotations)
     rotate_up_prime_cubies(cubies, id_array, rotations)
@@ -96,33 +146,48 @@ def sort_corners_algorithm(cubies, id_array, rotations):
 
 
 def is_in_layer(id_array, layer, cubie_name):
+    """
+    Auxiliary function to check whether a cubie is in a layer.
+    """
+
+    # List to store the identifiers of the selected layer
     temp = []
 
     if layer == 1:
+        # adding the identifiers to the list
         for item in id_array[0]:
             temp1 = item.rpartition("0")
             temp.append(temp1[0])
 
     if layer == 3:
+        # adding the identifiers to the list
         for item in id_array[5]:
             temp1 = item.rpartition("0")
             temp.append(temp1[0])
 
     if layer == 2:
+        # adding the identifiers to the list
         temp2 = id_array[1][3].rpartition("0")
         temp3 = id_array[1][5].rpartition("0")
         temp4 = id_array[3][3].rpartition("0")
         temp5 = id_array[3][5].rpartition("0")
         temp = [temp2[0], temp3[0], temp4[0], temp5[0]]
 
+    # returning a bool whether cubie is in layer
     return str(cubie_name) in temp
 
 
 def flip_orientation_of_edge_in_first_layer(cubies, id_array, index, rotations):
+    """
+    Flipping a edge of the first layer without scrambling the solved parts of the cube.
+    """
+
+    # list of invalid indices
     temp = [0, 2, 4, 6, 8]
     if index in temp:
         print("Invalid index.")
     else:
+        # Rotating the Cube to ensure the correct cubie is affected
         if 1 == index:
             rotate_cube_right_cubies(cubies, id_array, rotations)
             rotate_cube_right_cubies(cubies, id_array, rotations)
@@ -133,6 +198,7 @@ def flip_orientation_of_edge_in_first_layer(cubies, id_array, index, rotations):
         if 5 == index:
             rotate_cube_left_cubies(cubies, id_array, rotations)
 
+        # Rotation sequence to flip the cubie
         rotate_front_cubies(cubies, id_array, rotations)
         rotate_right_prime_cubies(cubies, id_array, rotations)
         rotate_down_prime_cubies(cubies, id_array, rotations)
@@ -142,10 +208,15 @@ def flip_orientation_of_edge_in_first_layer(cubies, id_array, index, rotations):
 
 
 def white_cross(cubies, id_array, rotations):
+    """
+    Constructing the white cross based on the cubie identifiers.
+    The color of the cubies does not affect the execution.
+    """
+
     # insert cubie 14
     #
     # When the cube is scrambled, the first necessary cubie can be in either the first,
-    # second or already in the thrid layer of the cube.
+    # second or already in the third layer of the cube.
     # First of all its checked in which of the three layers it is and then
     # it will be correctly oriented brought to the third layer.
     #
@@ -437,6 +508,7 @@ def white_corners(cubies, id_array, rotations, error, window, cube):
     """
     Inserts cubie 13, 15, 19 and 23 to their intended places.
     """
+
     # insert cubie 15
     # blue, red, white
     #
@@ -550,7 +622,8 @@ def white_corners(cubies, id_array, rotations, error, window, cube):
 
     if boolerror_message:
         messagebox.showerror("Flipped Corner Cubie Error", "Some of the colors of a white corner cubie are flipped,"
-                                                           "please set the colors for the grey fields again and submit again.")
+                                                           "please set the colors for the grey fields again and "
+                                                           "submit again.")
         import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
         cubies[18].color1 = "grey"
         cubies[18].color2 = "grey"
