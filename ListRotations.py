@@ -1,6 +1,7 @@
 # the same rotations functions like in Cube.py, but only for lists, not for cubie objects
-# -> we use this for changing only the colors of the cube when we use the functions 
+# -> we use this to change just the colors of the cube when we use the functions
 #    previous_step() and next_step()
+
 
 # rotation functions for rotating the whole cube_list
 
