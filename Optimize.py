@@ -100,7 +100,7 @@ def optimize_solver(rotations):
 
     while k > 0:
         if ((rotations[k] == "x" and rotations[k - 1] == "x'") or
-            (rotations[k] == "x'" and rotations[k - 1] == "x")):
+                (rotations[k] == "x'" and rotations[k - 1] == "x")):
 
             del rotations[k - 1]
             del rotations[k - 1]
