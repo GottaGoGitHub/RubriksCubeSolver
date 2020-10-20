@@ -1,7 +1,7 @@
 # Getter & Setter
 def set_colors(window, colors, cube):
     """
-    sets the color of a cube which is represented by multiple rectangle objects
+    Sets the color of a cube which is represented by multiple rectangle objects.
     """
     for side_idx, side in enumerate(colors):
         for piece_idx, piece in enumerate(side):
@@ -10,7 +10,7 @@ def set_colors(window, colors, cube):
 
 def get_colors_from_cubies(cubies):
     """
-    get the colors form a list of cubies and returns s list which contains the corresponding colors as string
+    Get the colors form a list of cubies and returns s list which contains the corresponding colors as string.
     """
     colors = [[None for i in range(9)] for j in range(6)]
 
@@ -27,7 +27,7 @@ def get_colors_from_cubies(cubies):
 
 def get_id_from_cubies(cubies):
     """
-    get the ID form a list of cubies and returns a list of corresponding unique Identifiers as string
+    Get the ID form a list of cubies and returns a list of corresponding unique Identifiers as string.
     """
     ids = [[None for i in range(9)] for j in range(6)]
 
@@ -43,9 +43,11 @@ def get_id_from_cubies(cubies):
 
 
 # ________________________________________________________________________________________________________#
+
+
 def actualize_cubie(cubies, id_array, temp_side, new_pos):
     """
-    actualizing the position of the cubies in the id_array and the cubie it self
+    Actualizing the position of the cubies in the id_array and the cubie it self.
     """
     id_array[new_pos[0]][new_pos[1]] = temp_side
     temp_partition = temp_side.rpartition("0")
@@ -63,16 +65,16 @@ def actualize_cubie(cubies, id_array, temp_side, new_pos):
 
 # ________________________________________________________________________________________________________#
 
-# rotate the cubies
+# Rotate the cubies
 
-# rotation functions for rotating the whole cube
+# Rotation functions for rotating the whole cube
 
 def rotate_cube_right_cubies(cubies, id_array, rotations):
     """
-    rotates the whole cube to the right
+    Rotates the whole cube to the right.
     """
 
-    # generate temp variables to save the current position of every field on every side
+    # We generate temp variables to save the current position of every field on every side.
 
     downtemp0 = id_array[5][0]
     downtemp1 = id_array[5][1]
@@ -134,8 +136,8 @@ def rotate_cube_right_cubies(cubies, id_array, rotations):
     backtemp7 = id_array[3][7]
     backtemp8 = id_array[3][8]
 
-    # use the actualize_cubie() function to actualize the id_array in that way, 
-    # that we can simulate a rotation of the whole cube to the right side
+    # We use the actualize_cubie() function to actualize the id_array in that way, 
+    # that we can simulate a rotation of the whole cube to the right side.
 
     actualize_cubie(cubies, id_array, uptemp2, [0, 0])
     actualize_cubie(cubies, id_array, uptemp5, [0, 1])
@@ -197,33 +199,33 @@ def rotate_cube_right_cubies(cubies, id_array, rotations):
     actualize_cubie(cubies, id_array, backtemp7, [4, 7])
     actualize_cubie(cubies, id_array, backtemp8, [4, 8])
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # We add the fulfilled rotation to the list of executed rotations.
     rotations.append("x")
 
 
 def rotate_cube_left_cubies(cubies, id_array, rotations):
     """
-    rotates the whole cube to the left
+    Rotates the whole cube to the left.
     """
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-1]
     del rotations[-1]
     del rotations[-1]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("x'")
 
 
 def rotate_cube_up_cubies(cubies, id_array, rotations):
     """
-    rotates the whole cube upwards
+    Rotates the whole cube upwards.
     """
 
-    # generate temp variables to save the current position of every field on every side
+    # We generate temp variables to save the current position of every field on every side.
 
     downtemp0 = id_array[5][0]
     downtemp1 = id_array[5][1]
@@ -285,8 +287,8 @@ def rotate_cube_up_cubies(cubies, id_array, rotations):
     backtemp7 = id_array[3][7]
     backtemp8 = id_array[3][8]
 
-    # use the actualize_cubie() function to actualize the id_array in that way, 
-    # that we can simulate a rotation of the whole cube upwards
+    # We use the actualize_cubie() function to actualize the id_array in that way, 
+    # that we can simulate a rotation of the whole cube upwards.
 
     actualize_cubie(cubies, id_array, righttemp6, [2, 0])
     actualize_cubie(cubies, id_array, righttemp3, [2, 1])
@@ -348,41 +350,41 @@ def rotate_cube_up_cubies(cubies, id_array, rotations):
     actualize_cubie(cubies, id_array, downtemp7, [1, 7])
     actualize_cubie(cubies, id_array, downtemp8, [1, 8])
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("y")
 
 
 def rotate_cube_down_cubies(cubies, id_array, rotations):
     """
-    rotates the whole cube downwards
+    Rotates the whole cube downwards.
     """
     rotate_cube_up_cubies(cubies, id_array, rotations)
     rotate_cube_up_cubies(cubies, id_array, rotations)
     rotate_cube_up_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-3:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("y'")
 
 
 # --------------------------------------------------------------------------------------#
-# rotations of every part of the cube
+# Rotations of every part of the cube
 
-# we assume that the yellow side is default the up side (0), red is the front side (1),
+# We assume that the yellow side is default the up side (0), red is the front side (1),
 # green is the right side (2), orange is the back side (3), blue is the left side (4)
-# and white is the down side (5)
-# notation: "front" means the front part of the side of the cube,
+# and white is the down side (5).
+# Notation: "front" means the front part of the side of the cube,
 #           "right" means the right side of the cube etc.
 
 
 def rotate_front_cubies(cubies, id_array, rotations):
     """
-    rotates the front side of the cube clockwise
+    Rotates the front side of the cube clockwise.
     """
 
-    # generate temp variables to save the current position of every field on every side
+    # We generate temp variables to save the current position of every field on every side.
 
     fronttemp0 = id_array[1][0]
     fronttemp1 = id_array[1][1]
@@ -410,8 +412,8 @@ def rotate_front_cubies(cubies, id_array, rotations):
     linkstemp2 = id_array[4][5]
     linkstemp3 = id_array[4][8]
 
-    # use the actualize_cubie() function to actualize the id_array in that way, 
-    # that we can simulate a rotation of the right side of the cube clockwise
+    # We use the actualize_cubie() function to actualize the id_array in that way, 
+    # that we can simulate a rotation of the right side of the cube clockwise.
 
     actualize_cubie(cubies, id_array, fronttemp6, [1, 0])
     actualize_cubie(cubies, id_array, fronttemp3, [1, 1])
@@ -439,87 +441,87 @@ def rotate_front_cubies(cubies, id_array, rotations):
     actualize_cubie(cubies, id_array, untentemp2, [4, 5])
     actualize_cubie(cubies, id_array, untentemp3, [4, 8])
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("F")
 
 
 def rotate_front_prime_cubies(cubies, id_array, rotations):
     """
-    rotates the front side of the cube counterclockwise
+    Rotates the front side of the cube counterclockwise.
     """
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-3:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("F'")
     
 
 def rotate_right_cubies(cubies, id_array, rotations):
     """
-    rotates the right side of the cube clockwise
+    Rotates the right side of the cube clockwise.
     """
     rotate_cube_left_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-3:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("R")
 
 
 def rotate_right_prime_cubies(cubies, id_array, rotations):
     """
-    rotates the right side of the cube counterclockwise
+    Rotates the right side of the cube counterclockwise.
     """
     rotate_cube_left_cubies(cubies, id_array, rotations)
     rotate_front_prime_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-3:]
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("R'")
 
 
 def rotate_left_cubies(cubies, id_array, rotations):
     """
-    rotates the left side of the cube clockwise
+    Rotates the left side of the cube clockwise.
     """
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_cube_left_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-3:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("L")
 
 
 def rotate_left_prime_cubies(cubies, id_array, rotations):
     """
-    rotates the left side of the cube counterclockwise
+    Rotates the left side of the cube counterclockwise.
     """
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_front_prime_cubies(cubies, id_array, rotations)
     rotate_cube_left_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-3:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("L'")
 
 
 def rotate_back_cubies(cubies, id_array, rotations):
     """
-    rotates the back side of the cube clockwise
+    Rotates the back side of the cube clockwise.
     """
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
@@ -527,16 +529,16 @@ def rotate_back_cubies(cubies, id_array, rotations):
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
 
-    # removing the last five rotations to replace it with the resulting rotation
+    # Removing the last five rotations to replace it with the resulting rotation.
     del rotations[-5:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("B")
 
 
 def rotate_back_prime_cubies(cubies, id_array, rotations):
     """
-    rotates the back side of the cube counterclockwise
+    Rotates the back side of the cube counterclockwise.
     """
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
@@ -544,70 +546,70 @@ def rotate_back_prime_cubies(cubies, id_array, rotations):
     rotate_cube_right_cubies(cubies, id_array, rotations)
     rotate_cube_right_cubies(cubies, id_array, rotations)
 
-    # removing the last five rotations to replace it with the resulting rotation
+    # Removing the last five rotations to replace it with the resulting rotation.
     del rotations[-5:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("B'")
 
 
 def rotate_up_cubies(cubies, id_array, rotations):
     """
-    rotates the up side of the cube clockwise
+    Rotates the up side of the cube clockwise.
     """
     rotate_cube_down_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_cube_up_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-3:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("U")
 
 
 def rotate_up_prime_cubies(cubies, id_array, rotations):
     """
-    rotates the up side of the cube counterclockwise
+    Rotates the up side of the cube counterclockwise.
     """
     rotate_cube_down_cubies(cubies, id_array, rotations)
     rotate_front_prime_cubies(cubies, id_array, rotations)
     rotate_cube_up_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-3:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("U'")
 
 
 def rotate_down_cubies(cubies, id_array, rotations):
     """
-    rotates the down side of the cube clockwise
+    Rotates the down side of the cube clockwise.
     """
     rotate_cube_up_cubies(cubies, id_array, rotations)
     rotate_front_cubies(cubies, id_array, rotations)
     rotate_cube_down_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-3:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("D")
 
 
 def rotate_down_prime_cubies(cubies, id_array, rotations):
     """
-    rotates the down side of the cube counterclockwise
+    Rotates the down side of the cube counterclockwise.
     """
     rotate_cube_up_cubies(cubies, id_array, rotations)
     rotate_front_prime_cubies(cubies, id_array, rotations)
     rotate_cube_down_cubies(cubies, id_array, rotations)
 
-    # removing the last three rotations to replace it with its counter rotation
+    # Removing the last three rotations to replace it with its counter rotation.
     del rotations[-3:]
 
-    # Add the fulfilled rotation to the list of executed rotations
+    # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("D'")
 
 # ________________________________________________________________________________________________________#
@@ -615,7 +617,7 @@ def rotate_down_prime_cubies(cubies, id_array, rotations):
 
 def rotate_by_side_idx(cubies, id_array, side_idx, rotations):
     """
-    rotates the side of the cube according to the given index clockwise
+    Rotates the side of the cube according to the given index clockwise.
     """
 
     if 0 == side_idx:
@@ -634,7 +636,7 @@ def rotate_by_side_idx(cubies, id_array, side_idx, rotations):
 
 def rotate_prime_by_side_idx(cubies, id_array, side_idx, rotations):
     """
-    rotates the side of the cube according to the given index counterclockwise
+    Rotates the side of the cube according to the given index counterclockwise.
     """
 
     if 0 == side_idx:

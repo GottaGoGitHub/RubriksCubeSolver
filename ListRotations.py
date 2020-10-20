@@ -1,13 +1,13 @@
-# the same rotations functions like in Cube.py, but only for lists, not for cubie objects
-# -> we use this to change just the colors of the cube when we use the functions
+# This are the same rotation functions like in Cube.py, but only for lists, not for cubie objects.
+# -> We use them to change just the colors of the cube when we use the functions
 #    previous_step() and next_step()
 
 
-# rotation functions for rotating the whole cube_list
+# Rotation functions for rotating the whole cube_list
 
 def rotate_cube_right_list(liste):
     """
-    rotates the whole cube_list to the right side
+    Rotates the whole cube_list to the right side
     """
 
     fronttemp = liste[1]
@@ -71,7 +71,7 @@ def rotate_cube_right_list(liste):
 
 def rotate_cube_left_list(liste):
     """
-    rotates the whole cube_list to the left side
+    Rotates the whole cube_list to the left side.
     """
     
     rotate_cube_right_list(liste)
@@ -83,7 +83,7 @@ def rotate_cube_left_list(liste):
 
 def rotate_cube_up_list(liste):
     """
-    rotates the whole cube_list upwards
+    Rotates the whole cube_list upwards.
     """
     
     downtemp0 = liste[5][0]
@@ -211,7 +211,7 @@ def rotate_cube_up_list(liste):
 
 def rotate_cube_down_list(liste):
     """
-    rotates the whole cube_list downwards
+    Rotates the whole cube_list downwards.
     """
     
     rotate_cube_up_list(liste)
@@ -222,12 +222,13 @@ def rotate_cube_down_list(liste):
 
 
 # --------------------------------------------------------------------------------------#
-# rotations of every part of the cube_list
+
+# Rotations of every part of the cube_list
 
 
 def rotate_front_list(liste):
     """
-    rotates the front side of the cube_list clockwise
+    Rotates the front side of the cube_list clockwise.
     """
 
     fronttemp0 = liste[1][0]
@@ -284,7 +285,7 @@ def rotate_front_list(liste):
 
 def rotate_front_prime_list(liste):
     """
-    rotates the front side of the cube_list counterclockwise
+    Rotates the front side of the cube_list counterclockwise.
     """
     
     rotate_front_list(liste)
@@ -296,7 +297,7 @@ def rotate_front_prime_list(liste):
 
 def rotate_right_list(liste):
     """
-    rotates the right side of the cube_list clockwise
+    Rotates the right side of the cube_list clockwise.
     """
     
     rotate_cube_left_list(liste)
@@ -308,7 +309,7 @@ def rotate_right_list(liste):
 
 def rotate_right_prime_list(liste):
     """
-    rotates the right side of the cube_list counterclockwise
+    Rotates the right side of the cube_list counterclockwise.
     """
     
     rotate_cube_left_list(liste)
@@ -320,7 +321,7 @@ def rotate_right_prime_list(liste):
 
 def rotate_left_list(liste):
     """
-    rotates the left side of the cube_list clockwise
+    Rotates the left side of the cube_list clockwise.
     """
     
     rotate_cube_right_list(liste)
@@ -332,7 +333,7 @@ def rotate_left_list(liste):
 
 def rotate_left_prime_list(liste):
     """
-    rotates the left side of the cube_list counterclockwise
+    Rotates the left side of the cube_list counterclockwise.
     """
     
     rotate_cube_right_list(liste)
@@ -344,7 +345,7 @@ def rotate_left_prime_list(liste):
 
 def rotate_back_list(liste):
     """
-    rotates the back side of the cube_list clockwise
+    Rotates the back side of the cube_list clockwise.
     """
     
     rotate_cube_right_list(liste)
@@ -358,7 +359,7 @@ def rotate_back_list(liste):
 
 def rotate_back_prime_list(liste):
     """
-    rotates the back side of the cube_list counterclockwise
+    Rotates the back side of the cube_list counterclockwise.
     """
     
     rotate_cube_right_list(liste)
@@ -372,7 +373,7 @@ def rotate_back_prime_list(liste):
 
 def rotate_up_list(liste):
     """
-    rotates the up side of the cube_list clockwise
+    Rotates the up side of the cube_list clockwise.
     """
     
     rotate_cube_down_list(liste)
@@ -384,7 +385,7 @@ def rotate_up_list(liste):
 
 def rotate_up_prime_list(liste):
     """
-    rotates the up side of the cube_list counterclockwise
+    Rotates the up side of the cube_list counterclockwise.
     """
     
     rotate_cube_down_list(liste)
@@ -396,7 +397,7 @@ def rotate_up_prime_list(liste):
 
 def rotate_down_list(liste):
     """
-    rotates the down side of the cube_list clockwise
+    Rotates the down side of the cube_list clockwise.
     """
     
     rotate_cube_up_list(liste)
@@ -408,7 +409,7 @@ def rotate_down_list(liste):
 
 def rotate_down_prime_list(liste):
     """
-    rotates the down side of the cube_list counterclockwise
+    Rotates the down side of the cube_list counterclockwise.
     """
     
     rotate_cube_up_list(liste)
