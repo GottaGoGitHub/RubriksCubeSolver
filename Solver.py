@@ -1550,6 +1550,12 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
 
 
 def solve_cube(cubies, id_array, rotations, error, window, cube):
+    """
+    Solves the cube to the desired pattern.
+    """
+
+    # Every step of the solving algorithms runs step by step.
+
     white_cross(cubies, id_array, rotations)
     white_corners(cubies, id_array, rotations, error, window, cube)
     second_layer(cubies, id_array, rotations, error)
