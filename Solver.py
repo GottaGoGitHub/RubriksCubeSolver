@@ -1057,10 +1057,22 @@ def correct_top_cross(cubies, id_array, rotations, error):
     # yellow, red
 
     if not error[0]:
+
+        # The starting constellation here is, that each yellow side of the 4 cubies 
+        # is already at the up side, but the cubies can be at the wring position.
+
+        # First we insert cubie 2 at the right position.
+
         while not (id_array[0][1] == "0201"):
             rotate_up_cubies(cubies, id_array, rotations)
 
+        # Now cubie 2 is at the right position and we insert cubie 4, 6 and 8 correctly.
+        # To do this we use the algorithms correct_front().
+
         while not (id_array[0][3] == "0401" and id_array[0][5] == "0601" and id_array[0][7] == "0801"):
+
+            # We check for every cubie if they are already at the right position or not. Then if necessary,
+            # we use the correct_front() - algorithm and/ or rotation functions of other sides.
 
             if id_array[0][7] == "0801":
                 correct_front(cubies, id_array, rotations)
