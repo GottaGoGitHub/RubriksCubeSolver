@@ -1094,6 +1094,10 @@ def correct_top_cross(cubies, id_array, rotations, error):
                 rotate_up_cubies(cubies, id_array, rotations)
                 correct_front(cubies, id_array, rotations)
 
+            # Because of the used algorithms it can be that now the 4 cubies 
+            # are in the right order, but not at the right position. So we 
+            # rotate the up side to correct this.
+
             while not (id_array[0][1] == "0201"):
                 rotate_up_cubies(cubies, id_array, rotations)
 
