@@ -1269,16 +1269,38 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
 
 
 def correct_corners(cubies, id_array, rotations, error, window, cube):
+    """
+    Inserts cubie 1, 3, 7 and 9 to their intended places.
+    """
+
+    # The starting constellation is, that the corners are at the right positions, 
+    # but with possibly wrong orientated colors.
+
+    # The "boolerror_message" variable is again used to 
+    # set a boolean state if an error occurs.
+
     boolerror_message = False
 
     if not error[0]:
+
+        # We use boolean variables to check if the yellow side of the 
+        # 4 corner cubies are already at the correct position.     
+        # We also save the position where the yellow side have to be.   
 
         cubie1yellowtrue = ["0101" in id_array[0][0], 0]
         cubie3yellowtrue = ["0301" in id_array[0][2], 2]
         cubie7yellowtrue = ["0701" in id_array[0][6], 6]
         cubie9yellowtrue = ["0901" in id_array[0][8], 8]
 
+        # We check for every corner, if its yellow side is at the correct position,
+        # by checking if its boolean variable is True.
+
         if cubie1yellowtrue[0]:
+
+            # We know, that the yellow side of the corner is at the right position.
+            # But if the both other colors are swapped, we know that there is an error.
+            # So the attented corner is colored grey.
+
             if "0102" == id_array[3][2]:
                 boolerror_message = True
                 import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
@@ -1290,6 +1312,11 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
                 set_colors(window, get_colors_from_cubies(cubies), cube)
 
         if cubie3yellowtrue[0]:
+
+            # We know, that the yellow side of the corner is at the right position.
+            # But if the both other colors are swapped, we know that there is an error.
+            # So the attented corner is colored grey.
+
             if "0303" == id_array[2][2]:
                 boolerror_message = True
                 import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
@@ -1301,6 +1328,11 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
                 set_colors(window, get_colors_from_cubies(cubies), cube)
 
         if cubie7yellowtrue[0]:
+
+            # We know, that the yellow side of the corner is at the right position.
+            # But if the both other colors are swapped, we know that there is an error.
+            # So the attented corner is colored grey.
+
             if "0703" == id_array[4][2]:
                 boolerror_message = True
                 import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
@@ -1312,6 +1344,11 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
                 set_colors(window, get_colors_from_cubies(cubies), cube)
 
         if cubie9yellowtrue[0]:
+
+            # We know, that the yellow side of the corner is at the right position.
+            # But if the both other colors are swapped, we know that there is an error.
+            # So the attented corner is colored grey.
+
             if "0903" == id_array[1][2]:
                 boolerror_message = True
                 import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
@@ -1322,10 +1359,19 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
                 export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
 
+        # If the boolean variable for the error message is True, 
+        # the "error" variable is also set = True.
+
         if boolerror_message:
             error[0] = True
 
+        # In "cubies_on_yellow_side" we save the boolean values of every 
+        # corner to check how many corners are sorted correctly.
+
         cubies_on_yellow_side = [cubie1yellowtrue, cubie3yellowtrue, cubie7yellowtrue, cubie9yellowtrue]
+
+        # We use a "counter" again to count how 
+        # many corners are at the right position.
 
         counter = 0
 
@@ -1333,11 +1379,16 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
             if i[0] == True:
                 counter += 1
 
+        # Because only 1 corner, 4 corners or no corner can be sorted correcty 
+        # at the same time, we know, that if the counter is 2 or 3 ther must 
+        # be an error. So the attented corner is colored grey and the user gets
+        # shown an error message.
+
         if (counter == 2 or counter == 3) and boolerror_message == False:
             messagebox.showerror("Flipped Corner Cubie Error",
                                  "Some of the colors of a yellow corner cubie are flipped,"
                                  "please flip one of the corners and submit again.")
-            # TODO: correct error message 
+             
             for i in cubies_on_yellow_side:
                 if i[0] == False:
                     import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
@@ -1352,10 +1403,21 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
 
     if not error[0]:
 
+        # To orientate the wrong orientated corners right, we have to rotate the 
+        # whole cube upwards twice, so that we can use the ruru() and lulu() 
+        # - algorithms again.
+
         rotate_cube_up_cubies(cubies, id_array, rotations)
         rotate_cube_up_cubies(cubies, id_array, rotations)
 
+        # orientate cubie 3
+
         while not ((id_array[5][2] == "0301") and (id_array[2][6] == "0302") and (id_array[1][8] == "0303")):
+
+            # If one of the colors is right orientated, but the others not, we know 
+            # that there must be an error. So this corner is colored grey and the 
+            # "boolerror_message" and "error" variables are set True.
+
             if id_array[5][2] == "0301" and id_array[2][6] == "0303" and id_array[1][8] == "0302":
                 boolerror_message = True
                 error[0] = True
@@ -1367,12 +1429,26 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
                 export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
                 break
+
+            # To orientate the corner right, we use the ruru() - algorithm.
+
             ruru(cubies, id_array, rotations)
 
     if not error[0]:
+
+        # We rotate the down side of the cube to get cubie 1 
+        # at the right position to use the ruru() - algorithm.
+
         rotate_down_cubies(cubies, id_array, rotations)
 
+        # orientate cubie 1
+
         while not (id_array[5][2] == "0101" and id_array[2][6] == "0103" and id_array[1][8] == "0102"):
+
+            # If one of the colors is right orientated, but the others not, we know 
+            # that there must be an error. So this corner is colored grey and the 
+            # "boolerror_message" and "error" variables are set True.
+
             if id_array[5][2] == "0101" and id_array[2][6] == "0102" and id_array[1][8] == "0103":
                 boolerror_message = True
                 error[0] = True
@@ -1384,12 +1460,26 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
                 export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
                 break
+
+            # To orientate the corner right, we use the ruru() - algorithm.
+
             ruru(cubies, id_array, rotations)
 
     if not error[0]:
+
+        # We rotate the down side of the cube to get cubie 7 
+        # at the right position to use the ruru() - algorithm.
+
         rotate_down_cubies(cubies, id_array, rotations)
 
+        # orientate cubie 7
+
         while not (id_array[5][2] == "0701" and id_array[2][6] == "0702" and id_array[1][8] == "0703"):
+
+            # If one of the colors is right orientated, but the others not, we know 
+            # that there must be an error. So this corner is colored grey and the 
+            # "boolerror_message" and "error" variables are set True.
+
             if id_array[5][2] == "0701" and id_array[2][6] == "0703" and id_array[1][8] == "0702":
                 boolerror_message = True
                 error[0] = True
@@ -1401,12 +1491,26 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
                 export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
                 break
+
+            # To orientate the corner right, we use the ruru() - algorithm.
+
             ruru(cubies, id_array, rotations)
 
     if not error[0]:
+
+        # We rotate the down side of the cube to get cubie 9 
+        # at the right position to use the ruru() - algorithm.
+
         rotate_down_cubies(cubies, id_array, rotations)
 
+        # orientate cubie 9
+
         while not (id_array[5][2] == "0901" and id_array[2][6] == "0902" and id_array[1][8] == "0903"):
+
+            # If one of the colors is right orientated, but the others not, we know 
+            # that there must be an error. So this corner is colored grey and the 
+            # "boolerror_message" and "error" variables are set True.
+
             if id_array[5][2] == "0901" and id_array[2][6] == "0903" and id_array[1][8] == "0902":
                 boolerror_message = True
                 error[0] = True
@@ -1418,7 +1522,12 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
                 export_cube_to_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
                 set_colors(window, get_colors_from_cubies(cubies), cube)
                 break
+
+            # To orientate the corner right, we use the ruru() - algorithm.
+
             ruru(cubies, id_array, rotations)
+            
+    # If the "boolerror_message" variable is True, the user gets shown an error message.
 
     if boolerror_message:
         messagebox.showerror("Flipped Corner Cubie Error", "Some of the colors of a yellow corner cubie are flipped,"
@@ -1426,8 +1535,15 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
         error[0] = True
 
     if not error[0]:
+
+        # Because of the rotations, it is possible that now the corners are 
+        # right orientated, but no longer at the right position. So the down 
+        # side is rotated as long as every cubie is at the right position again.
+
         while not (id_array[5][0] == "0101"):
             rotate_down_cubies(cubies, id_array, rotations)
+
+        # The cube must be rotated upwards twice again, to get the right pattern.
 
         rotate_cube_up_cubies(cubies, id_array, rotations)
         rotate_cube_up_cubies(cubies, id_array, rotations)
