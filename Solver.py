@@ -925,10 +925,19 @@ def second_layer(cubies, id_array, rotations, error):
 
 
 def top_cross(cubies, id_array, rotations, error):
+    """
+    Inserts cubie 2, 4, 6 and 8 in that way, that we get a yellow cross.
+    """
+
+    # Important fact:   After this function cubies 2, 4, 6 and 8 do not have 
+    #                   to be at the right position.
+
     if not error[0]:
         temp = False
 
         yellow_ids = ["0201", "0401", "0601", "0801"]
+
+        # We use boolean variables to check if the 4 cubies are at the up side.
 
         cubie2true = "0201" in id_array[0]
         cubie4true = "0401" in id_array[0]
@@ -939,31 +948,61 @@ def top_cross(cubies, id_array, rotations, error):
 
         counter = 0
 
+        # With the help of a counter we count how many yellow sides of the 4 cubies are at the up side.
+
         for i in cubie_on_yellow_side:
             if i:
                 counter += 1
 
+        # To still have the correct pattern (and colors) we use the import_cube_from_csv() - function, 
+        # where we load the AUTOSAVE.csv.
+
         import_cube_from_csv(cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
+
+        # If only one or 3 yellow sides of the cubies are at the up side, there must be an error, 
+        # because with a solvable pattern we only could have 2 yellow side, 4 yellow sides or no 
+        # yellow side at the up side at the same time.
 
         if counter == 1 or counter == 3:
             messagebox.showerror("Flipped Cubie Error", "Please flip one of the 4 edge cubies with a yellow side.")
             error[0] = True
 
+        # We use the boolean variable "temp" to check if every yellow side of the 4 cubies is at the up side.
+
         else:
             while not temp:
+
+                # If every yellow side of the 4 cubies is already at the up side, we break up the while loop. 
+
                 if (id_array[0][1] in yellow_ids and id_array[0][3] in yellow_ids and
                         id_array[0][5] in yellow_ids and id_array[0][7] in yellow_ids):
                     temp = True
                     break
 
+                # In the "temparray" we save the color-numbers of the 4 cubies at the written positions.
+                # Because we know, that every cubie (2, 4, 6 and 8) has as first color "yellow", we can
+                # check for the number 1 in the "temparray" to find the position of the yellow side of
+                # the 4 cubies.
+
                 temparray = [id_array[0][1].rpartition("0")[2], id_array[0][3].rpartition("0")[2],
                              id_array[0][5].rpartition("0")[2], id_array[0][7].rpartition("0")[2]]
+
+                # To insert the yellow side of the 4 cubies at the up side, we use the 
+                # fruruf() - algorithm.
 
                 if not (id_array[0][1] in yellow_ids or id_array[0][3] in yellow_ids
                         or id_array[0][5] in yellow_ids or id_array[0][7] in yellow_ids):
                     fruruf(cubies, id_array, rotations)
 
+                # First we check if the first number which is saved in the "temparray", is a "1",
+                # to get to know if at this position is a yellow side or not.
+
                 if temparray[0] == "1":
+
+                    # Now we know that at the position [0][1] is a yellow side. We check, if there 
+                    # exists a "L" or a line (that means for example if at position [0][5] is also 
+                    # a yellow side, we would have a "L" and so on).
+
                     # L up
                     if temparray[3] != "1" and temparray[1] == "1":
                         fruruf(cubies, id_array, rotations)
@@ -979,12 +1018,16 @@ def top_cross(cubies, id_array, rotations, error):
                         fruruf(cubies, id_array, rotations)
                         temp = True
 
+                # If at position [0][1] is no yellow side, we do the following steps.
+
                 if temparray[0] != "1":
+
                     # L 
                     if temparray[1] == "1" and temparray[3] == "1":
                         rotate_up_cubies(cubies, id_array, rotations)
                         fruruf(cubies, id_array, rotations)
 
+                    # line
                     if temparray[2] == "1" and temparray[3] == "1":
                         rotate_up_cubies(cubies, id_array, rotations)
                         rotate_up_cubies(cubies, id_array, rotations)
@@ -997,6 +1040,10 @@ def top_cross(cubies, id_array, rotations, error):
 
 
 def correct_top_cross(cubies, id_array, rotations, error):
+    """
+    Inserts cubie 2, 4, 6 and 8 to their intended places.
+    """
+
     # insert cubie 2
     # yellow, orange
 
