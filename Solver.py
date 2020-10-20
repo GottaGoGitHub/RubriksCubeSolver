@@ -733,14 +733,32 @@ def white_corners(cubies, id_array, rotations, error, window, cube):
 
 
 def second_layer(cubies, id_array, rotations, error):
-    # alle verbliebenen cubies mit 2 Farben, die NICHT gelb als Teilfarbe haben
+    """
+    Inserts cubie 10, 12, 17 and 21 to their intended places.
+    """
 
     # insert cubie 12
     # blue, red
     if not error[0]:
+
+        # We only consider the first and second layer for each of the 
+        # possible positions of the 4 cubies, because the third layer 
+        # is already solved.
+
+        # If cubie 12 is already in the second layer, we consider at 
+        # which of the 4 possible positions it is. For each case we 
+        # use either the second_layer_left() - algorithm or the 
+        # second_layer_right() - algorithm.
+
         if is_in_layer(id_array, 2, 12):
+
+            # If cubie 12 is already at the right position, but the
+            # colors are swapped.
+
             if id_array[1][3] == "1201":
                 second_layer_left(cubies, id_array, rotations)
+
+            # If cubie 12 is at one of the other 3 possible positions.
 
             elif id_array[1][5].rpartition("0")[0] == "12":
                 second_layer_right(cubies, id_array, rotations)
@@ -759,11 +777,18 @@ def second_layer(cubies, id_array, rotations, error):
                 rotate_cube_left_cubies(cubies, id_array, rotations)
                 rotate_cube_left_cubies(cubies, id_array, rotations)
 
+        # If cubie 12 is in the first layer, we use rotations of other 
+        # sides of the cube and also the second_layer_left () or -right() 
+        # - algorithms to insert the cubie at the right position in the 
+        # second layer. 
+
         if is_in_layer(id_array, 1, 12):
             if cubies[11].pos1[0] == 0:
                 while not (id_array[0][7] == "1201"):
                     rotate_up_cubies(cubies, id_array, rotations)
                 second_layer_left(cubies, id_array, rotations)
+
+            # Here we have to rotate the whole cube to insert cubie 12 right.
 
             else:
                 while not (id_array[0][3] == "1202"):
@@ -775,8 +800,17 @@ def second_layer(cubies, id_array, rotations, error):
         # insert cubie 17
         # red, green
         if is_in_layer(id_array, 2, 17):
+
+            # Because cubie 12 is already inserted correctly, we only
+            # consider 3 cases in the second layer, where it can be.
+
+            # If cubie 17 is already at the right position, but the 
+            # colors are swapped.  
+
             if id_array[1][5] == "1702":
                 second_layer_right(cubies, id_array, rotations)
+
+            # If cubie 12 is at one of the other 2 possible positions.
 
             elif id_array[3][3].rpartition("0")[0] == "17":
                 rotate_cube_left_cubies(cubies, id_array, rotations)
@@ -793,6 +827,12 @@ def second_layer(cubies, id_array, rotations, error):
                 rotate_cube_left_cubies(cubies, id_array, rotations)
 
         if is_in_layer(id_array, 1, 17):
+
+            # If cubie 17 is in the first layer, we use rotations of 
+            # other sides of the cube and also the second_layer_left()
+            #  or -right() - algorithms to insert the cubie at the 
+            # right position in the second layer. 
+
             if cubies[16].pos2[0] == 0:
                 while not (id_array[0][7] == "1702"):
                     rotate_up_cubies(cubies, id_array, rotations)
@@ -808,14 +848,34 @@ def second_layer(cubies, id_array, rotations, error):
         # insert cubie 21
         # green, orange
 
+        # We rotate the whole cube to the right side twice, so that
+        # we still can use the second_layer-left() and/or the 
+        # second_layer_right() - algorithms 
+
         rotate_cube_right_cubies(cubies, id_array, rotations)
         rotate_cube_right_cubies(cubies, id_array, rotations)
+
+        # Because cubie 12 and cubie 17 are already inserted correctly
+        # we only have to consider 2 possibilities for the second layer 
+        # to insert cubie 21. That is also the reason, why we do not
+        # check if it is in the second layer.
+
+        # If cubie 21 is already at the right position, but the colors
+        # are swapped.
 
         if id_array[1][3] == "2101":
             second_layer_left(cubies, id_array, rotations)
 
+        # If cubie 21 is at the other possible position in the second 
+        # layer.
+
         elif id_array[1][5].rpartition("0")[0] == "21":
             second_layer_right(cubies, id_array, rotations)
+
+        # If cubie 21 is in the first layer, we use rotations of 
+        # other sides of the cube and also the second_layer_left()
+        #  or -right() - algorithms to insert the cubie at the 
+        # right position in the second layer. 
 
         if is_in_layer(id_array, 1, 21):
             if cubies[20].pos1[0] == 0:
@@ -833,8 +893,17 @@ def second_layer(cubies, id_array, rotations, error):
         # insert cubie 10
         # blue, orange
 
+        # Because the other 3 cubies are already inserted correctly, 
+        # there is only the possibility in the second layer for cubie 10, 
+        # if it is not correctly inserted yet, that its colors are swapped.
+
         if id_array[1][5] == "1001":
             second_layer_right(cubies, id_array, rotations)
+
+        # If cubie 10 is in the first layer, we use rotations of 
+        # other sides of the cube and also the second_layer_left()
+        #  or -right() - algorithms to insert the cubie at the 
+        # right position in the second layer. 
 
         if cubies[9].pos1[0] == 0:
             while not (id_array[0][7] == "1001"):
@@ -847,6 +916,9 @@ def second_layer(cubies, id_array, rotations, error):
             rotate_cube_left_cubies(cubies, id_array, rotations)
             second_layer_left(cubies, id_array, rotations)
             rotate_cube_right_cubies(cubies, id_array, rotations)
+
+        # We have to rotate the whole cube to the right twice again
+        # to get the starting pattern.
 
         rotate_cube_right_cubies(cubies, id_array, rotations)
         rotate_cube_right_cubies(cubies, id_array, rotations)
