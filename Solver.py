@@ -1103,23 +1103,49 @@ def correct_top_cross(cubies, id_array, rotations, error):
 
 
 def sort_corners(cubies, id_array, rotations, error, window, cube):
-    # sort the last 4 corners (cubies 1, 7, 9, 3)
+    """
+    Inserts cubie 1, 3, 7 and 9 to their intended places, 
+    but with possibly wrong orientated colors.
+    """
+
+    # The "boolerror_message" variable is again used to 
+    # set a boolean state if an error occurs.
 
     boolerror_message = False
 
     temp_cubies = []
 
     if not error[0]:
-        # check if cubie 1 is at right position
+
+        # We use boolean variables to check if the 4 corner cubies 
+        # are already at the correct position.
+
         cubie_1_right = id_array[0][0].rpartition("0")[0] == "01"
         cubie_3_right = id_array[0][2].rpartition("0")[0] == "03"
         cubie_7_right = id_array[0][6].rpartition("0")[0] == "07"
         cubie_9_right = id_array[0][8].rpartition("0")[0] == "09"
+
+        # We use the "corners_right" variable to check if every 
+        # corner is at the right position.
+
         corners_right = False
 
+        # If not every corner is at the right position, we do the following.
+
         if not (cubie_1_right and cubie_3_right and cubie_7_right and cubie_9_right):
+
+            # We use this while loop, to check if every corner is at the wrong position.
+
             while (cubie_1_right == False and cubie_3_right == False and cubie_7_right == False and cubie_9_right == False):
+
+                # In this case the sort_corners_algorithm() is 
+                # repeated as long as at least one corner is at 
+                # the right position.  
+
                 sort_corners_algorithm(cubies, id_array, rotations)
+
+                # If one of the corners is at the right position,
+                # we set its boolean variable = True.
 
                 if id_array[0][0].rpartition("0")[0] == "01":
                     cubie_1_right = True
@@ -1133,6 +1159,9 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
                 if id_array[0][8].rpartition("0")[0] == "09":
                     cubie_9_right = True
 
+            # If at least one if the corners is at the right position, 
+            # we check which if them it is and do the following steps.
+
             if cubie_1_right:
                 rotate_cube_right_cubies(cubies, id_array, rotations)
                 rotate_cube_right_cubies(cubies, id_array, rotations)
@@ -1143,23 +1172,44 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
             elif cubie_7_right:
                 rotate_cube_right_cubies(cubies, id_array, rotations)
 
+            # We use a "counter" variable to check if there occurs an error.
+
             counter = 0
             positions = []
+
+            # While we did not set corners_right = True or the counter is not = 9,
+            # there are done the following steps.
 
             while not (corners_right or counter == 9):
                 sort_corners_algorithm(cubies, id_array, rotations)
 
+                # In corners there are saved the current numbers of the corners, to get to know
+                # in which order they are at the moment.
+
                 corners = [id_array[0][0].rpartition("0")[0], id_array[0][2].rpartition("0")[0],
                            id_array[0][8].rpartition("0")[0], id_array[0][6].rpartition("0")[0]]
 
+                # The corners only can be in the orders which are saved in "conrer_possibilities". 
+
                 corner_possibilities = [["01", "03", "09", "07"], ["03", "09", "07", "01"], ["09", "07", "01", "03"],
                                         ["07", "01", "03", "09"]]
+
+                # If "corners" correspond to one of the possibilities in "corners_possibilities", 
+                # we set corners_right = True.
 
                 if (corners == ["01", "03", "09", "07"] or corners == ["03", "09", "07", "01"]
                         or corners == ["09", "07", "01", "03"] or corners == ["07", "01", "03", "09"]):
                     corners_right = True
 
+                # The "counter" counts the steps, we need to find the right possibility 
+                # in "corners_possibilities" (that means to sort the corners right).
+
                 counter += 1
+
+                # Here we check, if there is an error. Because there only can 
+                # be one corner, 4 corners or no corner at the right position 
+                # at the same time, wecount the number of the right sorted 
+                # corners. If it is 2 we know that there must be an error.
 
                 if counter == 7 or counter == 8 or counter == 9:
                     for temp_corners in corner_possibilities:
@@ -1172,6 +1222,11 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
                         elif len(positions) == 2:
                             counter = 9
                             break
+
+            # If now the counter is = 9, it means we cannot sort the 
+            # corners to its right positions and we have an error.
+            # So we color the affected corners, where the error occurs
+            # grey. 
 
             if counter == 9 and len(positions) != 0:
                 boolerror_message = True
@@ -1195,11 +1250,17 @@ def sort_corners(cubies, id_array, rotations, error, window, cube):
 
                 temp_cubies = deepcopy(cubies)
 
+            # Because of the rotation functions and the sort_corners_algorithm, it is 
+            # possible that the corners are in the right order, but at the wrong 
+            # position. So we rotate the cube as long as they are at the right position.
+
             while not (id_array[0][7] == "0801"):
                 rotate_cube_right_cubies(cubies, id_array, rotations)
 
             for i, item in enumerate(temp_cubies):
                 cubies[i] = item
+
+    # In this case, the error message is shown to the user.
 
     if boolerror_message:
         messagebox.showerror("Flipped Corner Error",
