@@ -4,6 +4,10 @@ from Cube import *
 
 
 def rectangle(canvas, x1, x2, y1, y2):
+    """
+    Wrapper function to create a canvas rectangle object.
+    """
+
     rect = canvas.create_rectangle(x1, x2, y1, y2)
     return rect
 
@@ -44,6 +48,13 @@ def grid3x3(canvas, origin_x, origin_y):
 
 
 def create_cube_hexomino(window, int_x, int_y):
+    """
+    Creates a mesh which contains all the fields of a cube starting from the upper left hand corner of the left side.
+
+    Every single field is a canvas rectangle object and can be configured.
+    The needed space for the whole cube is ~ 415x210px.
+    """
+
     # Creating each side as a list which contains 9 rectangles.
     # The given coordinates are the coordinates of the left side
     up = grid3x3(window, int_x+105, int_y-105)
