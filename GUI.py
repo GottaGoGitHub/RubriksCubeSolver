@@ -6,7 +6,7 @@ from copy import deepcopy
 from FileHandler import *
 
 
-def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
+def evaluate_input(window, answer1, answer2, cube, cubies):
     """ This function shall be called with the two entries (answer1, answer2) and evaluates their input
 
     Depending on the input of answer1 and answer2 the corresponding face and piece of the cube will be selected
@@ -33,9 +33,15 @@ def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
 
         # defining side_idx as index for the side of the cube and piece_idx for the piece
         # color is a string which represents the color
-        side_idx = 0
-        piece_idx = 0
+        side_idx = -1
+        piece_idx = -1
         color = ""
+
+        allowed_sides = ["u", "f", "l", "r", "d", "b"]
+
+        if not list_of_answer1[0].isalpha() or list_of_answer1[0] not in allowed_sides:
+            messagebox.showerror("Invalid Side", "Please choose one of the allowed sides.")
+            answer1.delete(0, END)
 
         # Evaluation of the first answer
         if "u" == list_of_answer1[0]:
@@ -61,39 +67,40 @@ def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
         # Which piece shall be chosen?
         if "0" == list_of_answer2[0]:
             piece_idx = 0
-            error_label.grid_forget()
 
         if "1" == list_of_answer2[0]:
             piece_idx = 1
-            error_label.grid_forget()
 
         if "2" == list_of_answer2[0]:
             piece_idx = 2
-            error_label.grid_forget()
 
         if "3" == list_of_answer2[0]:
             piece_idx = 3
-            error_label.grid_forget()
 
         if "4" == list_of_answer2[0]:
-            error_label.configure(text="The index 4 is invalid. The cross of the cube can not be modified!", fg="red")
-            error_label.grid(row=4, column=0)
+            messagebox.showerror("Invalid Index",
+                                 "The index 4 is invalid. The cross of the cube can not be modified!")
 
         if "5" == list_of_answer2[0]:
             piece_idx = 5
-            error_label.grid_forget()
 
         if "6" == list_of_answer2[0]:
             piece_idx = 6
-            error_label.grid_forget()
 
         if "7" == list_of_answer2[0]:
             piece_idx = 7
-            error_label.grid_forget()
 
         if "8" == list_of_answer2[0]:
             piece_idx = 8
-            error_label.grid_forget()
+
+        if not list_of_answer2[1].isalpha() or not list_of_answer2[0].isdigit():
+            messagebox.showerror("Invalid Index",
+                                 "Invalid position. Please choose an index between 0 and 8.")
+
+        allowed_colors = ["y", "b", "r", "g", "o", "w"]
+
+        if list_of_answer2[1].isalpha() and list_of_answer2[1] not in allowed_colors:
+            messagebox.showerror("Invalid Color", "Please choose one of the allowed colors.")
 
         # Choosing the color.
         if "y" == list_of_answer2[1]:
@@ -116,20 +123,20 @@ def evaluate_input(window, answer1, answer2, cube, cubies, error_label):
 
         # Coloring the piece, except its a centre piece
         if "4" != list_of_answer2[0]:
+            if side_idx != -1 and piece_idx != -1:
+                ids = get_id_from_cubies(cubies)
+                temp_id = ids[side_idx][piece_idx]
+                number = int(temp_id[0:2])
+                number_color = int(temp_id[3])
 
-            ids = get_id_from_cubies(cubies)
-            temp_id = ids[side_idx][piece_idx]
-            number = int(temp_id[0:2])
-            number_color = int(temp_id[3])
+                if 1 == number_color:
+                    cubies[number-1].color1 = color
+                if 2 == number_color:
+                    cubies[int(temp_id[0:2])-1].color2 = color
+                if 3 == number_color:
+                    cubies[int(temp_id[0:2])-1].color3 = color
 
-            if 1 == number_color:
-                cubies[number-1].color1 = color
-            if 2 == number_color:
-                cubies[int(temp_id[0:2])-1].color2 = color
-            if 3 == number_color:
-                cubies[int(temp_id[0:2])-1].color3 = color
-
-            set_colors(window, get_colors_from_cubies(cubies), cube)
+                set_colors(window, get_colors_from_cubies(cubies), cube)
 
         # Deleting answer 2 for better user experience
         answer2.delete(0, END)
