@@ -212,9 +212,7 @@ def rotate_cube_left_cubies(cubies, id_array, rotations):
     rotate_cube_right_cubies(cubies, id_array, rotations)
 
     # Removing the last three rotations to replace it with its counter rotation.
-    del rotations[-1]
-    del rotations[-1]
-    del rotations[-1]
+    del rotations[-3:]
 
     # Add the fulfilled rotation to the list of executed rotations.
     rotations.append("x'")

@@ -72,7 +72,6 @@ answer2 = Entry(root)
 answer2.configure(width=30)
 answer2.grid(row=3, column=0, columnspan=5)
 
-error_label = Label()
 
 # Variable to switch between solved and unsolved cube
 which_cube = [1]
@@ -85,9 +84,9 @@ def press_enter(event):
     When bound to a key it's going to call the evaluate_input function.
     """
     if which_cube[0] == 1:
-        evaluate_input(window, answer1, answer2, cube, cubies_list, error_label)
+        evaluate_input(window, answer1, answer2, cube, cubies_list)
     if which_cube[0] == 2:
-        evaluate_input(window, answer1, answer2, solved_cube, solved_cubies_list, error_label)
+        evaluate_input(window, answer1, answer2, solved_cube, solved_cubies_list)
 
 
 answer1.bind("<Return>", press_enter)
@@ -330,10 +329,48 @@ error = [False]     # Error variable which is used to keep track whether an erro
 lauf_idx = [0]      # Index which is used to step through the rotations
 
 
+def orientate_cube(rotation_list, list_of_cubies):
+    """
+    Asserts the correct orientation of the cube.
+    """
+    if not(cubies_id[0][4] == "0501" and cubies_id[1][4] == "1601" and cubies_id[4][4] == "1101" ):
+        if not cubies_id[1][4] == "1601":
+            for _ in range(3):
+                rotate_cube_right_cubies(list_of_cubies, cubies_id, rotation_list)
+                if cubies_id[1][4] == "1601":
+                    break
+
+            if not cubies_id[1][4] == "1601":
+                for _ in range(3):
+                    rotate_cube_up_cubies(list_of_cubies, cubies_id, rotation_list)
+                    if cubies_id[1][4] == "1601":
+                        break
+
+        if cubies_id[0][4] == "2601":
+            rotate_cube_right_cubies(list_of_cubies, cubies_id, rotation_list)
+            rotate_cube_right_cubies(list_of_cubies, cubies_id, rotation_list)
+            rotate_cube_up_cubies(list_of_cubies, cubies_id, rotation_list)
+            rotate_cube_up_cubies(list_of_cubies, cubies_id, rotation_list)
+
+        if cubies_id[4][4] == "0501":
+            rotate_cube_down_cubies(list_of_cubies, cubies_id, rotation_list)
+            rotate_cube_right_cubies(list_of_cubies, cubies_id, rotation_list)
+            rotate_cube_up_cubies(list_of_cubies, cubies_id, rotation_list)
+
+        if cubies_id[4][4] == "2601":
+            rotate_cube_down_cubies(list_of_cubies, cubies_id, rotation_list)
+            rotate_cube_left_cubies(list_of_cubies, cubies_id, rotation_list)
+            rotate_cube_up_cubies(list_of_cubies, cubies_id, rotation_list)
+
+        set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
+        rotation_list.clear()
+
+
 def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window_, cube_, start_idx):
     """
     Wrapper function which calls the solve function to run the solving algorithm and optimizes the rotations afterwards.
     """
+    orientate_cube(rotation_list, list_of_cubies)
 
     # Clearing the rotations (necessary when multiple cubes will be solved in one session)
     rotation_list.clear()
@@ -361,6 +398,12 @@ def solve_optimize_func(rotation_list, list_of_cubies, temp_error, window_, cube
         solve_optimize_button.configure(state=DISABLED)
         button_rotations_export_to_file.configure(state=DISABLED)
 
+    button_rotate_left.configure(state=DISABLED)
+    button_rotate_right.configure(state=DISABLED)
+    button_rotate_up.configure(state=DISABLED)
+    button_rotate_down.configure(state=DISABLED)
+    scramble_button.configure(state=DISABLED)
+
 
 # Setting up the button which calls the solving function
 solve_optimize_button = Button(root, text="Generate Solution",
@@ -369,7 +412,7 @@ solve_optimize_button.configure(width=12, state=DISABLED)
 solve_optimize_button.grid(row=18, column=4, columnspan=2)
 
 
-def submit(list_of_cubies, list_of_solved_cubies, list_of_cubies_ids, error_):
+def submit(list_of_cubies, list_of_solved_cubies, list_of_cubies_ids, rotation_list, error_):
     """
     Compares the cubies of the unsolved with the solved cube and actualizes the id_array and the cubies
     based on matching colors.
@@ -377,35 +420,53 @@ def submit(list_of_cubies, list_of_solved_cubies, list_of_cubies_ids, error_):
 
     error_[0] = False
 
-    # Creating autosave files which are needet to reset the cube to the start if an error occurs
-    export_cube_to_csv(list_of_cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
-    export_cube_to_csv(list_of_cubies, "Files_Export/AUTOSAVE/AUTOSAVE_START.csv")
-    # Getting the colors of the cubies
-    cubies_colors2 = get_colors_from_cubies(list_of_cubies)
-    # Actualizing the id_array based on the colors.
-    actualize_id_array(list_of_cubies, solved_cubies_list, cubies_id, cubies_colors2, error_)
-    # Correcting the unsolved cubies based on the id_array and the solved cubies.
-    correct_cubies_list(list_of_cubies_ids, list_of_cubies, list_of_solved_cubies, error_)
-    # Getting the actualized colors (may have turned grey)
+    # Assert that the cube is correctly orientated
+    orientate_cube(rotation_list, list_of_cubies)
+
     list_of_colors = get_colors_from_cubies(list_of_cubies)
+    # Assert that the cube is complete
+    for side in list_of_colors:
+        if "grey" in side:
+            error_[0] = True
 
-    # Actualizing the colors list
-    for i, item in enumerate(list_of_colors):
-        cubies_colors[i] = item
+    if error_[0]:
+        messagebox.showerror("Incomplete cube", "Please color the whole cube.")
 
-    # Coloring the GUI
-    set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
+    if not error_[0]:
+        # Creating autosave files which are needet to reset the cube to the start if an error occurs
+        export_cube_to_csv(list_of_cubies, "Files_Export/AUTOSAVE/AUTOSAVE.csv")
+        export_cube_to_csv(list_of_cubies, "Files_Export/AUTOSAVE/AUTOSAVE_START.csv")
+        # Getting the colors of the cubies
+        cubies_colors2 = get_colors_from_cubies(list_of_cubies)
+        # Actualizing the id_array based on the colors.
+        actualize_id_array(list_of_cubies, solved_cubies_list, cubies_id, cubies_colors2, error_)
+        # Correcting the unsolved cubies based on the id_array and the solved cubies.
+        correct_cubies_list(list_of_cubies_ids, list_of_cubies, list_of_solved_cubies, error_)
+        # Getting the actualized colors (may have turned grey)
+        list_of_colors = get_colors_from_cubies(list_of_cubies)
 
-    # enabling the buttons
-    if solve_optimize_button["state"] == "disabled":
-        solve_optimize_button.configure(state=NORMAL)
+        # Actualizing the colors list
+        for i, item in enumerate(list_of_colors):
+            cubies_colors[i] = item
 
-    if scramble_button["state"] == "disabled":
-        scramble_button.configure(state=NORMAL)
+        # Coloring the GUI
+        set_colors(window, get_colors_from_cubies(list_of_cubies), cube)
+
+        # enabling the buttons
+        if solve_optimize_button["state"] == "disabled":
+            solve_optimize_button.configure(state=NORMAL)
+
+        if scramble_button["state"] == "disabled":
+            scramble_button.configure(state=NORMAL)
+
+        next_step_button.configure(state=DISABLED)
+        previous_step_button.configure(state=DISABLED)
+        reset_button.configure(state=DISABLED)
 
 
 # Setting up the submit button
-submit_button = Button(root, text="Submit Input", command=lambda: submit(cubies_list, solved_cubies_list, cubies_id, error))
+submit_button = Button(root, text="Submit Input", command=lambda: submit(cubies_list, solved_cubies_list,
+                                                                         cubies_id, rotations, error))
 submit_button.configure(width=12)
 submit_button.grid(row=2, column=5)
 
@@ -580,6 +641,12 @@ def reset_to_default(list_of_cubies, start_idx, prev_text, next_text):
     # resetting the labels
     prev_text.configure(text="There is no previous step.")
     next_text.configure(text="You have to generate a solution first to see the correct steps.")
+
+    button_rotate_left.configure(state=NORMAL)
+    button_rotate_right.configure(state=NORMAL)
+    button_rotate_up.configure(state=NORMAL)
+    button_rotate_down.configure(state=NORMAL)
+    scramble_button.configure(state=NORMAL)
 
 
 # Setting up the default reset button
