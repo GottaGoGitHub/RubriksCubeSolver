@@ -1292,6 +1292,7 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
         cubie7yellowtrue = ["0701" in id_array[0][6], 6]
         cubie9yellowtrue = ["0901" in id_array[0][8], 8]
 
+
         # We check for every corner, if its yellow side is at the correct position,
         # by checking if its boolean variable is True.
 
@@ -1380,11 +1381,28 @@ def correct_corners(cubies, id_array, rotations, error, window, cube):
                 counter += 1
 
         # Because only 1 corner, 4 corners or no corner can be sorted correcty 
-        # at the same time, we know, that if the counter is 2 or 3 ther must 
+        # at the same time, we know, that if the counter is 3, then ther has to
         # be an error. So the attented corner is colored grey and the user gets
-        # shown an error message.
+        # shown an error message. If the counter is 2 its likely to find an error but there is also the possibility
+        # that it's an attainable permutation. Therefore we have to take a closer look when the counter is 2.
+        no_corner_error = True
 
-        if (counter == 2 or counter == 3) and boolerror_message == False:
+        if counter == 2:
+            # Storage for the index
+            index = []
+
+            # Getting the second part of the position of the cubies which are not correctly oriented
+            for item in cubies_on_yellow_side:
+                if not item[0]:
+                    index.append(cubies[item[1]].pos2[1])
+
+            # It's a solvable permutation if the indices are different
+            if index[0] != index[1]:
+                boolerror_message = False
+                error[0] = False
+                no_corner_error = False
+
+        if (counter == 2 or counter == 3) and not boolerror_message and no_corner_error:
             messagebox.showerror("Flipped Corner Cubie Error",
                                  "Some of the colors of a yellow corner cubie are flipped,"
                                  "please flip one of the corners and submit again.")
