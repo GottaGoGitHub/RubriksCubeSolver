@@ -232,7 +232,7 @@ import_filepath.configure(width=20)
 import_filepath.grid(row=18, column=1, padx=(5, 0))
 
 
-def button_import_func(list_of_cubies, solved_list_of_cubies):
+def button_import_func(list_of_cubies, solved_list_of_cubies, rotation_list):
     """
     Gets the userinput of the previously created Entry widget and imports the file.
     """
@@ -253,9 +253,18 @@ def button_import_func(list_of_cubies, solved_list_of_cubies):
         import_cube_from_csv(solved_list_of_cubies, file)
         set_colors(window, get_colors_from_cubies(solved_list_of_cubies), solved_cube)
 
+    # Disabling the buttons
+    button_rotations_export_to_file.configure(state=DISABLED)
+    solve_optimize_button.configure(state=DISABLED)
+    previous_step_button.configure(state=DISABLED)
+    next_step_button.configure(state=DISABLED)
+    reset_button.configure(state=DISABLED)
+    set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
+
+
 
 # Setting up the button
-button_import = Button(root, text="Import", command=lambda: button_import_func(cubies_list, solved_cubies_list))
+button_import = Button(root, text="Import", command=lambda: button_import_func(cubies_list, solved_cubies_list, rotations))
 button_import.configure(width=12)
 button_import.grid(row=18, column=0, padx=(5, 0))
 
