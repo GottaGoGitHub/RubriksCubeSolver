@@ -262,9 +262,9 @@ def button_import_func(list_of_cubies, solved_list_of_cubies, rotation_list):
     set_prev_and_next_label(previous_text_label, next_text_label, 1, rotation_list, start_idx=[-1])
 
 
-
 # Setting up the button
-button_import = Button(root, text="Import", command=lambda: button_import_func(cubies_list, solved_cubies_list, rotations))
+button_import = Button(root, text="Import", command=lambda: button_import_func(cubies_list, solved_cubies_list,
+                                                                               rotations))
 button_import.configure(width=12)
 button_import.grid(row=18, column=0, padx=(5, 0))
 
